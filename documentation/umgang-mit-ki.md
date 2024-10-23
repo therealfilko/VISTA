@@ -26,7 +26,7 @@ Beispiele für verwendete Prompts:
 3. "Optimiere diese Tailwind CSS-Klassen für ein responsives Dark-Mode Design."
 
 ### Zeitersparnis
-Durch den Einsatz von Claude 3.5 Sonnet konnten wir schätzungsweise 3-4 Stunden Entwicklungszeit einsparen, insbesondere bei der komplexen Validierungslogik und dem responsiven Design.
+Durch den Einsatz von Claude 3.5 Sonnet konnten wir schätzungsweise 1 Stunde Entwicklungszeit einsparen, insbesondere bei der komplexen Validierungslogik und dem responsiven Design.
 
 ## Reflexion & Analyse
 ### Qualität des Outputs
