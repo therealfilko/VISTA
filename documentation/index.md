@@ -2,25 +2,23 @@
 Wichtig: Das IT-Konzept darf/muss als Work-In-Progress Dokument gesehen werden. Im ersten Schritt geht es darum, alles Fragen zu beantworten, mit denen man sich vorab schon beschäftigen kann. Über die Zeit wird das Konzept wachsen und sich verändern!
 
 ## Systemkomponenten
-Hardware
-Software
-Quellsysteme
-Ausgangsschnittstellen
-Zielsysteme und Schnittstellen
+- Hardware
+- Software
+- Quellsysteme
+- Ausgangsschnittstellen
+- Zielsysteme und Schnittstellen
 …
 ## Netzwerkkonzept
-Bandbreite (Carrier, QoS)
-Anteile intern/extern
-Was wird benötigt?
-IP-Adressen/ Ports /Firewallfreischaltung/QoS
-Platz im Technikraum (nur, wenn Hardware)
-Anzahl HE
-Tiefe
-…
-Cloud-Bedarf
-Autarke Anteile
-Darstellung Aufbau
-...
+- Bandbreite (Carrier, QoS)
+- Anteile intern/extern
+### Was wird benötigt?
+- IP-Adressen/ Ports /Firewallfreischaltung/QoS
+- Platz im Technikraum (nur, wenn Hardware)
+- Anzahl HE
+- Tiefe
+- Cloud-Bedarf
+### Autarke Anteile
+- Darstellung Aufbau
 ## Betriebskonzept
 Hardware – Wartungsbedarf?
 Betriebssystem
