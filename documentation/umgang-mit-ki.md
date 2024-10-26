@@ -8,10 +8,10 @@
 5. [Bewertung & Empfehlung](#bewertung--empfehlung)
 
 ## Projektbeschreibung
-Dieses Projekt ist eine React-basierte Single-Page-Anwendung, die ein Formular mit speziellen Validierungsregeln implementiert. Es wurde im Rahmen eines Kurses zur Exploration von KI-Tools in der Webentwicklung erstellt.
+Dieses Projekt ist eine React-basierte Single-Page-Anwendung, die ein Formular mit speziellen Validierungsregeln implementiert. Das Projekt wurde im Rahmen des Kurses "Softwaretechnik-Projekt" erstellt und soll untersuchen, inwiefern KI-Tools dieses unterstützen.
 
 ## Verwendete KI-Tools
-Für dieses Projekt haben wir Claude 3.5 Sonnet verwendet. Dieses Tool wurde aufgrund seiner Vielseitigkeit und der Fähigkeit, komplexe Codestrukturen zu generieren und zu erklären, ausgewählt.
+Für dieses Projekt haben wir Claude 3.5 Sonnet verwendet. Claude 3.5 Sonnet ist nicht nur vielseitig, sondern besitzt auch die Fähigkeit, komplexe Codestrukturen zu generieren und zu erklären, was für unser Projekt von Vorteil ist.
 
 ## Durchführung
 ### Anwendung des KI-Tools
@@ -47,7 +47,7 @@ Durch den Einsatz von Claude 3.5 Sonnet konnten wir schätzungsweise 1 Stunde En
 
 ### Verantwortung
 - Es ist wichtig, den generierten Code kritisch zu prüfen und zu verstehen, insbesondere bei Sicherheitsaspekten wie der Formularvalidierung.
-- Die Nutzung von KI-Tools erfordert ein Bewusstsein für mögliche Voreingenommenheit in den generierten Lösungen.
+- Um KI-Tools sinnvoll zu nutzen, ist es wichtig, sich bewusst zu machen, dass die erzeugten Antworten durch mögliche Verzerrungen oder Vorurteile im zugrundeliegenden Datenmaterial beeinflusst sein können.
 
 ## Bewertung & Empfehlung
 ### Empfohlene Anwendungsfälle
@@ -61,4 +61,4 @@ Durch den Einsatz von Claude 3.5 Sonnet konnten wir schätzungsweise 1 Stunde En
 - Sicherheitskritische Bereiche der Anwendung, die eine gründliche manuelle Überprüfung erfordern
 
 ### Abschließende Empfehlung
-Claude 3.5 Sonnet hat sich als wertvolles Werkzeug im Entwicklungsprozess erwiesen, insbesondere für die schnelle Erstellung von Grundstrukturen und die Bewältigung komplexer Logik. Es sollte jedoch als Unterstützung und nicht als Ersatz für menschliches Fachwissen betrachtet werden. Entwickler sollten den generierten Code stets kritisch prüfen, anpassen und ihre eigenen Fähigkeiten kontinuierlich verbessern, um die Vorteile von KI-Tools optimal zu nutzen und gleichzeitig qualitativ hochwertige, sichere und maßgeschneiderte Lösungen zu gewährleisten.
+Claude 3.5 Sonnet hat sich als wertvolles Tool im Entwicklungsprozess erwiesen, insbesondere für die schnelle Erstellung von Grundstrukturen und die Bewältigung komplexer Logik. Es sollte jedoch als Unterstützung und nicht als Ersatz für menschliches Fachwissen betrachtet werden. Entwickler sollten den generierten Code stets kritisch prüfen, anpassen und ihre eigenen Fähigkeiten kontinuierlich verbessern, um die Vorteile von KI-Tools optimal zu nutzen und gleichzeitig qualitativ hochwertige, sichere und maßgeschneiderte Lösungen zu gewährleisten.
