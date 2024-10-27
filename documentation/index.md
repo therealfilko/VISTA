@@ -2,6 +2,12 @@
 
 Wichtig: Das IT-Konzept darf/muss als Work-In-Progress Dokument gesehen werden. Im ersten Schritt geht es darum, alle Fragen zu beantworten, mit denen man sich vorab schon beschäftigen kann. Über die Zeit wird das Konzept wachsen und sich verändern!
 
+## Anwendung
+
+- **VISTA TODO**
+  - TODO Funktion (erstellen, löschen, bearbeiten)
+  - Authentifizierung (Demo User)
+
 ## Systemkomponenten
 
 ### Hardware
