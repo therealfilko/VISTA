@@ -13,7 +13,7 @@ function App() {
   }, [darkMode]);
 
   return (
-    <div className="w-full min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col items-center justify-center transition-colors duration-300">
+    <div className="w-full min-h-screen bg-gray-100 dark:bg-blaugrau flex flex-col items-center justify-center transition-colors duration-300">
       <div className="w-full max-w-md space-y-8 p-6">
         <div className="flex justify-between items-center">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">

@@ -9,7 +9,7 @@ const validationSchema = Yup.object().shape({
       "Muss 1-3 Sonderzeichen enthalten, die nicht aufeinander folgen",
       (value) => {
         if (!value) return false;
-        const sonderzeichen = "!@#$%^&*(){}[]:;<>,.?~+-=|";
+        const sonderzeichen = "!@#$%^&*(){}[]:;<>,.?~+-_=|/";
         let count = 0;
         let lastIndex = -2;
         for (let i = 0; i < value.length; i++) {
@@ -50,23 +50,23 @@ function FormComponent() {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="w-full px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 bg-white dark:bg-blaugrau text-white dark:text-white border border-gruen dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-gruen"
           placeholder="Geben Sie Text ein..."
         />
       </div>
       <button
         type="submit"
-        className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300"
+        className="w-full px-4 py-2 text-blaugrau bg-gruen rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300"
       >
         Senden
       </button>
       {error && (
-        <div className="mt-4 p-2 bg-red-600 text-white rounded-md text-center transition duration-300">
+        <div className="mt-4 p-2 bg-rot text-white rounded-md text-center transition duration-300">
           {error}
         </div>
       )}
       {success && (
-        <div className="mt-4 p-2 bg-green-600 text-white rounded-md text-center transition duration-300">
+        <div className="mt-4 p-2 bg-mittelblau text-white rounded-md text-center transition duration-300">
           Eingabe erfolgreich validiert!
         </div>
       )}
