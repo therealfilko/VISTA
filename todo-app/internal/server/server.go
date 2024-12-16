@@ -14,19 +14,22 @@ import (
 
 type Server struct {
 	port int
-
-	db database.Service
+	db   database.Service
 }
 
-func NewServer() *http.Server {
+func NewServer() (*http.Server, error) {
 	port, _ := strconv.Atoi(os.Getenv("PORT"))
-	NewServer := &Server{
-		port: port,
 
-		db: database.New(),
+	db, err := database.New()
+	if err != nil {
+		return nil, fmt.Errorf("failed to initialize database: %v", err)
 	}
 
-	// Declare Server config
+	NewServer := &Server{
+		port: port,
+		db:   db,
+	}
+
 	server := &http.Server{
 		Addr:         fmt.Sprintf(":%d", NewServer.port),
 		Handler:      NewServer.RegisterRoutes(),
@@ -35,5 +38,5 @@ func NewServer() *http.Server {
 		WriteTimeout: 30 * time.Second,
 	}
 
-	return server
+	return server, nil
 }

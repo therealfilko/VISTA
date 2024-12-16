@@ -12,9 +12,9 @@ RUN go build -o main cmd/api/main.go
 FROM alpine:3.20.1 AS prod
 WORKDIR /app
 COPY --from=build /app/main /app/main
+COPY migrations ./migrations
 EXPOSE ${PORT}
 CMD ["./main"]
-
 
 FROM node:20 AS frontend_builder
 WORKDIR /frontend
