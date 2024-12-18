@@ -9,9 +9,9 @@ type ColumnType = {
 
 const Dashboard: React.FC = () => {
   const [columns, setColumns] = useState<ColumnType>({
-    'column-1': { name: 'To Do', items: [] },
-    'column-2': { name: 'In Progress', items: [] },
-    'column-3': { name: 'Done', items: [] },
+    'column-1': { name: 'Zu Erledigen', items: [] },
+    'column-2': { name: 'In Arbeit', items: [] },
+    'column-3': { name: 'Fertig', items: [] },
   });
 
   const [isModalOpen, setModalOpen] = useState(false);
