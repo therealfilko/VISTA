@@ -21,18 +21,25 @@ services:
         condition: service_healthy
     networks:
       - blueprint
+
   frontend:
     build:
       context: .
       dockerfile: Dockerfile
-      target: frontend
+      target: frontend_dev
     restart: unless-stopped
     depends_on:
       - app
     ports:
-      - 5173:5173
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
     networks:
       - blueprint
+
   psql_bp:
     image: postgres:latest
     restart: unless-stopped
@@ -45,7 +52,11 @@ services:
     volumes:
       - psql_volume_bp:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${BLUEPRINT_DB_USERNAME} -d ${BLUEPRINT_DB_DATABASE}'"]
+      test:
+        [
+          "CMD-SHELL",
+          "sh -c 'pg_isready -U ${BLUEPRINT_DB_USERNAME} -d ${BLUEPRINT_DB_DATABASE}'",
+        ]
       interval: 5s
       timeout: 5s
       retries: 3

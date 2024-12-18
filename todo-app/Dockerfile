@@ -24,6 +24,13 @@ RUN npm install
 COPY frontend/. .
 RUN npm run build
 
+FROM node:20 AS frontend_dev
+WORKDIR /app
+COPY frontend/package*.json ./
+RUN npm install
+EXPOSE 5173
+CMD ["npm", "run", "dev"]
+
 FROM node:23-slim AS frontend
 RUN npm install -g serve
 COPY --from=frontend_builder /frontend/dist /app/dist
