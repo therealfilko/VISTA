@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
@@ -17,9 +18,10 @@ type User struct {
 }
 
 func (u *User) SetPassword(password string) error {
-    hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+    // Use a consistent cost factor of 10
+    hash, err := bcrypt.GenerateFromPassword([]byte(password), 10)
     if err != nil {
-        return err
+        return fmt.Errorf("failed to hash password: %v", err)
     }
     u.PasswordHash = string(hash)
     return nil
@@ -27,5 +29,9 @@ func (u *User) SetPassword(password string) error {
 
 func (u *User) CheckPassword(password string) bool {
     err := bcrypt.CompareHashAndPassword([]byte(u.PasswordHash), []byte(password))
-    return err == nil
+    if err != nil {
+        fmt.Printf("Password verification failed: %v\n", err)
+        return false
+    }
+    return true
 }

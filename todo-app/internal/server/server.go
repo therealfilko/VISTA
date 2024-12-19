@@ -12,6 +12,7 @@ import (
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/labstack/echo/v4"
 
+	"todo-app/internal/auth"
 	"todo-app/internal/database"
 	"todo-app/internal/models"
 )
@@ -61,7 +62,7 @@ func NewServer() (*http.Server, error) {
 }
 
 func (s *Server) generateJWT(user *models.User) (string, error) {
-	claims := &JWTCustomClaims{
+	claims := &auth.JWTCustomClaims{
 		UserID: user.ID,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(720 * time.Hour)), // 30 Tage
@@ -73,8 +74,8 @@ func (s *Server) generateJWT(user *models.User) (string, error) {
 	return token.SignedString(s.jwtSecret)
 }
 
-func (s *Server) validateJWT(tokenString string) (*JWTCustomClaims, error) {
-	token, err := jwt.ParseWithClaims(tokenString, &JWTCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
+func (s *Server) validateJWT(tokenString string) (*auth.JWTCustomClaims, error) {
+	token, err := jwt.ParseWithClaims(tokenString, &auth.JWTCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
@@ -85,7 +86,7 @@ func (s *Server) validateJWT(tokenString string) (*JWTCustomClaims, error) {
 		return nil, err
 	}
 
-	if claims, ok := token.Claims.(*JWTCustomClaims); ok && token.Valid {
+	if claims, ok := token.Claims.(*auth.JWTCustomClaims); ok && token.Valid {
 		return claims, nil
 	}
 
