@@ -18,52 +18,45 @@ const Dashboard: React.FC = () => {
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [currentColumn, setCurrentColumn] = useState<string | null>(null);
   const [currentTaskIndex, setCurrentTaskIndex] = useState<number | null>(null);
+  const [targetColumn, setTargetColumn] = useState<string | null>(null);
 
-  // Öffnet das Modal für eine bestimmte Spalte oder ein bestimmtes Ticket
   const openModal = (columnId: string, taskIndex: number | null = null) => {
     setCurrentColumn(columnId);
     setCurrentTaskIndex(taskIndex);
+    setTargetColumn(columnId);
     setNewTaskTitle(taskIndex !== null ? columns[columnId].items[taskIndex] : '');
     setModalOpen(true);
   };
 
-  // Schließt das Modal
   const closeModal = () => {
     setModalOpen(false);
     setNewTaskTitle('');
     setCurrentColumn(null);
     setCurrentTaskIndex(null);
+    setTargetColumn(null);
   };
 
-  // Fügt eine neue Aufgabe hinzu oder bearbeitet ein bestehendes Ticket
   const saveTask = () => {
-    if (!currentColumn) return;
+    if (!targetColumn || !currentColumn) return;
 
     setColumns((prevColumns) => {
-      const column = prevColumns[currentColumn!];
+      const updatedColumns = { ...prevColumns };
 
       if (currentTaskIndex !== null) {
-        // Bearbeiten eines bestehenden Tickets
-        const updatedItems = [...column.items];
-        updatedItems[currentTaskIndex] = newTaskTitle;
-
-        return {
-          ...prevColumns,
-          [currentColumn]: {
-            ...column,
-            items: updatedItems,
-          },
-        };
-      } else {
-        // Hinzufügen eines neuen Tickets
-        return {
-          ...prevColumns,
-          [currentColumn]: {
-            ...column,
-            items: [...column.items, newTaskTitle],
-          },
+        const sourceItems = [...updatedColumns[currentColumn].items];
+        sourceItems.splice(currentTaskIndex, 1);
+        updatedColumns[currentColumn] = {
+          ...updatedColumns[currentColumn],
+          items: sourceItems,
         };
       }
+
+      updatedColumns[targetColumn] = {
+        ...updatedColumns[targetColumn],
+        items: [...updatedColumns[targetColumn].items, newTaskTitle],
+      };
+
+      return updatedColumns;
     });
 
     closeModal();
@@ -88,7 +81,7 @@ const Dashboard: React.FC = () => {
               ))}
             </ul>
             <button
-              className="mt-2 bg-green-500 text-white px-4 py-2 rounded"
+              className="mt-2 bg-gray-300 text-black px-4 py-2 rounded"
               onClick={() => openModal(columnId)}
             >
               + Neue Aufgabe
@@ -109,8 +102,19 @@ const Dashboard: React.FC = () => {
               placeholder="Titel der Aufgabe"
               value={newTaskTitle}
               onChange={(e) => setNewTaskTitle(e.target.value)}
-              className="w-full p-2 border rounded mb-4"
+              className="w-full p-2 bg-gray-100 text-black border rounded mb-4"
             />
+            <select
+              value={targetColumn || ''}
+              onChange={(e) => setTargetColumn(e.target.value)}
+              className="w-full p-2 bg-gray-100 text-black border rounded mb-4"
+            >
+              {Object.entries(columns).map(([columnId, column]) => (
+                <option key={columnId} value={columnId}>
+                  {column.name}
+                </option>
+              ))}
+            </select>
             <div className="flex justify-end">
               <button
                 onClick={closeModal}
