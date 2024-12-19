@@ -9,18 +9,21 @@ type ColumnType = {
 
 const Dashboard: React.FC = () => {
   const [columns, setColumns] = useState<ColumnType>({
-    'column-1': { name: 'Zu Erledigen', items: [] },
-    'column-2': { name: 'In Arbeit', items: [] },
-    'column-3': { name: 'Fertig', items: [] },
+    'column-1': { name: 'To Do', items: [] },
+    'column-2': { name: 'In Progress', items: [] },
+    'column-3': { name: 'Done', items: [] },
   });
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [currentColumn, setCurrentColumn] = useState<string | null>(null);
+  const [currentTaskIndex, setCurrentTaskIndex] = useState<number | null>(null);
 
-  // Öffnet das Modal für eine bestimmte Spalte
-  const openModal = (columnId: string) => {
+  // Öffnet das Modal für eine bestimmte Spalte oder ein bestimmtes Ticket
+  const openModal = (columnId: string, taskIndex: number | null = null) => {
     setCurrentColumn(columnId);
+    setCurrentTaskIndex(taskIndex);
+    setNewTaskTitle(taskIndex !== null ? columns[columnId].items[taskIndex] : '');
     setModalOpen(true);
   };
 
@@ -29,21 +32,38 @@ const Dashboard: React.FC = () => {
     setModalOpen(false);
     setNewTaskTitle('');
     setCurrentColumn(null);
+    setCurrentTaskIndex(null);
   };
 
-  // Fügt eine neue Aufgabe zu einer bestimmten Spalte hinzu
-  const addTask = () => {
+  // Fügt eine neue Aufgabe hinzu oder bearbeitet ein bestehendes Ticket
+  const saveTask = () => {
     if (!currentColumn) return;
 
     setColumns((prevColumns) => {
-      const column = prevColumns[currentColumn!]; // Type Assertion
-      return {
-        ...prevColumns,
-        [currentColumn]: {
-          ...column,
-          items: [...column.items, newTaskTitle],
-        },
-      };
+      const column = prevColumns[currentColumn!];
+
+      if (currentTaskIndex !== null) {
+        // Bearbeiten eines bestehenden Tickets
+        const updatedItems = [...column.items];
+        updatedItems[currentTaskIndex] = newTaskTitle;
+
+        return {
+          ...prevColumns,
+          [currentColumn]: {
+            ...column,
+            items: updatedItems,
+          },
+        };
+      } else {
+        // Hinzufügen eines neuen Tickets
+        return {
+          ...prevColumns,
+          [currentColumn]: {
+            ...column,
+            items: [...column.items, newTaskTitle],
+          },
+        };
+      }
     });
 
     closeModal();
@@ -58,7 +78,11 @@ const Dashboard: React.FC = () => {
             <h2 className="font-semibold mb-2">{column.name}</h2>
             <ul>
               {column.items.map((item, index) => (
-                <li key={index} className="bg-white p-2 mb-2 rounded shadow">
+                <li
+                  key={index}
+                  className="bg-white p-2 mb-2 rounded shadow hover:bg-gray-200 cursor-pointer"
+                  onClick={() => openModal(columnId, index)}
+                >
                   {item}
                 </li>
               ))}
@@ -77,7 +101,9 @@ const Dashboard: React.FC = () => {
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded shadow-md w-1/3">
-            <h2 className="text-xl font-bold mb-4">Neue Aufgabe hinzufügen</h2>
+            <h2 className="text-xl font-bold mb-4">
+              {currentTaskIndex !== null ? 'Aufgabe bearbeiten' : 'Neue Aufgabe hinzufügen'}
+            </h2>
             <input
               type="text"
               placeholder="Titel der Aufgabe"
@@ -93,7 +119,7 @@ const Dashboard: React.FC = () => {
                 Abbrechen
               </button>
               <button
-                onClick={addTask}
+                onClick={saveTask}
                 className="bg-blue-500 text-white px-4 py-2 rounded"
               >
                 Speichern
@@ -107,4 +133,3 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
-
