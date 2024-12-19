@@ -5,9 +5,14 @@ type LoginResponse struct {
 	User  User   `json:"user"`
 }
 
+type AuthResponse struct {
+	Token string `json:"token"`
+	User  User   `json:"user"`
+}
+
 type ErrorResponse struct {
 	Message string `json:"message"`
-	Code    string `json:"code,omitempty"`
+	Code    int    `json:"code,omitempty"`
 }
 
 type TodoResponse struct {
@@ -18,4 +23,8 @@ type TodoResponse struct {
 type TodoListResponse struct {
 	Todos      []Todo `json:"todos"`
 	TotalCount int    `json:"total_count"`
+}
+
+type SuccessResponse struct {
+	Message string `json:"message"`
 }

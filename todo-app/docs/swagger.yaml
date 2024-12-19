@@ -1,0 +1,730 @@
+definitions:
+  models.AuthResponse:
+    properties:
+      token:
+        type: string
+      user:
+        $ref: '#/definitions/models.User'
+    type: object
+  models.Column:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      position:
+        type: integer
+      title:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  models.ErrorResponse:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  models.SuccessResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  models.Todo:
+    properties:
+      column_id:
+        type: integer
+      created_at:
+        type: string
+      description:
+        type: string
+      done:
+        type: boolean
+      id:
+        type: integer
+      position:
+        type: integer
+      title:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  models.User:
+    properties:
+      created_at:
+        type: string
+      date_of_birth:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: integer
+      last_name:
+        type: string
+    required:
+    - date_of_birth
+    - email
+    - first_name
+    - last_name
+    type: object
+  server.CreateColumnRequest:
+    properties:
+      position:
+        type: integer
+      title:
+        type: string
+    required:
+    - position
+    - title
+    type: object
+  server.CreateTodoRequest:
+    properties:
+      column_id:
+        type: integer
+      description:
+        type: string
+      position:
+        type: integer
+      title:
+        type: string
+    required:
+    - column_id
+    - position
+    - title
+    type: object
+  server.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  server.RegisterRequest:
+    properties:
+      date_of_birth:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      password:
+        minLength: 6
+        type: string
+    required:
+    - date_of_birth
+    - email
+    - first_name
+    - last_name
+    - password
+    type: object
+  server.UpdateColumnRequest:
+    properties:
+      position:
+        type: integer
+      title:
+        type: string
+    required:
+    - position
+    - title
+    type: object
+  server.UpdatePasswordRequest:
+    properties:
+      current_password:
+        type: string
+      new_password:
+        minLength: 6
+        type: string
+    required:
+    - current_password
+    - new_password
+    type: object
+  server.UpdateProfileRequest:
+    properties:
+      date_of_birth:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+    required:
+    - date_of_birth
+    - email
+    - first_name
+    - last_name
+    type: object
+  server.UpdateTodoPositionRequest:
+    properties:
+      column_id:
+        type: integer
+      position:
+        type: integer
+      todo_id:
+        type: integer
+    required:
+    - column_id
+    - position
+    - todo_id
+    type: object
+  server.UpdateTodoRequest:
+    properties:
+      description:
+        type: string
+      done:
+        type: boolean
+      title:
+        type: string
+    required:
+    - title
+    type: object
+info:
+  contact: {}
+paths:
+  /api/columns:
+    get:
+      description: Retrieve all columns along with their associated todos for the
+        authenticated user.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              additionalProperties: true
+              type: object
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to fetch columns
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get all columns with todos
+      tags:
+      - Columns
+    post:
+      consumes:
+      - application/json
+      description: Create a new column with a title and position.
+      parameters:
+      - description: Create Column Request
+        in: body
+        name: createColumnRequest
+        required: true
+        schema:
+          $ref: '#/definitions/server.CreateColumnRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Column'
+        "400":
+          description: Invalid request payload
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to create column
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Create a new column
+      tags:
+      - Columns
+  /api/columns/{id}:
+    delete:
+      description: Delete a column by its ID.
+      parameters:
+      - description: Column ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Column deleted successfully
+        "400":
+          description: Invalid column ID
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to delete column
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Delete a column
+      tags:
+      - Columns
+    put:
+      consumes:
+      - application/json
+      description: Update the title and position of an existing column.
+      parameters:
+      - description: Column ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update Column Request
+        in: body
+        name: updateColumnRequest
+        required: true
+        schema:
+          $ref: '#/definitions/server.UpdateColumnRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Column'
+        "400":
+          description: Invalid request payload or column ID
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to update column
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Update a column
+      tags:
+      - Columns
+  /api/todos:
+    get:
+      description: Get a list of all todos for the authenticated user.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Todo'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to fetch todos
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get all todos
+      tags:
+      - Todos
+    post:
+      consumes:
+      - application/json
+      description: Create a new todo with title, description, column ID, and position.
+      parameters:
+      - description: Create Todo Request
+        in: body
+        name: createTodoRequest
+        required: true
+        schema:
+          $ref: '#/definitions/server.CreateTodoRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Todo'
+        "400":
+          description: Invalid request payload
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to create todo
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Create a new todo
+      tags:
+      - Todos
+  /api/todos/{id}:
+    delete:
+      description: Delete a specific todo by ID.
+      parameters:
+      - description: Todo ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Todo successfully deleted
+          schema:
+            $ref: '#/definitions/models.SuccessResponse'
+        "400":
+          description: Invalid todo ID
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "403":
+          description: Access denied
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Todo not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to delete todo
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Delete a todo
+      tags:
+      - Todos
+    get:
+      description: Retrieve a specific todo by ID for the authenticated user.
+      parameters:
+      - description: Todo ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Todo'
+        "400":
+          description: Invalid todo ID
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "403":
+          description: Access denied
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Todo not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get a specific todo
+      tags:
+      - Todos
+    put:
+      consumes:
+      - application/json
+      description: Update a todo's title, description, and completion status.
+      parameters:
+      - description: Todo ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update Todo Request
+        in: body
+        name: updateTodoRequest
+        required: true
+        schema:
+          $ref: '#/definitions/server.UpdateTodoRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Todo'
+        "400":
+          description: Invalid request payload or todo ID
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "403":
+          description: Access denied
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Todo not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to update todo
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Update a todo
+      tags:
+      - Todos
+  /api/todos/{id}/done:
+    patch:
+      description: Toggle the 'done' status of a todo.
+      parameters:
+      - description: Todo ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Todo'
+        "400":
+          description: Invalid todo ID
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "403":
+          description: Access denied
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Todo not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to update todo
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Toggle todo completion status
+      tags:
+      - Todos
+  /api/todos/{id}/position:
+    put:
+      consumes:
+      - application/json
+      description: Move a todo to a different column and update its position.
+      parameters:
+      - description: Todo ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update Todo Position Request
+        in: body
+        name: updateTodoPositionRequest
+        required: true
+        schema:
+          $ref: '#/definitions/server.UpdateTodoPositionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Todo position updated successfully
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Invalid request payload
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to update todo position
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Update todo position
+      tags:
+      - Columns
+  /api/users/password:
+    put:
+      consumes:
+      - application/json
+      description: Update the password of the authenticated user.
+      parameters:
+      - description: Update Password Request
+        in: body
+        name: updatePasswordRequest
+        required: true
+        schema:
+          $ref: '#/definitions/server.UpdatePasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Password updated successfully
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Invalid request payload
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized or incorrect current password
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to update password
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Update user password
+      tags:
+      - User
+  /api/users/profile:
+    get:
+      description: Retrieve the profile information of the authenticated user.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get user profile
+      tags:
+      - User
+    put:
+      consumes:
+      - application/json
+      description: Update the profile information of the authenticated user.
+      parameters:
+      - description: Update Profile Request
+        in: body
+        name: updateProfileRequest
+        required: true
+        schema:
+          $ref: '#/definitions/server.UpdateProfileRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Invalid request payload
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to update profile
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Update user profile
+      tags:
+      - User
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Login with email and password.
+      parameters:
+      - description: Login Request
+        in: body
+        name: loginRequest
+        required: true
+        schema:
+          $ref: '#/definitions/server.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AuthResponse'
+        "400":
+          description: Invalid request payload
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Invalid credentials
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Login a user
+      tags:
+      - Auth
+  /auth/me:
+    get:
+      description: Retrieve the information of the currently authenticated user.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get current user info
+      tags:
+      - Auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user with first name, last name, email, password,
+        and date of birth.
+      parameters:
+      - description: Register Request
+        in: body
+        name: registerRequest
+        required: true
+        schema:
+          $ref: '#/definitions/server.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.AuthResponse'
+        "400":
+          description: Invalid request payload
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to create user
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Register a new user
+      tags:
+      - Auth
+swagger: "2.0"

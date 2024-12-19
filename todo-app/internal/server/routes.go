@@ -6,6 +6,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 func (s *Server) RegisterRoutes() http.Handler {
@@ -13,11 +14,17 @@ func (s *Server) RegisterRoutes() http.Handler {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	// Validator hinzufügen
 	e.Validator = &CustomValidator{validator: validator.New()}
 
+	//e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+	//	AllowOrigins:     []string{"https://*", "http://*"},
+	//	AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
+	//	AllowHeaders:     []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+	//	AllowCredentials: true,
+	//	MaxAge:           300,
+	//}))
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"https://*", "http://*"},
+		AllowOrigins:     []string{"http://localhost:8080", "https://*"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
 		AllowHeaders:     []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		AllowCredentials: true,
@@ -26,7 +33,6 @@ func (s *Server) RegisterRoutes() http.Handler {
 
 	// Public endpoints
 	e.GET("/", s.HelloWorldHandler)
-	//e.GET("/health", s.healthHandler)
 
 	// Auth routes
 	auth := e.Group("/auth")
@@ -34,20 +40,34 @@ func (s *Server) RegisterRoutes() http.Handler {
 	auth.POST("/login", s.handleLogin)
 	auth.GET("/me", s.handleGetMe, s.authMiddleware)
 
-	// Todo routes (protected)
-	todos := e.Group("/todos", s.authMiddleware)
+	// Protected routes
+	api := e.Group("/api", s.authMiddleware)
+
+	// Column routes
+	columns := api.Group("/columns")
+	columns.GET("", s.handleGetColumns)
+	columns.POST("", s.handleCreateColumn)
+	columns.PUT("/:id", s.handleUpdateColumn)
+	columns.DELETE("/:id", s.handleDeleteColumn)
+
+	// Todo routes
+	todos := api.Group("/todos")
 	todos.GET("", s.handleGetTodos)
 	todos.POST("", s.handleCreateTodo)
 	todos.GET("/:id", s.handleGetTodo)
 	todos.PUT("/:id", s.handleUpdateTodo)
 	todos.DELETE("/:id", s.handleDeleteTodo)
 	todos.PATCH("/:id/done", s.handleToggleTodoDone)
+	todos.PUT("/:id/position", s.handleUpdateTodoPosition)
 
-	// User routes (protected)
-	users := e.Group("/users", s.authMiddleware)
+	// User routes
+	users := api.Group("/users")
 	users.GET("/profile", s.handleGetProfile)
 	users.PUT("/profile", s.handleUpdateProfile)
 	users.PUT("/password", s.handleUpdatePassword)
+
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
+	e.File("/swagger/doc.json", "docs/swagger.json")
 
 	return e
 }

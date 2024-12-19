@@ -13,6 +13,7 @@ FROM alpine:3.20.1 AS prod
 WORKDIR /app
 COPY --from=build /app/main /app/main
 COPY migrations ./migrations
+COPY docs ./docs
 EXPOSE ${PORT}
 CMD ["./main"]
 
