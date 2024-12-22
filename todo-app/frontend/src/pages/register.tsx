@@ -25,7 +25,7 @@ const Register = () => {
 
       if (response.status === 201) {
         setSuccess(true);
-        navigate("/login"); // Weiterleitung zur Login-Seite
+        navigate("/login");
       }
     } catch (err) {
       console.error("Registrierungsfehler:", err);
@@ -34,31 +34,26 @@ const Register = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center mb-6 text-gray-700">Registrieren</h2>
+    
+    <div className="flex min-h-screen items-center justify-center bg-neutral-900">
+
+      	<div className="absolute top-6 left-6 flex items-center space-x-2">
+        
+          <img src="/tf-logo-2.svg" alt="Taskify Logo" className="w-12 h-12" />
+        
+          <p className="text-3xl font-bold text-neutral-100"></p>
+        </div>
+
+      <div className="w-full max-w-sm bg-neutral-800 border border-neutral-700 p-6 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-center mb-6 text-neutral-100">Registrieren</h2>
 
         {error && <p className="text-red-500 text-center text-sm mb-4">{error}</p>}
         {success && <p className="text-green-500 text-center text-sm mb-4">Erfolgreich registriert!</p>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-              Benutzername
-            </label>
-            <input
-              id="username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="Dein Benutzername"
-            />
-          </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="email" className="block text-sm py-2 font-medium text-neutral-100">
               E-Mail-Adresse
             </label>
             <input
@@ -67,13 +62,13 @@ const Register = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full bg-neutral-700 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 placeholder-neutral-500"
               placeholder="Deine E-Mail"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="password" className="block text-sm py-2 font-medium text-neutral-100">
               Passwort
             </label>
             <input
@@ -82,14 +77,14 @@ const Register = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full bg-neutral-700 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 placeholder-neutral-500"
               placeholder="Dein Passwort"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-500 transition duration-200"
+            className="w-full bg-sky-500 text-neutral-100 py-2 rounded-lg hover:bg-sky-400 transition duration-200"
           >
             Registrieren
           </button>

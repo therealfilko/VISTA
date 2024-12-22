@@ -35,19 +35,16 @@ const Login = () => {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-neutral-900">
-      {/* Oben Links Bereich */}
-      <div className="absolute top-4 left-4 flex items-center space-x-2">
-        {/* SVG-Logo */}
+      
+      <div className="absolute top-6 left-6 flex items-center space-x-2">
+        
         <img src="/tf-logo-2.svg" alt="Taskify Logo" className="w-12 h-12" />
-        {/* Text */}
-        <p className="text-3xl font-bold text-neutral-100">
-          Taskify.
-        </p>
+        
+        <p className="text-3xl font-bold text-neutral-100"></p>
       </div>
 
-      {/* Login-Box */}
-      <div className="w-full max-w-sm bg-neutral-800 p-6 rounded-lg shadow-md">
-        <h2 className="text-4xl font-bold text-center mb-6 text-neutral-100">Dein Login.</h2>
+      <div className="w-full max-w-sm bg-neutral-800 p-6 border border-neutral-700 rounded-lg shadow-md">
+        <h2 className="text-3xl font-bold text-center mb-6 text-neutral-100">Login</h2>
 
         {error && <p className="text-red-500 text-center text-sm mb-4">{error}</p>}
 
@@ -62,7 +59,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full bg-neutral-700 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-sky-600 placeholder-neutral-500"
+              className="w-full bg-neutral-700 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-sky-500 placeholder-neutral-500"
               placeholder="Deine E-Mail"
             />
           </div>
@@ -77,14 +74,14 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full bg-neutral-700 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-sky-600 placeholder-neutral-500"
+              className="w-full bg-neutral-700 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-sky-500 placeholder-neutral-500"
               placeholder="Dein Passwort"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-sky-600 text-neutral-100 py-2 rounded-lg hover:bg-sky-500 transition duration-200"
+            className="w-full bg-sky-500 text-neutral-900 py-2 rounded-lg hover:bg-sky-400 transition duration-200"
           >
             Einloggen
           </button>
