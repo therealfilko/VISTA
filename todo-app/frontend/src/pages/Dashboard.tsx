@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 type ColumnType = {
   [key: string]: {
@@ -9,13 +9,13 @@ type ColumnType = {
 
 const Dashboard: React.FC = () => {
   const [columns, setColumns] = useState<ColumnType>({
-    'column-1': { name: 'To Do', items: [] },
-    'column-2': { name: 'In Progress', items: [] },
-    'column-3': { name: 'Done', items: [] },
+    "column-1": { name: "To Do", items: [] },
+    "column-2": { name: "In Progress", items: [] },
+    "column-3": { name: "Done", items: [] },
   });
 
   const [isModalOpen, setModalOpen] = useState(false);
-  const [newTaskTitle, setNewTaskTitle] = useState('');
+  const [newTaskTitle, setNewTaskTitle] = useState("");
   const [currentColumn, setCurrentColumn] = useState<string | null>(null);
   const [currentTaskIndex, setCurrentTaskIndex] = useState<number | null>(null);
   const [targetColumn, setTargetColumn] = useState<string | null>(null);
@@ -24,13 +24,15 @@ const Dashboard: React.FC = () => {
     setCurrentColumn(columnId);
     setCurrentTaskIndex(taskIndex);
     setTargetColumn(columnId);
-    setNewTaskTitle(taskIndex !== null ? columns[columnId].items[taskIndex] : '');
+    setNewTaskTitle(
+      taskIndex !== null ? columns[columnId].items[taskIndex] : "",
+    );
     setModalOpen(true);
   };
 
   const closeModal = () => {
     setModalOpen(false);
-    setNewTaskTitle('');
+    setNewTaskTitle("");
     setCurrentColumn(null);
     setCurrentTaskIndex(null);
     setTargetColumn(null);
@@ -95,7 +97,9 @@ const Dashboard: React.FC = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded shadow-md w-1/3">
             <h2 className="text-xl font-bold mb-4">
-              {currentTaskIndex !== null ? 'Aufgabe bearbeiten' : 'Neue Aufgabe hinzufügen'}
+              {currentTaskIndex !== null
+                ? "Aufgabe bearbeiten"
+                : "Neue Aufgabe hinzufügen"}
             </h2>
             <input
               type="text"
@@ -105,7 +109,7 @@ const Dashboard: React.FC = () => {
               className="w-full p-2 bg-gray-100 text-black border rounded mb-4"
             />
             <select
-              value={targetColumn || ''}
+              value={targetColumn || ""}
               onChange={(e) => setTargetColumn(e.target.value)}
               className="w-full p-2 bg-gray-100 text-black border rounded mb-4"
             >
