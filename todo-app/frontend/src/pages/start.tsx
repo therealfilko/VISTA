@@ -7,7 +7,7 @@ function Start() {
     <div className="relative flex min-h-screen bg-neutral-950">
       <header className="header">
         <a href="/" className="logo">
-          <img src="/assets/logo.svg" alt="" />
+          <img src="/assets/logo-1.svg" alt="Logo" />
         </a>
 
         <nav className="navbar">
