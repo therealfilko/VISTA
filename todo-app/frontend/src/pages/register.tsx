@@ -42,7 +42,7 @@ const Register = () => {
       </div>
 
       <div className="w-full max-w-sm bg-transparent p-6">
-        <h2 className="text-3xl font-bold text-left pb-5 text-white">
+        <h2 className="text-3xl font-bold text-center pb-5 text-white">
           Registrierung
         </h2>
 
