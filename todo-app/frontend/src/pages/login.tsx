@@ -44,7 +44,7 @@ const Login = () => {
         </Link>
       </div>
 
-      <div className="w-full max-w-sm bg-transparent p-2">
+      <div className="w-full max-w-sm bg-transparent p-6">
         <h2 className="text-3xl font-bold text-left mb-15 text-white">
           Schnell und leicht anmelden.
         </h2>
@@ -67,7 +67,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full text-white bg-neutral-800 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
+              className="w-full text-white bg-neutral-900 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
               placeholder="Deine E-Mail"
             />
           </div>
@@ -85,7 +85,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full text-white bg-neutral-800 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
+              className="w-full text-white bg-neutral-900 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
               placeholder="Dein Passwort"
             />
           </div>

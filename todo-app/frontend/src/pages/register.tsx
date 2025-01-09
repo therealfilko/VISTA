@@ -70,7 +70,7 @@ const Register = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full text-white bg-neutral-800 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
+              className="w-full text-white bg-neutral-900 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
               placeholder="Deine E-Mail"
             />
           </div>
@@ -88,7 +88,7 @@ const Register = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full text-white bg-neutral-800 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
+              className="w-full text-white bg-neutral-900 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
               placeholder="Dein Passwort"
             />
           </div>
