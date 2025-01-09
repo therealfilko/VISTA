@@ -37,10 +37,10 @@ const Login = () => {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center bg-neutral-900">
+    <div className="relative flex min-h-screen items-center justify-center bg-black">
       <div className="absolute top-10 left-10 flex items-center space-x-2 text-white">
         <Link to="/">
-          <img src="/info_logo.svg" alt="Taskify" className="w-11 h-11" />
+          <img src="/info_logo.svg" alt="Taskify" className="w-12 h-12" />
         </Link>
       </div>
 
@@ -67,7 +67,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full text-white bg-neutral-800 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
+              className="w-full text-white bg-neutral-900 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
               placeholder="Deine E-Mail"
             />
           </div>
@@ -85,7 +85,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full text-white bg-neutral-800 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
+              className="w-full text-white bg-neutral-900 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
               placeholder="Dein Passwort"
             />
           </div>
