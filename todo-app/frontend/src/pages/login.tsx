@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom"; // Importiere Link
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
@@ -38,13 +38,13 @@ const Login = () => {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-neutral-950">
-      <div className="absolute top-10 left-10 flex items-center space-x-2 text-white">
+      <div className="absolute top-7 left-7 flex items-center">
         <Link to="/">
-          <img src="/info_logo.svg" alt="Taskify" className="w-11 h-11" />
+          <img src="/info_logo.svg" alt="Taskify" className="w-12 h-12" />
         </Link>
       </div>
 
-      <div className="w-full max-w-sm bg-transparent p-6">
+      <div className="w-full max-w-sm p-6">
         <h2 className="text-3xl font-bold text-center pb-5 text-white">
           Login
         </h2>
@@ -98,7 +98,7 @@ const Login = () => {
           </button>
           <div className="text-white text-center">
             Du hast noch kein Konto?
-            <p className="pt-2 text-info">
+            <p className="pt-2 text-white font-semibold hover:text-info">
               <a href="/register">Jetzt registrieren!</a>
             </p>
           </div>
