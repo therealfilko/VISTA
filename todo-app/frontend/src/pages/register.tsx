@@ -5,7 +5,9 @@ import { useNavigate, Link } from "react-router-dom";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const [first_name, setFirstname] = useState("");
+  const [last_name, setLastname] = useState("");
+  const [date_of_birth, setDateofbirth] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
@@ -20,7 +22,9 @@ const Register = () => {
       const response = await axios.post("http://localhost:8080/register", {
         email,
         password,
-        username,
+        first_name,
+        last_name,
+        date_of_birth,
       });
 
       if (response.status === 201) {
@@ -34,14 +38,14 @@ const Register = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-black">
+    <div className="flex min-h-screen items-center justify-center bg-neutral-950">
       <div className="absolute top-10 left-10 flex items-center space-x-2">
         <Link to="/">
-          <img src="/info_logo.svg" alt="Taskify" className="w-12 h-12" />
+          <img src="/info_logo.svg" alt="Taskify" className="w-11 h-11" />
         </Link>
       </div>
 
-      <div className="w-full max-w-sm bg-transparent p-6">
+      <div className="w-full max-w-lg bg-transparent">
         <h2 className="text-3xl font-bold text-center pb-5 text-white">
           Registrierung
         </h2>
@@ -56,6 +60,94 @@ const Register = () => {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-10">
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div className="grid grid-cols-2 gap-4">
+  <div>
+    <label
+      htmlFor="first_name"
+      className="block text-l py-2 font-medium text-white"
+    >
+      Vorname
+    </label>
+    <input
+      id="first_name"
+      type="text"
+      value={first_name}
+      onChange={(e) => setFirstname(e.target.value)}
+      required
+      className="w-full text-white bg-neutral-900 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
+      placeholder="Dein Vorname"
+    />
+  </div>
+
+  <div>
+    <label
+      htmlFor="last_name"
+      className="block text-l py-2 font-medium text-white"
+    >
+      Nachname
+    </label>
+    <input
+      id="last_name"
+      type="text"
+      value={last_name}
+      onChange={(e) => setLastname(e.target.value)}
+      required
+      className="w-full text-white bg-neutral-900 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
+      placeholder="Dein Nachname"
+    />
+  </div>
+</div>
+
+
+        <div>
+            <label
+              htmlFor="date_of_birth"
+              className="block text-l py-2 pt-4 font-medium text-white"
+            >
+              Geburtstag
+            </label>
+            <input
+              id="date_of_birth"
+              type="text"
+              value={date_of_birth}
+              onChange={(e) => setDateofbirth(e.target.value)}
+              required
+              className="w-full text-white bg-neutral-900 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
+              placeholder="tt.mm.jjjj"
+            />
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           <div>
             <label
               htmlFor="email"

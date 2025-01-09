@@ -37,10 +37,10 @@ const Login = () => {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center bg-black">
+    <div className="relative flex min-h-screen items-center justify-center bg-neutral-950">
       <div className="absolute top-10 left-10 flex items-center space-x-2 text-white">
         <Link to="/">
-          <img src="/info_logo.svg" alt="Taskify" className="w-12 h-12" />
+          <img src="/info_logo.svg" alt="Taskify" className="w-11 h-11" />
         </Link>
       </div>
 
