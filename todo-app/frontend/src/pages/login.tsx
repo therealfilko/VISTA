@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Importiere Link
 import axios from "axios";
 
 const Login = () => {
@@ -39,22 +39,25 @@ const Login = () => {
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-neutral-950">
       <div className="absolute top-10 left-10 flex items-center space-x-2 text-white">
-        <img src="/accent_logo.svg" alt="Taskify" className="w-10 h-10" />
+        <Link to="/">
+          <img src="/accent_logo.svg" alt="Taskify" className="w-11 h-11" />
+        </Link>
       </div>
-      <div className="w-full max-w-sm bg-neutral-900 p-6 border border-neutral-800 rounded-lg shadow-md">
-        <h2 className="text-3xl font-bold text-center mb-6 text-white">
-          Login
+
+      <div className="w-full max-w-sm bg-transparent p-2">
+        <h2 className="text-3xl font-bold text-left mb-15 text-white">
+          Schnell und leicht anmelden.
         </h2>
 
         {error && (
           <p className="text-red-500 text-center text-sm mb-4">{error}</p>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-10">
           <div>
             <label
               htmlFor="email"
-              className="block text-l py-2 font-medium text-white"
+              className="block text-l py-2 pt-10 font-medium text-white"
             >
               E-Mail-Adresse
             </label>
@@ -64,7 +67,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full text-neutral-500 bg-ghost px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
+              className="w-full text-white bg-neutral-800 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
               placeholder="Deine E-Mail"
             />
           </div>
@@ -82,14 +85,14 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full text-neutral-500 bg-ghost px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
+              className="w-full text-white bg-neutral-800 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
               placeholder="Dein Passwort"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full text-white py-2 rounded-lg btn btn-outline btn-accent"
+            className="w-full text-neutral-950 py-2 rounded-lg btn btn-outline btn-accent"
           >
             Einloggen
           </button>

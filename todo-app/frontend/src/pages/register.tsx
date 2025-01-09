@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -36,14 +36,15 @@ const Register = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-neutral-950">
       <div className="absolute top-10 left-10 flex items-center space-x-2">
-        <img src="/accent_logo.svg" alt="Taskify" className="w-12 h-12" />
-
-        <p className="text-3xl font-bold text-neutral-100"></p>
+        {/* Logo mit Link zur Startseite */}
+        <Link to="/">
+          <img src="/accent_logo.svg" alt="Taskify" className="w-11 h-11" />
+        </Link>
       </div>
 
-      <div className="w-full max-w-sm bg-neutral-900 border border-neutral-800 p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center mb-6 text-neutral-100">
-          Registrieren
+      <div className="w-full max-w-sm bg-transparent p-6">
+        <h2 className="text-3xl font-bold text-left mb-6 text-white">
+          Schnell und leicht registrieren.
         </h2>
 
         {error && (
@@ -55,11 +56,11 @@ const Register = () => {
           </p>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-10">
           <div>
             <label
               htmlFor="email"
-              className="block text-sm py-2 font-medium text-neutral-100"
+              className="block text-sm py-2 font-medium text-white"
             >
               E-Mail-Adresse
             </label>
@@ -69,7 +70,7 @@ const Register = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full bg-ghost px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
+              className="w-full text-white bg-neutral-800 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
               placeholder="Deine E-Mail"
             />
           </div>
@@ -77,7 +78,7 @@ const Register = () => {
           <div>
             <label
               htmlFor="password"
-              className="block text-sm py-2 font-medium text-neutral-100"
+              className="block text-sm py-2 font-medium text-white"
             >
               Passwort
             </label>
@@ -87,14 +88,14 @@ const Register = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full bg-ghost px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
+              className="w-full text-white bg-neutral-800 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
               placeholder="Dein Passwort"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full text-white py-2 rounded-lg btn btn-outline btn-accent"
+            className="w-full text-neutral-950 py-2 rounded-lg btn btn-outline btn-accent"
           >
             Registrieren
           </button>
