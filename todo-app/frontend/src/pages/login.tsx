@@ -38,8 +38,8 @@ const Login = () => {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-neutral-950">
-      <div className="absolute top-6 left-6 flex items-center space-x-2 text-white">
-      <img src="../assets/tfj.png" alt="Logo" className="w-32 h-32"/>
+      <div className="absolute top-10 left-10 flex items-center space-x-2 text-white">
+        <img src="/accent_logo.svg" alt="Taskify" className="w-12 h-12" />
       </div>
       <div className="w-full max-w-sm bg-neutral-900 p-6 border border-neutral-800 rounded-lg shadow-md">
         <h2 className="text-3xl font-bold text-center mb-6 text-white">

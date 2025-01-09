@@ -35,8 +35,8 @@ const Register = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-neutral-950">
-      <div className="absolute top-6 left-6 flex items-center space-x-2">
-        <img src="/tf-logo-2.svg" alt="Taskify Logo" className="w-12 h-12" />
+      <div className="absolute top-10 left-10 flex items-center space-x-2">
+        <img src="/accent_logo.svg" alt="Taskify" className="w-12 h-12" />
 
         <p className="text-3xl font-bold text-neutral-100"></p>
       </div>
