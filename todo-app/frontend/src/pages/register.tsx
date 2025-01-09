@@ -60,59 +60,45 @@ const Register = () => {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-10">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label
+                htmlFor="first_name"
+                className="block text-l py-2 font-medium text-white"
+              >
+                Vorname
+              </label>
+              <input
+                id="first_name"
+                type="text"
+                value={first_name}
+                onChange={(e) => setFirstname(e.target.value)}
+                required
+                className="w-full text-white bg-neutral-900 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
+                placeholder="Dein Vorname"
+              />
+            </div>
 
+            <div>
+              <label
+                htmlFor="last_name"
+                className="block text-l py-2 font-medium text-white"
+              >
+                Nachname
+              </label>
+              <input
+                id="last_name"
+                type="text"
+                value={last_name}
+                onChange={(e) => setLastname(e.target.value)}
+                required
+                className="w-full text-white bg-neutral-900 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
+                placeholder="Dein Nachname"
+              />
+            </div>
+          </div>
 
-
-
-
-
-
-
-
-
-
-
-
-        <div className="grid grid-cols-2 gap-4">
-  <div>
-    <label
-      htmlFor="first_name"
-      className="block text-l py-2 font-medium text-white"
-    >
-      Vorname
-    </label>
-    <input
-      id="first_name"
-      type="text"
-      value={first_name}
-      onChange={(e) => setFirstname(e.target.value)}
-      required
-      className="w-full text-white bg-neutral-900 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
-      placeholder="Dein Vorname"
-    />
-  </div>
-
-  <div>
-    <label
-      htmlFor="last_name"
-      className="block text-l py-2 font-medium text-white"
-    >
-      Nachname
-    </label>
-    <input
-      id="last_name"
-      type="text"
-      value={last_name}
-      onChange={(e) => setLastname(e.target.value)}
-      required
-      className="w-full text-white bg-neutral-900 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
-      placeholder="Dein Nachname"
-    />
-  </div>
-</div>
-
-
-        <div>
+          <div>
             <label
               htmlFor="date_of_birth"
               className="block text-l py-2 pt-4 font-medium text-white"
@@ -129,24 +115,6 @@ const Register = () => {
               placeholder="tt.mm.jjjj"
             />
           </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
           <div>
             <label
