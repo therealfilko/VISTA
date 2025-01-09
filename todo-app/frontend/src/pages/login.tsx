@@ -37,29 +37,29 @@ const Login = () => {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center bg-neutral-950">
+    <div className="relative flex min-h-screen items-center justify-center bg-neutral-900">
       <div className="absolute top-10 left-10 flex items-center space-x-2 text-white">
         <Link to="/">
-          <img src="/accent_logo.svg" alt="Taskify" className="w-11 h-11" />
+          <img src="/info_logo.svg" alt="Taskify" className="w-11 h-11" />
         </Link>
       </div>
 
       <div className="w-full max-w-sm bg-transparent p-6">
-        <h2 className="text-3xl font-bold text-left mb-15 text-white">
-          Schnell und leicht anmelden.
+        <h2 className="text-3xl font-bold text-left pb-5 text-white">
+          Login
         </h2>
 
         {error && (
-          <p className="text-red-500 text-center text-sm mb-4">{error}</p>
+          <p className="text-red-500 text-center text-sm pb-4 pt-4">{error}</p>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-10">
           <div>
             <label
               htmlFor="email"
-              className="block text-l py-2 pt-10 font-medium text-white"
+              className="block text-l py-2 pt-4 font-medium text-white"
             >
-              E-Mail-Adresse
+              E-Mail
             </label>
             <input
               id="email"
@@ -67,7 +67,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full text-white bg-neutral-900 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
+              className="w-full text-white bg-neutral-800 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
               placeholder="Deine E-Mail"
             />
           </div>
@@ -85,17 +85,22 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full text-white bg-neutral-900 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-accent placeholder-neutral-500"
+              className="w-full text-white bg-neutral-800 px-3 py-2 border rounded-lg border-transparent focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
               placeholder="Dein Passwort"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full text-neutral-950 py-2 rounded-lg btn btn-outline btn-accent"
+            className="w-full text-neutral-950 py-2 rounded-lg btn btn-outline btn-info"
           >
-            Einloggen
+            Anmelden
           </button>
+          <div className="text-white text-center">Du hast noch kein Konto?
+            <p className="pt-2 text-info">
+            <a href="/register">Jetzt registrieren!</a>
+            </p>
+          </div>
         </form>
       </div>
     </div>
