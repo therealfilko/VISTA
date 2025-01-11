@@ -31,9 +31,11 @@ const Dashboard: React.FC = () => {
   });
   const [currentColumn, setCurrentColumn] = useState<string | null>(null);
   const [currentTaskIndex, setCurrentTaskIndex] = useState<number | null>(null);
+  const [originalColumn, setOriginalColumn] = useState<string | null>(null);
 
   const openModal = (columnId: string, taskIndex: number | null = null) => {
     setCurrentColumn(columnId);
+    setOriginalColumn(columnId);
     setCurrentTaskIndex(taskIndex);
 
     if (taskIndex !== null) {
@@ -64,6 +66,7 @@ const Dashboard: React.FC = () => {
     });
     setCurrentColumn(null);
     setCurrentTaskIndex(null);
+    setOriginalColumn(null);
   };
 
   const saveTask = () => {
@@ -72,23 +75,20 @@ const Dashboard: React.FC = () => {
     setColumns((prevColumns) => {
       const updatedColumns = { ...prevColumns };
 
-      // Entferne das Ticket aus der ursprünglichen Position
-      if (currentTaskIndex !== null) {
-        updatedColumns[currentColumn].items.splice(currentTaskIndex, 1);
+      // Entfernen des Tickets aus der ursprünglichen Spalte, falls nötig
+      if (originalColumn && originalColumn !== currentColumn && currentTaskIndex !== null) {
+        updatedColumns[originalColumn].items.splice(currentTaskIndex, 1);
+      } else if (originalColumn === currentColumn && currentTaskIndex !== null) {
+        // Überschreiben des Tickets, falls es bearbeitet wird
+        updatedColumns[currentColumn].items[currentTaskIndex] = { ...currentTask };
+        return updatedColumns;
       }
 
-      // Überprüfe, ob das Ticket bereits existiert
-      const isDuplicate = updatedColumns[currentColumn].items.some(
-        (item) =>
-          item.title === currentTask.title &&
-          item.category === currentTask.category &&
-          item.assignee === currentTask.assignee &&
-          item.deadline === currentTask.deadline &&
-          item.description === currentTask.description
+      // Sicherstellen, dass das Ticket nicht doppelt hinzugefügt wird
+      const taskExists = updatedColumns[currentColumn].items.some(
+        (item) => JSON.stringify(item) === JSON.stringify(currentTask)
       );
-
-      // Füge das Ticket hinzu, wenn es noch nicht existiert
-      if (!isDuplicate) {
+      if (!taskExists) {
         updatedColumns[currentColumn].items.push({ ...currentTask });
       }
 
