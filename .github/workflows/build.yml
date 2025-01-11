@@ -11,56 +11,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Checkout Repository
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      # 1. Checkout Repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-    # 2. Install Docker Compose
-    - name: Install Docker Compose
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y docker-compose
+      # 2. Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-    # 3. Build Backend (prod target aus Dockerfile)
-    - name: Build Backend
-      run: |
-        cd todo-app
-        docker build \
-          --target prod \
-          -t todo-app-backend:latest \
-          -f Dockerfile .
+      # 3. Install Docker Compose
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
 
-    # 4. Build Frontend (frontend_dev target aus Dockerfile)
-    - name: Build Frontend
-      run: |
-        cd todo-app
-        docker build \
-          --target frontend_dev \
-          -t todo-app-frontend:latest \
-          -f Dockerfile .
+      # 4. Build and Start Services
+      - name: Build and Start Services
+        run: |
+          cd todo-app
+          docker-compose up -d --build
 
-    # 5. Start Docker Compose Stack
-    - name: Start Docker Compose Stack
-      run: |
-        cd todo-app
-        docker-compose up -d --build
-      env:
-        APP_ENV: development
-        PORT: 8080
-        BLUEPRINT_DB_HOST: localhost
-        BLUEPRINT_DB_PORT: 5432
-        BLUEPRINT_DB_DATABASE: test_db
-        BLUEPRINT_DB_USERNAME: test_user
-        BLUEPRINT_DB_PASSWORD: test_password
-        BLUEPRINT_DB_SCHEMA: public
+      # 5. Run Integration Tests (optional)
+      - name: Run Integration Tests
+        run: |
+          echo "Add integration tests if needed."
 
-    # 6. Run Integration Tests (optional)
-    - name: Run Integration Tests
-      run: |
-        echo "Add integration tests if needed."
-
-    # 7. Stop Docker Compose Stack
-    - name: Stop Docker Compose Stack
-      run: |
-        cd todo-app
-        docker-compose down
+      # 6. Stop Docker Compose Stack
+      - name: Stop Docker Compose Stack
+        run: |
+          cd todo-app
+          docker-compose down
