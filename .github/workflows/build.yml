@@ -47,7 +47,7 @@ jobs:
       env:
         APP_ENV: development
         PORT: 8080
-        BLUEPRINT_DB_HOST: psql_bp
+        BLUEPRINT_DB_HOST: localhost
         BLUEPRINT_DB_PORT: 5432
         BLUEPRINT_DB_DATABASE: test_db
         BLUEPRINT_DB_USERNAME: test_user
