@@ -36,7 +36,7 @@ services:
       - ./frontend:/app
       - /app/node_modules
     environment:
-      CHOKIDAR_USEPOLLING: true
+      CHOKIDAR_USEPOLLING: "true"
     networks:
       - blueprint
 
