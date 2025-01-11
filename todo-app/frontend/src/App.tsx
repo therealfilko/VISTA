@@ -4,12 +4,11 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import Dashboard from "./pages/Dashboard";
 
-
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-      <Route path="/" element={<Start />} />
+        <Route path="/" element={<Start />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />

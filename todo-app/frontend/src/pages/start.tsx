@@ -8,7 +8,7 @@ function Start() {
       <div className="w-full h-28 bg-transparent">
         <div className="absolute top-7 left-7">
           <Link to="/">
-            <img src="/info_logo.svg" alt="Taskify" className="w-12 h-12" />
+            <img src="/info_logo.svg" alt="Taskify" className="w-10 h-10" />
           </Link>
         </div>
         <Link to="/login">
