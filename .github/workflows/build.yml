@@ -15,9 +15,11 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3
 
-    # 2. Set up Docker Buildx
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+    # 2. Install Docker Compose
+    - name: Install Docker Compose
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker-compose
 
     # 3. Build Backend (prod target aus Dockerfile)
     - name: Build Backend
