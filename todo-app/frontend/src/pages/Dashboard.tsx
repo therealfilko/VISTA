@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 type ColumnType = {
   [key: string]: {
@@ -16,13 +17,7 @@ const Dashboard: React.FC = () => {
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [isDeleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-  const [currentTask, setCurrentTask] = useState<{
-    title: string;
-    category: string;
-    assignee: string;
-    deadline: string;
-    description: string;
-  }>({
+  const [currentTask, setCurrentTask] = useState({
     title: "",
     category: "",
     assignee: "",
@@ -31,16 +26,13 @@ const Dashboard: React.FC = () => {
   });
   const [currentColumn, setCurrentColumn] = useState<string | null>(null);
   const [currentTaskIndex, setCurrentTaskIndex] = useState<number | null>(null);
-  const [originalColumn, setOriginalColumn] = useState<string | null>(null);
 
   const openModal = (columnId: string, taskIndex: number | null = null) => {
     setCurrentColumn(columnId);
-    setOriginalColumn(columnId);
     setCurrentTaskIndex(taskIndex);
 
     if (taskIndex !== null) {
-      const task = columns[columnId].items[taskIndex];
-      setCurrentTask(task);
+      setCurrentTask(columns[columnId].items[taskIndex]);
     } else {
       setCurrentTask({
         title: "",
@@ -66,29 +58,17 @@ const Dashboard: React.FC = () => {
     });
     setCurrentColumn(null);
     setCurrentTaskIndex(null);
-    setOriginalColumn(null);
   };
 
   const saveTask = () => {
-    if (!currentColumn || !currentTask.title.trim()) return; // Prevent saving without a title
+    if (!currentColumn || !currentTask.title.trim()) return;
 
     setColumns((prevColumns) => {
       const updatedColumns = { ...prevColumns };
 
-      // Entfernen des Tickets aus der ursprünglichen Spalte, falls nötig
-      if (originalColumn && originalColumn !== currentColumn && currentTaskIndex !== null) {
-        updatedColumns[originalColumn].items.splice(currentTaskIndex, 1);
-      } else if (originalColumn === currentColumn && currentTaskIndex !== null) {
-        // Überschreiben des Tickets, falls es bearbeitet wird
+      if (currentTaskIndex !== null) {
         updatedColumns[currentColumn].items[currentTaskIndex] = { ...currentTask };
-        return updatedColumns;
-      }
-
-      // Sicherstellen, dass das Ticket nicht doppelt hinzugefügt wird
-      const taskExists = updatedColumns[currentColumn].items.some(
-        (item) => JSON.stringify(item) === JSON.stringify(currentTask)
-      );
-      if (!taskExists) {
+      } else {
         updatedColumns[currentColumn].items.push({ ...currentTask });
       }
 
@@ -133,7 +113,7 @@ const Dashboard: React.FC = () => {
                     }}
                     className="text-red-500"
                   >
-                    X
+                    <RiDeleteBin6Line size={20} />
                   </button>
                 </li>
               ))}
@@ -153,11 +133,11 @@ const Dashboard: React.FC = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-neutral-900 p-6 rounded shadow-md w-2/3 text-white">
             <h2 className="text-xl font-bold mb-4">Ticket</h2>
-
             <div className="grid grid-cols-2 gap-4 mb-4">
+              {/* Input-Felder */}
               <div>
                 <label className="block text-sm font-medium text-neutral-400 mb-1">
-                  Titel <span className="text-info">*</span>
+                  Titel <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -168,9 +148,7 @@ const Dashboard: React.FC = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-neutral-400 mb-1">
-                  Verschiebe in Spalte
-                </label>
+                <label className="block text-sm font-medium text-neutral-400 mb-1">Verschiebe in Spalte</label>
                 <select
                   value={currentColumn || ""}
                   onChange={(e) => setCurrentColumn(e.target.value)}
@@ -183,68 +161,21 @@ const Dashboard: React.FC = () => {
                   ))}
                 </select>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-neutral-400 mb-1">
-                  Bearbeiter
-                </label>
-                <select
-                  value={currentTask.assignee}
-                  onChange={(e) => setCurrentTask({ ...currentTask, assignee: e.target.value })}
-                  className="w-full p-2 bg-neutral-950 border border-neutral-400 rounded text-white"
-                >
-                  <option value="">Wähle Bearbeiter</option>
-                  <option value="Mitarbeiter 1">Mitarbeiter 1</option>
-                  <option value="Mitarbeiter 2">Mitarbeiter 2</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-neutral-400 mb-1">
-                  Deadline
-                </label>
-                <input
-                  type="date"
-                  value={currentTask.deadline}
-                  onChange={(e) => setCurrentTask({ ...currentTask, deadline: e.target.value })}
-                  className="w-full p-2 bg-neutral-950 border border-neutral-400 rounded text-white"
-                />
-              </div>
             </div>
-
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-neutral-400 mb-1">
-                Beschreibung
-              </label>
-              <textarea
-                value={currentTask.description}
-                onChange={(e) => setCurrentTask({ ...currentTask, description: e.target.value })}
-                className="w-full p-2 bg-neutral-950 border border-neutral-400 rounded text-white"
-                placeholder="Beschreibung"
-                rows={4}
-              />
-            </div>
-
-            <div className="flex justify-between items-center">
+            <div className="flex justify-end space-x-4">
               <button
-                onClick={() => setDeleteConfirmOpen(true)}
-                className="text-red-500 flex items-center"
+                onClick={closeModal}
+                className="bg-neutral-950 text-neutral-400 px-4 py-2 rounded border border-neutral-400"
               >
-                Löschen
+                Schließen
               </button>
-              <div>
-                <button
-                  onClick={closeModal}
-                  className="bg-neutral-950 text-neutral-400 px-4 py-2 rounded mr-2 border border-neutral-400"
-                >
-                  Schließen
-                </button>
-                <button
-                  onClick={saveTask}
-                  className={`bg-info text-white px-4 py-2 rounded ${!currentTask.title.trim() ? "opacity-50 cursor-not-allowed" : ""}`}
-                  disabled={!currentTask.title.trim()}
-                >
-                  Speichern
-                </button>
-              </div>
+              <button
+                onClick={saveTask}
+                className={`bg-info text-white px-4 py-2 rounded ${!currentTask.title.trim() ? "opacity-50 cursor-not-allowed" : ""}`}
+                disabled={!currentTask.title.trim()}
+              >
+                Speichern
+              </button>
             </div>
           </div>
         </div>
