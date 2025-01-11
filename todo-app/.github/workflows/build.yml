@@ -1,0 +1,60 @@
+name: Build and Test Todo-App
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Checkout Repository
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    # 2. Set up Docker (falls nicht installiert)
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    # 3. Build Backend (prod target aus Dockerfile)
+    - name: Build Backend
+      run: |
+        docker build \
+          --target prod \
+          -t todo-app-backend:latest \
+          -f Dockerfile .
+
+    # 4. Build Frontend (frontend_dev target aus Dockerfile)
+    - name: Build Frontend
+      run: |
+        docker build \
+          --target frontend_dev \
+          -t todo-app-frontend:latest \
+          -f Dockerfile .
+
+    # 5. Start Docker Compose Stack
+    - name: Start Docker Compose Stack
+      run: |
+        docker-compose up -d --build
+      env:
+        APP_ENV: development
+        PORT: 8080
+        BLUEPRINT_DB_HOST: psql_bp
+        BLUEPRINT_DB_PORT: 5432
+        BLUEPRINT_DB_DATABASE: test_db
+        BLUEPRINT_DB_USERNAME: test_user
+        BLUEPRINT_DB_PASSWORD: test_password
+        BLUEPRINT_DB_SCHEMA: public
+
+    # 6. Run Integration Tests (optional)
+    - name: Run Integration Tests
+      run: |
+        echo "Add integration tests if needed."
+
+    # 7. Stop Docker Compose Stack
+    - name: Stop Docker Compose Stack
+      run: |
+        docker-compose down
