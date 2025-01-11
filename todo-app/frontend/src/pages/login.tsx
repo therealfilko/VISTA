@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -8,6 +9,7 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   interface LoginResponse {
     token: string;
@@ -19,7 +21,7 @@ const Login = () => {
 
     try {
       const response = await axios.post<LoginResponse>(
-        "http://localhost:8080/login",
+        "http://localhost:8080/auth/login",
         {
           email,
           password,
@@ -27,7 +29,7 @@ const Login = () => {
       );
 
       if (response.status === 200) {
-        localStorage.setItem("token", response.data.token);
+        login(response.data.token); // AuthContext-Funktion aufrufen
         navigate("/dashboard");
       }
     } catch (err) {
