@@ -70,7 +70,7 @@ const Dashboard: React.FC = () => {
   };
 
   const saveTask = () => {
-    if (!currentColumn) return;
+    if (!currentColumn || !currentTask.title.trim()) return; // Prevent saving without a title
 
     setColumns((prevColumns) => {
       const updatedColumns = { ...prevColumns };
@@ -122,10 +122,19 @@ const Dashboard: React.FC = () => {
               {column.items.map((item, index) => (
                 <li
                   key={index}
-                  className="bg-neutral-950 text-neutral-400 p-2 mb-2 rounded shadow hover:bg-neutral-900 cursor-pointer"
-                  onClick={() => openModal(columnId, index)}
+                  className="bg-neutral-950 text-neutral-400 p-2 mb-2 rounded shadow flex justify-between items-center hover:bg-neutral-900 cursor-pointer"
                 >
-                  {item.title}
+                  <span onClick={() => openModal(columnId, index)}>{item.title}</span>
+                  <button
+                    onClick={() => {
+                      setCurrentColumn(columnId);
+                      setCurrentTaskIndex(index);
+                      setDeleteConfirmOpen(true);
+                    }}
+                    className="text-red-500"
+                  >
+                    X
+                  </button>
                 </li>
               ))}
             </ul>
@@ -148,7 +157,7 @@ const Dashboard: React.FC = () => {
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
                 <label className="block text-sm font-medium text-neutral-400 mb-1">
-                  Titel
+                  Titel <span className="text-info">*</span>
                 </label>
                 <input
                   type="text"
@@ -230,7 +239,8 @@ const Dashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={saveTask}
-                  className="bg-info text-white px-4 py-2 rounded"
+                  className={`bg-info text-white px-4 py-2 rounded ${!currentTask.title.trim() ? "opacity-50 cursor-not-allowed" : ""}`}
+                  disabled={!currentTask.title.trim()}
                 >
                   Speichern
                 </button>
