@@ -5,10 +5,10 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: true,
+    host: true, // Erlaubt Zugriff von extern (z. B. vom Docker-Container aus)
+    port: 3000, // Entwicklungsport anpassen
     watch: {
-      usePolling: true,
-    },
-    port: 5173,
-  },
+      usePolling: true, // Notwendig für Dateisysteme wie Windows oder Docker-Mounts
+    },
+  },
 });

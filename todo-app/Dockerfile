@@ -1,3 +1,4 @@
+# Backend Build Stage
 FROM golang:1.23-alpine AS build
 
 WORKDIR /app
@@ -9,6 +10,7 @@ COPY . .
 
 RUN go build -o main cmd/api/main.go
 
+# Backend Production Stage
 FROM alpine:3.20.1 AS prod
 WORKDIR /app
 COPY --from=build /app/main /app/main
@@ -17,7 +19,8 @@ COPY docs ./docs
 EXPOSE ${PORT}
 CMD ["./main"]
 
-FROM node:20 AS frontend_builder
+# Frontend Build Stage
+FROM node:22 AS frontend_builder
 WORKDIR /frontend
 
 COPY frontend/package*.json ./
@@ -25,15 +28,17 @@ RUN npm install
 COPY frontend/. .
 RUN npm run build
 
-FROM node:20 AS frontend_dev
+# Frontend Development Stage
+FROM node:22 AS frontend_dev
 WORKDIR /app
 COPY frontend/package*.json ./
 RUN npm install
-EXPOSE 5173
+EXPOSE 3000
 CMD ["npm", "run", "dev"]
 
-FROM node:23-slim AS frontend
+# Frontend Production Stage
+FROM node:22-slim AS frontend
 RUN npm install -g serve
 COPY --from=frontend_builder /frontend/dist /app/dist
 EXPOSE 5173
-CMD ["serve", "-s", "/app/dist", "-l", "5173"]
+CMD ["serve", "-s", "/app/dist", "-l", "5173"]

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { FiTrash2 } from "react-icons/fi";
 
 type ColumnType = {
   [key: string]: {
@@ -151,7 +151,7 @@ const Dashboard: React.FC = () => {
                     }}
                     className="text-red-500 hover:text-red-600 transition-colors"
                   >
-                    <RiDeleteBin6Line />
+                    <FiTrash2 />
                   </button>
                 </li>
               ))}
