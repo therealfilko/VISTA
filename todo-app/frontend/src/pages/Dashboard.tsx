@@ -102,7 +102,7 @@ const Dashboard: React.FC = () => {
       }
 
       const taskExists = updatedColumns[currentColumn].items.some(
-        (item) => JSON.stringify(item) === JSON.stringify(currentTask),
+        (item) => JSON.stringify(item) === JSON.stringify(currentTask)
       );
       if (!taskExists) {
         updatedColumns[currentColumn].items.push({ ...currentTask });
@@ -152,7 +152,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="p-4 bg-neutral-950 text-white min-h-screen">
       <header className="flex items-center mb-4">
-        <img src={taskifyLogo} alt="Taskify Logo" className="h-12 mr-4" />
+        <img src={taskifyLogo} alt="Taskify" className="h-12 mr-4" />
         <h1 className="text-2xl font-bold">Dashboard</h1>
       </header>
 

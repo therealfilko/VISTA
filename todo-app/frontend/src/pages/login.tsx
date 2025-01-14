@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+import taskifyLogo from "../assets/taskify_logo.svg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -42,7 +43,7 @@ const Login = () => {
     <div className="relative flex min-h-screen items-center justify-center bg-neutral-950">
       <div className="absolute top-7 left-7 flex items-center">
         <Link to="/">
-          <img src="/taskify_logo.svg" alt="Taskify" className="" />
+          <img src={taskifyLogo} alt="Taskify" className="" />
         </Link>
       </div>
 
