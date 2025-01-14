@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FiTrash2 } from "react-icons/fi";
+import taskifyLogo from "../assets/taskify_logo.svg"; // Importiere das Logo
 
 type ColumnType = {
   [key: string]: {
@@ -77,12 +78,11 @@ const Dashboard: React.FC = () => {
   };
 
   const saveTask = () => {
-    if (!currentColumn || !currentTask.title.trim()) return; // Prevent saving without a title
+    if (!currentColumn || !currentTask.title.trim()) return;
 
     setColumns((prevColumns) => {
       const updatedColumns = { ...prevColumns };
 
-      // Entfernen des Tickets aus der ursprünglichen Spalte, falls nötig
       if (
         originalColumn &&
         originalColumn !== currentColumn &&
@@ -93,14 +93,12 @@ const Dashboard: React.FC = () => {
         originalColumn === currentColumn &&
         currentTaskIndex !== null
       ) {
-        // Überschreiben des Tickets, falls es bearbeitet wird
         updatedColumns[currentColumn].items[currentTaskIndex] = {
           ...currentTask,
         };
         return updatedColumns;
       }
 
-      // Sicherstellen, dass das Ticket nicht doppelt hinzugefügt wird
       const taskExists = updatedColumns[currentColumn].items.some(
         (item) => JSON.stringify(item) === JSON.stringify(currentTask)
       );
@@ -127,9 +125,36 @@ const Dashboard: React.FC = () => {
     closeModal();
   };
 
+  const calculateProgressWidths = () => {
+    const totalTasks =
+      columns["column-1"].items.length +
+      columns["column-2"].items.length +
+      columns["column-3"].items.length;
+    if (totalTasks === 0) return { todo: 0, inProgress: 0, done: 0 };
+
+    const todoWidth = (columns["column-1"].items.length / totalTasks) * 100;
+    const inProgressWidth =
+      (columns["column-2"].items.length / totalTasks) * 100;
+    const doneWidth = (columns["column-3"].items.length / totalTasks) * 100;
+
+    return { todo: todoWidth, inProgress: inProgressWidth, done: doneWidth };
+  };
+
+  const progressWidths = calculateProgressWidths();
+
   return (
     <div className="p-4 bg-neutral-950 text-white min-h-screen">
-      <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
+      {/* Header mit Firmenlogo */}
+      <header className="flex items-center mb-4">
+        <img
+          src={taskifyLogo}
+          alt="Taskify Logo"
+          className="h-12 mr-4"
+        />
+        <h1 className="text-2xl font-bold">Dashboard</h1>
+      </header>
+
+      {/* Dashboard Inhalte */}
       <div className="grid grid-cols-3 gap-4">
         {Object.entries(columns).map(([columnId, column]) => (
           <div key={columnId} className="bg-neutral-900 p-4 rounded shadow-md">
@@ -166,12 +191,39 @@ const Dashboard: React.FC = () => {
         ))}
       </div>
 
+      {/* Fortschrittsleiste (jetzt unter den Spalten) */}
+      <div className="mt-8 w-full bg-neutral-800 rounded-full h-6 relative flex items-center">
+        {/* ToDo Section */}
+        <div
+          className="bg-gray-400 h-full rounded-l-full flex justify-center items-center text-sm text-white"
+          style={{ width: `${progressWidths.todo}%` }}
+        >
+          {progressWidths.todo > 0 && `${progressWidths.todo.toFixed(0)}%`}
+        </div>
+
+        {/* In Progress Section */}
+        <div
+          className="bg-yellow-500 h-full flex justify-center items-center text-sm text-white"
+          style={{ width: `${progressWidths.inProgress}%` }}
+        >
+          {progressWidths.inProgress > 0 &&
+            `${progressWidths.inProgress.toFixed(0)}%`}
+        </div>
+
+        {/* Done Section */}
+        <div
+          className="bg-green-500 h-full rounded-r-full flex justify-center items-center text-sm text-white"
+          style={{ width: `${progressWidths.done}%` }}
+        >
+          {progressWidths.done > 0 && `${progressWidths.done.toFixed(0)}%`}
+        </div>
+      </div>
+
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-neutral-900 p-6 rounded shadow-md w-2/3 text-white">
             <h2 className="text-xl font-bold mb-4">Ticket</h2>
-
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
                 <label className="block text-sm font-medium text-neutral-400 mb-1">
@@ -233,7 +285,6 @@ const Dashboard: React.FC = () => {
                 />
               </div>
             </div>
-
             <div className="mb-4">
               <label className="block text-sm font-medium text-neutral-400 mb-1">
                 Beschreibung
@@ -251,7 +302,6 @@ const Dashboard: React.FC = () => {
                 rows={4}
               />
             </div>
-
             <div className="flex justify-between items-center">
               <button
                 onClick={() => setDeleteConfirmOpen(true)}
