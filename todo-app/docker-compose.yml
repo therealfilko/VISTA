@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   app:
     build:
@@ -10,19 +12,19 @@ services:
     environment:
       APP_ENV: ${APP_ENV:-development}
       PORT: ${PORT:-8080}
-      BLUEPRINT_DB_HOST: ${BLUEPRINT_DB_HOST:-psql_bp}
-      BLUEPRINT_DB_PORT: ${BLUEPRINT_DB_PORT:-5432}
-      BLUEPRINT_DB_DATABASE: ${BLUEPRINT_DB_DATABASE:-test_db}
-      BLUEPRINT_DB_USERNAME: ${BLUEPRINT_DB_USERNAME:-test_user}
-      BLUEPRINT_DB_PASSWORD: ${BLUEPRINT_DB_PASSWORD:-test_password}
-      BLUEPRINT_DB_SCHEMA: ${BLUEPRINT_DB_SCHEMA:-public}
+      BLUEPRINT_DB_HOST: psql_bp
+      BLUEPRINT_DB_PORT: 5432
+      BLUEPRINT_DB_DATABASE: test_db
+      BLUEPRINT_DB_USERNAME: test_user
+      BLUEPRINT_DB_PASSWORD: test_password
+      BLUEPRINT_DB_SCHEMA: public
     depends_on:
       psql_bp:
         condition: service_healthy
     networks:
       - blueprint
 
-  frontend:
+  frontend_dev:
     build:
       context: .
       dockerfile: Dockerfile
@@ -31,12 +33,26 @@ services:
     depends_on:
       - app
     ports:
-      - "5173:5173"
+      - "3000:3000"
     volumes:
       - ./frontend:/app
       - /app/node_modules
     environment:
-      CHOKIDAR_USEPOLLING: "true"
+      - CHOKIDAR_USEPOLLING=true
+      - VITE_HOST=0.0.0.0
+    networks:
+      - blueprint
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: frontend
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "5173:5173"
     networks:
       - blueprint
 
@@ -44,15 +60,15 @@ services:
     image: postgres:latest
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${BLUEPRINT_DB_DATABASE:-test_db}
-      POSTGRES_USER: ${BLUEPRINT_DB_USERNAME:-test_user}
-      POSTGRES_PASSWORD: ${BLUEPRINT_DB_PASSWORD:-test_password}
+      POSTGRES_DB: test_db
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
     ports:
-      - "${BLUEPRINT_DB_PORT:-5432}:5432"
+      - "5432:5432"
     volumes:
       - psql_volume_bp:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${BLUEPRINT_DB_USERNAME:-test_user} -d ${BLUEPRINT_DB_DATABASE:-test_db}"]
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
       interval: 5s
       timeout: 5s
       retries: 3

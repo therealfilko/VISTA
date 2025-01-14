@@ -31,14 +31,19 @@ RUN npm run build
 # Frontend Development Stage
 FROM node:22 AS frontend_dev
 WORKDIR /app
+
 COPY frontend/package*.json ./
-RUN npm install
+RUN npm install --legacy-peer-deps
+COPY frontend/. .
+ENV PATH="./node_modules/.bin:$PATH"
+ENV HOST=0.0.0.0
 EXPOSE 3000
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
 
 # Frontend Production Stage
 FROM node:22-slim AS frontend
-RUN npm install -g serve
+WORKDIR /app
+RUN npm install -g serve@14.0.1
 COPY --from=frontend_builder /frontend/dist /app/dist
 EXPOSE 5173
-CMD ["serve", "-s", "/app/dist", "-l", "5173"]
+CMD ["serve", "-s", "/app/dist", "-l", "5173"]

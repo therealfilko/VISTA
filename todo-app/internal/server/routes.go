@@ -24,7 +24,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	//	MaxAge:           300,
 	//}))
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"http://localhost:5173", "http://localhost:8080", "https://*"},
+		AllowOrigins:     []string{"http://localhost:3000","http://localhost:5173", "http://localhost:8080", "https://*"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
 		AllowHeaders:     []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		AllowCredentials: true,
