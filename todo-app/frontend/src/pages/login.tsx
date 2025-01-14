@@ -25,7 +25,7 @@ const Login = () => {
         {
           email,
           password,
-        },
+        }
       );
 
       if (response.status === 200) {

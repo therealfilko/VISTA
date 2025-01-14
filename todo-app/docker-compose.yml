@@ -67,12 +67,13 @@ services:
       - "5432:5432"
     volumes:
       - psql_volume_bp:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
-      interval: 5s
+      test: pg_isready -U test_user -d test_db || exit 1
+      interval: 10s
       timeout: 5s
-      retries: 3
-      start_period: 15s
+      retries: 5
+      start_period: 30s
     networks:
       - blueprint
 

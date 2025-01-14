@@ -102,7 +102,7 @@ const Dashboard: React.FC = () => {
 
       // Sicherstellen, dass das Ticket nicht doppelt hinzugefügt wird
       const taskExists = updatedColumns[currentColumn].items.some(
-        (item) => JSON.stringify(item) === JSON.stringify(currentTask),
+        (item) => JSON.stringify(item) === JSON.stringify(currentTask)
       );
       if (!taskExists) {
         updatedColumns[currentColumn].items.push({ ...currentTask });
@@ -151,7 +151,7 @@ const Dashboard: React.FC = () => {
                     }}
                     className="text-red-500 hover:text-red-600 transition-colors"
                   >
-                    <FiTrash2 />
+                    <FiTrash2 />
                   </button>
                 </li>
               ))}
@@ -268,7 +268,11 @@ const Dashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={saveTask}
-                  className={`bg-info text-white px-4 py-2 rounded ${!currentTask.title.trim() ? "opacity-50 cursor-not-allowed" : ""}`}
+                  className={`bg-info text-white px-4 py-2 rounded ${
+                    !currentTask.title.trim()
+                      ? "opacity-50 cursor-not-allowed"
+                      : ""
+                  }`}
                   disabled={!currentTask.title.trim()}
                 >
                   Speichern
