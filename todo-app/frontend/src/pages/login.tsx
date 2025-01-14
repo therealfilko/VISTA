@@ -42,7 +42,7 @@ const Login = () => {
     <div className="relative flex min-h-screen items-center justify-center bg-neutral-950">
       <div className="absolute top-7 left-7 flex items-center">
         <Link to="/">
-          <img src="/info_logo.svg" alt="Taskify" className="w-10 h-10" />
+          <img src="/taskify_logo.svg" alt="Taskify" className="" />
         </Link>
       </div>
 

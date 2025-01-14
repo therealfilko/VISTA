@@ -1,7 +1,4 @@
-<svg width="555" height="738" viewBox="0 0 555 738" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M185 553L555 183H185V553Z" fill="white"/>
-<path d="M185 368H370V553H185V368Z" fill="white"/>
-<path d="M0 0H185V185H0V0Z" fill="white"/>
-<path d="M370 738L185 553H370V738Z" fill="white"/>
-<path d="M185 185L370 0H185V185Z" fill="white"/>
+<svg width="125" height="125" viewBox="0 0 125 125" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="62.5" cy="62.5" r="62.5" fill="black"/>
+<path d="M62 113L105.301 38H18.6987L62 113Z" fill="white"/>
 </svg>

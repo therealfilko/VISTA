@@ -1,22 +1,48 @@
 import { Link } from "react-router-dom";
+import { FiChevronDown } from "react-icons/fi";
 
 function Start() {
   return (
-    <div className="min-h-screen bg-neutral-950">
-      <div className="w-full h-28 bg-transparent">
-        <div className="absolute top-7 left-7">
-          <Link to="/">
-            <img src="/info_logo.svg" alt="Taskify" className="w-10 h-10" />
+    <div className="min-h-screen bg-black">
+      <div className="flex items-center justify-center space-x-[20%] px-[15%] py-[1%]">
+        <Link to="/" className="w-[4%] h-[4%]">
+          <img src="/taskify_logo.svg" alt="Taskify" />
+        </Link>
+        <div className="flex items-center justify-center space-x-20">
+          <Link
+            to="/"
+            className="text-white text-lg rounded-lg px-3 py-2 hover:bg-neutral-800"
+          >
+            Neuigkeiten
+          </Link>
+
+          <Link
+            to="/"
+            className="text-white text-lg rounded-lg px-3 py-2 hover:bg-neutral-800"
+          >
+            Modelle
+          </Link>
+          <Link
+            to="/"
+            className="text-white text-lg rounded-lg px-3 py-2 hover:bg-neutral-800"
+          >
+            Kontakt
           </Link>
         </div>
-        <Link to="/login">
-          <button
-            type="submit"
-            className="absolute top-7 right-7 btn btn-outline btn-info"
+        <div className="flex items-center justify-center space-x-10">
+          <Link
+            to="/login"
+            className="w-full text-white text-lg rounded-lg px-3 py-2 hover:bg-neutral-800"
           >
-            Login
-          </button>
-        </Link>
+            Anmelden
+          </Link>
+          <Link
+            to="/register"
+            className="w-full bg-white text-black text-lg rounded-lg px-3 py-2 hover:bg-neutral-200"
+          >
+            Registrieren
+          </Link>
+        </div>
       </div>
     </div>
   );
