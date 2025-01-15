@@ -1,0 +1,181 @@
+package server
+
+import (
+	"encoding/json"
+	"net/http"
+	"net/http/httptest"
+	"reflect"
+	"strings"
+	"testing"
+	"todo-app/internal/models"
+
+	"github.com/go-playground/validator/v10"
+	"github.com/labstack/echo/v4"
+	"golang.org/x/crypto/bcrypt"
+)
+
+type MockDB struct{}
+
+func (m *MockDB) CreateUser(user *models.User) error { return nil }
+func (m *MockDB) GetUserByEmail(email string) (*models.User, error) {
+ hashedPassword, _ := bcrypt.GenerateFromPassword([]byte("password123"), bcrypt.DefaultCost)
+ return &models.User{
+  ID:           1,
+  Email:        email,
+  PasswordHash: string(hashedPassword),
+ }, nil
+}
+func (m *MockDB) GetUserByID(id int64) (*models.User, error) { return nil, nil }
+func (m *MockDB) UpdateUser(user *models.User) error { return nil }
+func (m *MockDB) UpdatePassword(userID int64, hashedPassword string) error { return nil }
+func (m *MockDB) GetTodosByUserID(userID int64) ([]models.Todo, error) { return nil, nil }
+func (m *MockDB) CreateTodo(todo *models.Todo) error { return nil }
+func (m *MockDB) GetTodoByID(id int64) (*models.Todo, error) { return nil, nil }
+func (m *MockDB) UpdateTodo(todo *models.Todo) error { return nil }
+func (m *MockDB) DeleteTodo(id int64) error { return nil }
+func (m *MockDB) GetColumnsByUserID(userID int64) ([]models.Column, error) { return nil, nil }
+func (m *MockDB) CreateColumn(column *models.Column) error { return nil }
+func (m *MockDB) UpdateColumn(column *models.Column) error { return nil }
+func (m *MockDB) DeleteColumn(id int64) error { return nil }
+func (m *MockDB) UpdateTodoPosition(todoID, columnID int64, position int) error { return nil }
+func (m *MockDB) GetTodosByColumnID(columnID int64) ([]models.Todo, error) { return nil, nil }
+func (m *MockDB) Health() map[string]string { return nil }
+func (m *MockDB) Close() error { return nil }
+
+func setupTestServer() (*Server, *echo.Echo) {
+ e := echo.New()
+ e.Validator = &CustomValidator{validator: validator.New()}
+
+ mockDB := &MockDB{}
+ s := &Server{
+  db:        mockDB,
+  jwtSecret: []byte("test-secret"),
+ }
+
+ return s, e
+}
+
+func TestHandler(t *testing.T) {
+ s, e := setupTestServer()
+
+ req := httptest.NewRequest(http.MethodGet, "/", nil)
+ rec := httptest.NewRecorder()
+ c := e.NewContext(req, rec)
+
+ if err := s.HelloWorldHandler(c); err != nil {
+  t.Errorf("HelloWorldHandler failed: %v", err)
+  return
+ }
+
+ if rec.Code != http.StatusOK {
+  t.Errorf("Expected status code %d, got %d", http.StatusOK, rec.Code)
+  return
+ }
+
+ expected := map[string]string{"message": "Hello World"}
+ var actual map[string]string
+ if err := json.NewDecoder(rec.Body).Decode(&actual); err != nil {
+  t.Errorf("Failed to decode response: %v", err)
+  return
+ }
+
+ if !reflect.DeepEqual(expected, actual) {
+  t.Errorf("Expected response %v, got %v", expected, actual)
+ }
+}
+
+func TestAuthFlow(t *testing.T) {
+ s, e := setupTestServer()
+
+ t.Run("Register New User", func(t *testing.T) {
+  registerJSON := `{
+   "first_name": "John",
+   "last_name": "Doe",
+   "email": "john@example.com",
+   "password": "password123",
+   "date_of_birth": "1990-01-01"
+  }`
+
+  req := httptest.NewRequest(http.MethodPost, "/auth/register", strings.NewReader(registerJSON))
+  req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+  rec := httptest.NewRecorder()
+  c := e.NewContext(req, rec)
+
+  if err := s.handleRegister(c); err != nil {
+   t.Fatalf("Register failed: %v", err)
+  }
+
+  if rec.Code != http.StatusCreated {
+   t.Errorf("Expected status code %d, got %d", http.StatusCreated, rec.Code)
+  }
+ })
+
+ t.Run("Login User", func(t *testing.T) {
+  loginJSON := `{"email":"test@example.com","password":"password123"}`
+
+  req := httptest.NewRequest(http.MethodPost, "/auth/login", strings.NewReader(loginJSON))
+  req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+  rec := httptest.NewRecorder()
+  c := e.NewContext(req, rec)
+
+  if err := s.handleLogin(c); err != nil {
+   t.Fatalf("Login failed: %v", err)
+  }
+
+  if rec.Code != http.StatusOK {
+   t.Errorf("Expected status code %d, got %d", http.StatusOK, rec.Code)
+  }
+ })
+}
+
+func TestTodoOperations(t *testing.T) {
+ s, e := setupTestServer()
+
+ t.Run("Create Todo", func(t *testing.T) {
+  todoJSON := `{
+   "title": "Test Todo",
+   "description": "Test Description",
+   "column_id": 1,
+   "position": 1
+  }`
+
+  req := httptest.NewRequest(http.MethodPost, "/api/todos", strings.NewReader(todoJSON))
+  req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+  rec := httptest.NewRecorder()
+  c := e.NewContext(req, rec)
+  c.Set("user", &models.User{ID: 1})
+
+  if err := s.handleCreateTodo(c); err != nil {
+   t.Fatalf("Create todo failed: %v", err)
+  }
+
+  if rec.Code != http.StatusCreated {
+   t.Errorf("Expected status code %d, got %d", http.StatusCreated, rec.Code)
+  }
+ })
+}
+
+func TestColumnOperations(t *testing.T) {
+ s, e := setupTestServer()
+
+ t.Run("Create Column", func(t *testing.T) {
+  columnJSON := `{
+   "title": "Test Column",
+   "position": 1
+  }`
+
+  req := httptest.NewRequest(http.MethodPost, "/api/columns", strings.NewReader(columnJSON))
+  req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+  rec := httptest.NewRecorder()
+  c := e.NewContext(req, rec)
+  c.Set("user", &models.User{ID: 1})
+
+  if err := s.handleCreateColumn(c); err != nil {
+   t.Fatalf("Create column failed: %v", err)
+  }
+
+  if rec.Code != http.StatusCreated {
+   t.Errorf("Expected status code %d, got %d", http.StatusCreated, rec.Code)
+  }
+ })
+}
