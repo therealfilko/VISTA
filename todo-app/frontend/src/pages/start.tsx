@@ -1,46 +1,50 @@
 import { Link } from "react-router-dom";
 import taskifyLogo from "../assets/taskify_logo.svg";
+import { FiChevronDown } from "react-icons/fi";
 
 function Start() {
   return (
     <div className="min-h-screen bg-black">
-      <div className="flex items-center justify-center space-x-[20%] px-[15%]">
+      <div className="flex items-center justify-center space-x-[15%] px-[10%]">
         <Link to="/" className="w-[75px] h-[75px]">
           <img src={taskifyLogo} alt="Taskify" />
         </Link>
         <div className="flex items-center justify-center space-x-20">
           <Link
             to="/"
-            className="text-white text-lg rounded-lg px-3 py-2 hover:bg-neutral-800"
+            className="text-white text-md rounded-lg px-3 py-2 flex items-center space-x-1 hover:bg-white/15 duration-300"
           >
-            Neuigkeiten
+            <div>Neuigkeiten</div>
+            <FiChevronDown />
           </Link>
 
           <Link
             to="/"
-            className="text-white text-lg rounded-lg px-3 py-2 hover:bg-neutral-800"
+            className="text-white text-md rounded-lg px-3 py-2 flex items-center space-x-1 hover:bg-white/15 duration-300"
           >
-            Modelle
+            <div>Pricing</div>
+            <FiChevronDown />
           </Link>
           <Link
             to="/"
-            className="text-white text-lg rounded-lg px-3 py-2 hover:bg-neutral-800"
+            className="text-white text-md rounded-lg px-3 py-2 flex items-center space-x-1 hover:bg-white/15 duration-300"
           >
-            Kontakt
+            <div>Kontakt</div>
+            <FiChevronDown />
           </Link>
         </div>
         <div className="flex items-center justify-center space-x-10">
           <Link
             to="/login"
-            className="w-full text-white text-lg rounded-lg px-3 py-2 hover:bg-neutral-800"
+            className="text-white text-md rounded-lg px-3 py-2 hover:bg-white/15 duration-300"
           >
-            Anmelden
+            <span>Login</span>
           </Link>
           <Link
             to="/register"
-            className="w-full bg-white text-black text-lg rounded-lg px-3 py-2 hover:bg-neutral-200"
+            className="bg-white text-black text-md rounded-lg px-3 py-2 hover:bg-neutral-200 duration-300"
           >
-            Registrieren
+            <span>Sign In</span>
           </Link>
         </div>
       </div>
