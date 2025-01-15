@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { FiChevronDown } from "react-icons/fi";
+import { useAuth } from "../../context/AuthContext";
 
 const NavLinks = () => {
+  const { isAuthenticated } = useAuth();
+
   const links = [
+    { to: isAuthenticated ? "/dashboard" : "/", label: "Home" },
     { to: "/", label: "Neuigkeiten" },
-    { to: "/", label: "Pricing" },
     { to: "/", label: "Kontakt" },
   ];
 

@@ -13,10 +13,7 @@ const Login = () => {
         <div className="flex justify-center items-center py-72 min-w-96">
           <div className="w-96">
             <div className="space-y-2 pb-3">
-              <div className="text-5xl text-white">Log In</div>
-              <div className="text-lg text-white pt-2">
-                Schnell und einfach einloggen.
-              </div>
+              <div className="text-5xl text-white text-center">Log In</div>
             </div>
 
             <LoginForm />

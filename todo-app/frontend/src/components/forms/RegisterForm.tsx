@@ -78,12 +78,12 @@ const RegisterForm = () => {
         </label>
         <input
           id="date_of_birth"
-          type="date"
+          type="text"
           value={date_of_birth}
           onChange={(e) => setDateofbirth(e.target.value)}
           required
           className="w-full bg-white/5 text-white text-lg placeholder-neutral-600 px-2 py-1 rounded-lg focus:outline-none"
-          placeholder="tt.mm.jjjj"
+          placeholder="jjjj.tt.mm"
         />
       </div>
 

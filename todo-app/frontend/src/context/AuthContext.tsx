@@ -1,4 +1,10 @@
-import { createContext, useState, useContext, ReactNode } from "react";
+import {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
 import { useNavigate } from "react-router-dom";
 
 interface AuthContextProps {
@@ -11,10 +17,14 @@ interface AuthContextProps {
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [token, setToken] = useState<string | null>(
-    localStorage.getItem("token"),
-  );
+  const [token, setToken] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  // Initialize token from localStorage on mount
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    setToken(storedToken);
+  }, []);
 
   const login = (newToken: string) => {
     setToken(newToken);
@@ -44,9 +54,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error(
-      "useAuth muss innerhalb von AuthProvider verwendet werden.",
-    );
+    throw new Error("useAuth must be used within an AuthProvider.");
   }
   return context;
 };

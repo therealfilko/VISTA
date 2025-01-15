@@ -13,10 +13,7 @@ const Register = () => {
       <div className="flex justify-center items-center py-16">
         <div className="w-[25%] space-y-6">
           <div className="space-y-3 pb-3">
-            <div className="text-5xl text-white">Sign Up</div>
-            <div className="text-lg text-white">
-              Schnell und einfach registrieren.
-            </div>
+            <div className="text-5xl text-white text-center">Sign Up</div>
           </div>
           <RegisterForm />
         </div>
