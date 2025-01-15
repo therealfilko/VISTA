@@ -7,36 +7,63 @@ on:
   pull_request:
 
 jobs:
-  build:
+  test:
+    name: Run Tests
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout Repository
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # 2. Set up Docker Buildx
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.21"
+
+      - name: Install Dependencies
+        run: |
+          cd todo-app
+          go mod download
+
+      - name: Run Unit Tests
+        run: |
+          cd todo-app
+          go test -v ./internal/auth ./internal/server -count=1
+
+      - name: Run Integration Tests
+        run: |
+          cd todo-app
+          go test -v ./internal/database -count=1
+
+  build:
+    name: Build and Deploy
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # 3. Install Docker Compose
       - name: Install Docker Compose
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
 
-      # 4. Build and Start Services
       - name: Build and Start Services
         run: |
           cd todo-app
           docker-compose up -d --build
 
-      # 5. Run Integration Tests (optional)
-      - name: Run Integration Tests
+      - name: Verify Services
         run: |
-          echo "Add integration tests if needed."
+          cd todo-app
+          docker-compose ps
+          sleep 10
+          curl -f http://localhost:8080/ || exit 1
 
-      # 6. Stop Docker Compose Stack
       - name: Stop Docker Compose Stack
         run: |
           cd todo-app
