@@ -4,8 +4,8 @@ import taskifyLogo from "../assets/taskify_logo.svg";
 function Start() {
   return (
     <div className="min-h-screen bg-black">
-      <div className="flex items-center justify-center space-x-[20%] px-[15%] py-[1%]">
-        <Link to="/" className="w-[4%] h-[4%]">
+      <div className="flex items-center justify-center space-x-[20%] px-[15%]">
+        <Link to="/" className="w-[100px] h-[100px]">
           <img src={taskifyLogo} alt="Taskify" />
         </Link>
         <div className="flex items-center justify-center space-x-20">
