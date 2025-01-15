@@ -12,7 +12,7 @@ function Start() {
         <div className="flex items-center justify-center space-x-20">
           <Link
             to="/"
-            className="text-white text-md rounded-lg px-3 py-2 flex items-center space-x-1 hover:bg-white/15 duration-300"
+            className="text-white text-md rounded-lg px-3 py-2 flex items-center space-x-1 hover:bg-info duration-300"
           >
             <div>Neuigkeiten</div>
             <FiChevronDown />
@@ -20,14 +20,14 @@ function Start() {
 
           <Link
             to="/"
-            className="text-white text-md rounded-lg px-3 py-2 flex items-center space-x-1 hover:bg-white/15 duration-300"
+            className="text-white text-md rounded-lg px-3 py-2 flex items-center space-x-1 hover:bg-info duration-300"
           >
             <div>Pricing</div>
             <FiChevronDown />
           </Link>
           <Link
             to="/"
-            className="text-white text-md rounded-lg px-3 py-2 flex items-center space-x-1 hover:bg-white/15 duration-300"
+            className="text-white text-md rounded-lg px-3 py-2 flex items-center space-x-1 hover:bg-info duration-300"
           >
             <div>Kontakt</div>
             <FiChevronDown />
@@ -36,13 +36,13 @@ function Start() {
         <div className="flex items-center justify-center space-x-10">
           <Link
             to="/login"
-            className="text-white text-md rounded-lg px-3 py-2 hover:bg-white/15 duration-300"
+            className="text-white text-md rounded-lg px-3 py-2 hover:bg-info duration-300"
           >
-            <span>Login</span>
+            <span>Log In</span>
           </Link>
           <Link
             to="/register"
-            className="bg-white text-black text-md rounded-lg px-3 py-2 hover:bg-neutral-200 duration-300"
+            className="bg-white text-black text-md rounded-lg px-3 py-2 hover:bg-info hover:text-white duration-300"
           >
             <span>Sign In</span>
           </Link>
