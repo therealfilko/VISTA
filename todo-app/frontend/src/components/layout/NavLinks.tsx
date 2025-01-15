@@ -14,7 +14,7 @@ const NavLinks = () => {
         <Link
           key={index}
           to={link.to}
-          className="text-white text-md rounded-lg px-3 py-2 flex items-center space-x-1 hover:bg-info hover:text-neutral-950 duration-300"
+          className="text-white text-md rounded-lg px-3 py-2 flex items-center space-x-1 hover:bg-info hover:text-white duration-300"
         >
           <div>{link.label}</div>
           <FiChevronDown />

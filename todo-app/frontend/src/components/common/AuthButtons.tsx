@@ -5,13 +5,13 @@ const AuthButtons = () => {
     <div className="flex items-center justify-center space-x-10">
       <Link
         to="/login"
-        className="text-white text-md rounded-lg px-3 py-2 hover:bg-info hover:text-neutral-950 duration-300"
+        className="text-white text-md rounded-lg px-3 py-2 hover:bg-info hover:text-white duration-300"
       >
         <span>Log In</span>
       </Link>
       <Link
         to="/register"
-        className="bg-white text-black text-md rounded-lg px-3 py-2 hover:bg-info hover:text-white duration-300"
+        className="bg-white text-neutral-950 text-md rounded-lg px-3 py-2 hover:bg-info hover:text-white duration-300"
       >
         <span>Sign In</span>
       </Link>

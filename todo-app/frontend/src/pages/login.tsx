@@ -1,7 +1,6 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../components/common/Logo";
-import LoginForm from "../components/common/LoginForm";
+import LoginForm from "../components/forms/LoginForm";
 
 const Login = () => {
   return (

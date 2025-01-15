@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import ErrorMessage from "./ErrorMessage";
+import ErrorMessage from "../common/ErrorMessage";
 
 interface LoginResponse {
   token: string; // Typisierung des Rückgabewerts vom Server
@@ -78,7 +78,7 @@ const LoginForm = () => {
       <div className="text-center space-y-2 pt-6 pb-3 text-lg">
         <button
           type="submit"
-          className="btn btn-info text-white rounded-lg w-full py-2 duration-300 text-lg"
+          className="bg-white text-neutral-950 rounded-lg w-full py-2 duration-300 text-lg hover:bg-info hover:text-white"
         >
           Anmelden
         </button>
