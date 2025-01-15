@@ -39,127 +39,120 @@ const Register = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-neutral-950">
-      <div className="absolute top-7 left-7 flex items-center">
-        <Link to="/">
-          <img src={taskifyLogo} alt="Taskify" className="w-10 h-10" />
+    <div className="min-h-screen bg-neutral-950">
+      <div className="flex items-center justify-center px-[10%]">
+        <Link to="/" className="w-[75px] h-[75px]">
+          <img src={taskifyLogo} alt="Taskify" />
         </Link>
       </div>
-
-      <div className="w-full max-w-lg">
-        <h2 className="text-3xl font-bold text-center pb-5 text-white">
-          Registrierung
-        </h2>
-
-        {error && (
-          <p className="text-red-500 text-center text-sm pb-4 pt-4">{error}</p>
-        )}
-        {success && (
-          <p className="text-green-500 text-center text-sm mb-4">
-            Erfolgreich registriert!
-          </p>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-10">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label
-                htmlFor="first_name"
-                className="block text-l py-2 font-medium text-white"
-              >
-                Vorname
-              </label>
-              <input
-                id="first_name"
-                type="text"
-                value={first_name}
-                onChange={(e) => setFirstname(e.target.value)}
-                required
-                className="w-full text-white bg-neutral-900 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
-                placeholder="Dein Vorname"
-              />
+      <div>
+        <div className="flex justify-center items-center py-72">
+          <div className="w-[25%] space-y-3">
+            <div className="space-y-2 pb-3">
+              <div className="text-5xl text-white">Sign Up</div>
+              <div className="text-lg text-white pt-2">
+                Schnell und einfach registrieren.
+              </div>
             </div>
+            <form onSubmit={handleSubmit} className="py-3 space-y-4">
+              <div className="space-y-3">
+                <div className="flex space-x-4">
+                  <div className="flex flex-col w-1/2">
+                    <label
+                      htmlFor="first_name"
+                      className="text-white text-lg mb-2"
+                    >
+                      Vorname
+                    </label>
+                    <input
+                      id="first_name"
+                      type="text"
+                      value={first_name}
+                      onChange={(e) => setFirstname(e.target.value)}
+                      required
+                      className="w-full bg-white/5 text-white text-lg placeholder-neutral-600 px-2 py-1 rounded-lg focus:outline-none"
+                      placeholder="Dein Vorname"
+                    />
+                  </div>
 
-            <div>
-              <label
-                htmlFor="last_name"
-                className="block text-l py-2 font-medium text-white"
-              >
-                Nachname
-              </label>
-              <input
-                id="last_name"
-                type="text"
-                value={last_name}
-                onChange={(e) => setLastname(e.target.value)}
-                required
-                className="w-full text-white bg-neutral-900 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
-                placeholder="Dein Nachname"
-              />
-            </div>
+                  {/* Nachname */}
+                  <div className="flex flex-col w-1/2">
+                    <label
+                      htmlFor="last_name"
+                      className="text-white text-lg mb-2"
+                    >
+                      Nachname
+                    </label>
+                    <input
+                      id="last_name"
+                      type="text"
+                      value={last_name}
+                      onChange={(e) => setLastname(e.target.value)}
+                      required
+                      className="w-full bg-white/5 text-white text-lg placeholder-neutral-600 px-2 py-1 rounded-lg focus:outline-none"
+                      placeholder="Dein Nachname"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <label htmlFor="date_of_birth" className="text-white text-lg">
+                  Geburtsdatum
+                </label>
+                <br />
+                <input
+                  id="date_of_birth"
+                  type="text"
+                  value={date_of_birth}
+                  onChange={(e) => setDateofbirth(e.target.value)}
+                  required
+                  className="w-full bg-white/5 text-white text-lg placeholder-neutral-600 px-2 py-1 rounded-lg focus:outline-none"
+                  placeholder="tt.mm.jjjj"
+                />
+              </div>
+
+              <div className="space-y-3">
+                <label htmlFor="email" className="text-white text-lg">
+                  Email-Adresse
+                </label>
+                <br />
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full bg-white/5 text-white text-lg placeholder-neutral-600 px-2 py-1 rounded-lg focus:outline-none"
+                  placeholder="Deine Email-Adresse"
+                />
+              </div>
+              <div className="space-y-3 py-3">
+                <label htmlFor="passwort" className="text-white text-lg">
+                  Passwort
+                </label>
+                <br />
+                <input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="w-full bg-white/5 text-white text-lg placeholder-neutral-600 px-2 py-1 rounded-lg focus:outline-none"
+                  placeholder="Dein Passwort"
+                />
+              </div>
+              <div className="text-center space-y-2 pt-6 pb-3 text-lg">
+                <button
+                  type="submit"
+                  className="btn btn-info text-white rounded-lg w-full py-2 duration-300 text-lg"
+                >
+                  Registrieren
+                </button>
+              </div>
+            </form>
           </div>
-
-          <div>
-            <label
-              htmlFor="date_of_birth"
-              className="block text-l py-2 pt-4 font-medium text-white"
-            >
-              Geburtstag
-            </label>
-            <input
-              id="date_of_birth"
-              type="text"
-              value={date_of_birth}
-              onChange={(e) => setDateofbirth(e.target.value)}
-              required
-              className="w-full text-white bg-neutral-900 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
-              placeholder="tt.mm.jjjj"
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-l py-2 pt-4 font-medium text-white"
-            >
-              E-Mail
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full text-white bg-neutral-900 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
-              placeholder="Deine E-Mail"
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-l py-2 font-medium text-white"
-            >
-              Passwort
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full text-white bg-neutral-900 px-3 py-2 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-info placeholder-neutral-400"
-              placeholder="Dein Passwort"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full text-neutral-950 py-2 rounded-lg btn btn-outline btn-info"
-          >
-            Registrieren
-          </button>
-        </form>
+        </div>
       </div>
     </div>
   );
