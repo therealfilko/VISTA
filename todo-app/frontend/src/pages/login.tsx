@@ -40,7 +40,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-neutral-950">
       <div className="flex items-center justify-center px-[10%]">
         <Link to="/" className="w-[75px] h-[75px]">
           <img src={taskifyLogo} alt="Taskify" />
@@ -48,19 +48,19 @@ const Login = () => {
       </div>
       <div>
         <div className="flex justify-center items-center py-96 min-w-96">
-          <div className="w-80">
-            <div className="space-y-2 pb-2">
-              <div className="text-4xl text-white">Log In</div>
-              <div className="text-lg text-white">
-                Schnell und einfach anmelden.
+          <div className="w-96">
+            <div className="space-y-2 pb-5">
+              <div className="text-5xl text-white">Log In</div>
+              <div className="text-md text-white">
+                Schnell und einfach einloggen.
               </div>
             </div>
             <div>
               {error && (
-                <p className="text-error text-center text-md py-6">{error}</p>
+                <p className="text-error text-center text-md py-1">{error}</p>
               )}
             </div>
-            <form onSubmit={handleSubmit} className="pt-2">
+            <form onSubmit={handleSubmit} className="py-5 space-y-3">
               <div className="space-y-3">
                 <label htmlFor="email" className="text-white text-xl">
                   Email-Adresse
@@ -72,7 +72,7 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full bg-neutral-900 text-neutral-400 text-lg placeholder-neutral-600 px-2 py-1 rounded-lg focus:outline-none"
+                  className="w-full bg-neutral-900 text-white text-lg placeholder-neutral-600 px-2 py-1 rounded-lg focus:outline-none"
                   placeholder="Deine Email-Adresse"
                 />
               </div>
@@ -87,7 +87,7 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full bg-neutral-900 text-neutral-400 text-lg placeholder-neutral-600 px-2 py-1 rounded-lg focus:outline-none"
+                  className="w-full bg-neutral-900 text-white text-lg placeholder-neutral-600 px-2 py-1 rounded-lg focus:outline-none"
                   placeholder="Dein Passwort"
                 />
               </div>

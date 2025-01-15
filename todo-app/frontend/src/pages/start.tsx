@@ -4,7 +4,7 @@ import { FiChevronDown } from "react-icons/fi";
 
 function Start() {
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-neutral-950">
       <div className="flex items-center justify-center space-x-[15%] px-[10%]">
         <Link to="/" className="w-[75px] h-[75px]">
           <img src={taskifyLogo} alt="Taskify" />
