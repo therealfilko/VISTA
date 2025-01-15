@@ -32,13 +32,18 @@ RUN npm run build
 FROM node:22 AS frontend_dev
 WORKDIR /app
 
+# Erst package.json kopieren und installieren
 COPY frontend/package*.json ./
 RUN npm install --legacy-peer-deps
+
+# Source Code kopieren
 COPY frontend/. .
-ENV PATH="./node_modules/.bin:$PATH"
-ENV HOST=0.0.0.0
+
+# PATH für node_modules/.bin setzen
+ENV PATH /app/node_modules/.bin:$PATH
+
 EXPOSE 3000
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+CMD ["npm", "run", "dev"]
 
 # Frontend Production Stage
 FROM node:22-slim AS frontend

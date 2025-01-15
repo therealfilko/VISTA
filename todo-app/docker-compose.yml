@@ -35,11 +35,12 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - ./frontend/index.html:/app/index.html
+      - ./frontend/vite.config.ts:/app/vite.config.ts
     environment:
       - CHOKIDAR_USEPOLLING=true
-      - VITE_HOST=0.0.0.0
     networks:
       - blueprint
 
