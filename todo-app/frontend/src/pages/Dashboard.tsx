@@ -289,6 +289,45 @@ const Dashboard: React.FC = () => {
     { value: progressWidths.done, color: "bg-green-500" },
   ];
 
+  const handleToggleDone = async (taskId: number) => {
+    try {
+      const updatedTask = await apiService.toggleTodoDone(taskId);
+      
+      // Aktualisiere den Task-Status in allen Spalten
+      setColumns((prevColumns) => {
+        const newColumns = { ...prevColumns };
+        
+        // Finde die Spalte, die den Task enthält
+        Object.keys(newColumns).forEach((columnId) => {
+          const taskIndex = newColumns[columnId].items.findIndex(
+            (item) => item.id === taskId
+          );
+          
+          if (taskIndex !== -1) {
+            // Wenn der Task auf "done" gesetzt wurde, verschiebe ihn in die "Done"-Spalte
+            if (updatedTask.done && columnId !== "3") {
+              // Entferne den Task aus der aktuellen Spalte
+              const [task] = newColumns[columnId].items.splice(taskIndex, 1);
+              // Füge ihn der "Done"-Spalte hinzu
+              newColumns["3"].items.push({
+                ...task,
+                done: true,
+                column_id: 3
+              });
+            } else {
+              // Aktualisiere nur den done-Status
+              newColumns[columnId].items[taskIndex].done = updatedTask.done;
+            }
+          }
+        });
+        
+        return newColumns;
+      });
+    } catch (error) {
+      console.error("Fehler beim Ändern des Task-Status:", error);
+    }
+  };
+
   if (isLoading) {
     return <p>Laden...</p>;
   }
@@ -352,6 +391,7 @@ const Dashboard: React.FC = () => {
               setDeleteConfirmOpen(true);
             }}
             onAddTask={(columnId) => openModal(columnId)}
+            onToggleDone={handleToggleDone}
           />
         ))}
       </div>

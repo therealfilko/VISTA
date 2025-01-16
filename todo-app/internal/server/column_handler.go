@@ -25,6 +25,21 @@ type UpdateTodoPositionRequest struct {
 	Position int   `json:"position" validate:"required"`
 }
 
+type ColumnType int
+
+const (
+	TodoColumn       ColumnType = 1
+	InProgressColumn ColumnType = 2
+	DoneColumn       ColumnType = 3
+)
+
+type Column struct {
+	ID       int64      `json:"id"`
+	Type     ColumnType `json:"type"`
+	Title    string     `json:"title"`
+	Position int        `json:"position"`
+}
+
 // @Summary Get all columns with todos
 // @Description Retrieve all columns along with their associated todos for the authenticated user.
 // @Tags Columns
@@ -178,8 +193,16 @@ func (s *Server) handleUpdateTodoPosition(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, models.ErrorResponse{Message: "Invalid request payload"})
 	}
 
-	if err := c.Validate(req); err != nil {
-		return c.JSON(http.StatusBadRequest, models.ErrorResponse{Message: err.Error()})
+	// Prüfe ob es sich um die Done-Spalte handelt
+	if req.ColumnID == int64(DoneColumn) {
+		todo, err := s.db.GetTodoByID(req.TodoID)
+		if err != nil {
+			return c.JSON(http.StatusNotFound, models.ErrorResponse{Message: "Todo not found"})
+		}
+		todo.Done = true
+		if err := s.db.UpdateTodo(todo); err != nil {
+			return c.JSON(http.StatusInternalServerError, models.ErrorResponse{Message: "Failed to update todo"})
+		}
 	}
 
 	if err := s.db.UpdateTodoPosition(req.TodoID, req.ColumnID, req.Position); err != nil {

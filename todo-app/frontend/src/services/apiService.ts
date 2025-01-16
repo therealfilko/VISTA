@@ -157,19 +157,14 @@ class ApiService {
     return data;
   }
 
+
   async updateTodoPosition(todoId: number, data: UpdateTodoPositionData): Promise<void> {
-    // Zuerst die Position aktualisieren
     const payload = {
-      TodoID: todoId,
-      ColumnID: data.column_id,
-      Position: data.position
+      todo_id: todoId,
+      column_id: data.column_id,
+      position: data.position
     };
     await this.api.put(`/api/todos/${todoId}/position`, payload);
-
-    // Wenn die Ziel-Spalte "Done" ist (ID: 3), dann den Status über den PATCH-Endpoint aktualisieren
-    if (data.column_id === 3) {
-      await this.api.patch(`/api/todos/${todoId}/done`);
-    }
   }
 }
 

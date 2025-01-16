@@ -21,6 +21,7 @@ interface TaskColumnProps {
   onTaskClick: (columnId: string, taskId: number) => void; // Geändert zu taskId
   onDeleteClick: (columnId: string, taskId: number) => void; // Geändert zu taskId
   onAddTask: (columnId: string) => void;
+  onToggleDone: (taskId: number) => void;
 }
 
 const TaskColumn: React.FC<TaskColumnProps> = ({
@@ -29,6 +30,7 @@ const TaskColumn: React.FC<TaskColumnProps> = ({
   onTaskClick,
   onDeleteClick,
   onAddTask,
+  onToggleDone
 }) => (
   <div className="bg-neutral-900 p-4 rounded shadow-md">
     <h2 className="font-semibold mb-2">{column.name}</h2>
@@ -41,12 +43,22 @@ const TaskColumn: React.FC<TaskColumnProps> = ({
           <span onClick={() => onTaskClick(columnId, item.id)}>
             {item.title}
           </span>
-          <button
-            onClick={() => onDeleteClick(columnId, item.id)}
-            className="text-red-500 hover:text-red-600 transition-colors"
-          >
-            <FiTrash2 />
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={() => onToggleDone(item.id)}
+              className={`p-1 rounded ${
+                item.done ? 'bg-green-600' : 'bg-neutral-700'
+              } hover:opacity-80`}
+            >
+              ✓
+            </button>
+            <button
+              onClick={() => onDeleteClick(columnId, item.id)}
+              className="text-red-500 hover:text-red-600"
+            >
+              <FiTrash2 />
+            </button>
+          </div>
         </li>
       ))}
     </ul>
