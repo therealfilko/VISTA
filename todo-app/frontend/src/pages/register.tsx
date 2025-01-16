@@ -5,7 +5,7 @@ import RegisterForm from "../components/forms/RegisterForm";
 const Register = () => {
   return (
     <div className="min-h-screen bg-neutral-950">
-      <div className="flex items-center justify-center px-[10%] py-8">
+      <div className="flex items-center justify-center px-[10%]">
         <Link to="/" className="w-[75px] h-[75px]">
           <img src={taskifyLogo} alt="Taskify" />
         </Link>

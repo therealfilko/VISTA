@@ -1,4 +1,6 @@
-<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="100" cy="100" r="100" fill="#0A0A0A"/>
-<path d="M100 150L143.301 75H56.6987L100 150Z" fill="white"/>
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="50" cy="50" r="50" fill="#0A0A0A"/>
+<path d="M9.33398 33.334H36.0006V60.0006L9.33398 33.334Z" fill="white"/>
+<path d="M36.001 86.667V60.0003H62.6676L36.001 86.667Z" fill="white"/>
+<path d="M36.0007 33.334H89.334L62.6673 60.0006L36.0007 33.334Z" fill="white"/>
 </svg>

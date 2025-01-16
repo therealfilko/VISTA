@@ -24,7 +24,7 @@ const LoginForm = () => {
       navigate(from, { replace: true });
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Ein Fehler ist aufgetreten",
+        err instanceof Error ? err.message : "Ein Fehler ist aufgetreten"
       );
     } finally {
       setIsLoading(false);
@@ -72,7 +72,11 @@ const LoginForm = () => {
           type="submit"
           disabled={isLoading}
           className={`bg-white text-neutral-950 rounded-lg w-full py-2 duration-300 text-lg
-            ${isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-info hover:text-white"}`}
+            ${
+              isLoading
+                ? "opacity-50 cursor-not-allowed"
+                : "hover:bg-info hover:text-white"
+            }`}
         >
           {isLoading ? "Wird angemeldet..." : "Anmelden"}
         </button>
