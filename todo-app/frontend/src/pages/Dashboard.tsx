@@ -1,39 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import taskifyLogo from "../assets/taskify_logo.svg";
 import TaskColumn from "../components/common/TaskColumn";
 import ProgressBar from "../components/common/ProgressBar";
 import TaskModal from "../components/common/TaskModal";
 import ConfirmationModal from "../components/common/ConfirmationModal";
+import { apiService } from "../services/apiService"; // API Service importieren
 
-type ColumnType = {
-  [key: string]: {
-    name: string;
-    items: {
-      title: string;
-      category: string;
-      assignee: string;
-      deadline: string;
-      description: string;
-    }[];
-  };
+// Typen für Aufgaben und Spalten
+type Task = {
+  id: number;
+  title: string;
+  category: string;
+  assignee: string;
+  deadline: string;
+  description: string;
 };
 
-const Dashboard: React.FC = () => {
-  const [columns, setColumns] = useState<ColumnType>({
-    "column-1": { name: "To Do", items: [] },
-    "column-2": { name: "In Progress", items: [] },
-    "column-3": { name: "Done", items: [] },
-  });
+type ColumnType = {
+  name: string;
+  items: Task[];
+};
 
+
+const Dashboard: React.FC = () => {
+  const [columns, setColumns] = useState<Record<string, ColumnType>>({});
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isDeleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-  const [currentTask, setCurrentTask] = useState<{
-    title: string;
-    category: string;
-    assignee: string;
-    deadline: string;
-    description: string;
-  }>({
+  const [currentTask, setCurrentTask] = useState<any>({
     title: "",
     category: "",
     assignee: "",
@@ -41,16 +35,39 @@ const Dashboard: React.FC = () => {
     description: "",
   });
   const [currentColumn, setCurrentColumn] = useState<string | null>(null);
-  const [currentTaskIndex, setCurrentTaskIndex] = useState<number | null>(null);
-  const [originalColumn, setOriginalColumn] = useState<string | null>(null);
+  const [currentTaskId, setCurrentTaskId] = useState<number | null>(null);
 
-  const openModal = (columnId: string, taskIndex: number | null = null) => {
+
+  // Daten von der API laden
+  useEffect(() => {
+    const fetchColumns = async () => {
+      try {
+        setIsLoading(true);
+        const data = await apiService.getColumns();
+        const formattedColumns = data.reduce((acc: any, column: any) => {
+          acc[column.id] = {
+            name: column.title,
+            items: column.todos,
+          };
+          return acc;
+        }, {});
+        setColumns(formattedColumns);
+      } catch (error) {
+        console.error("Fehler beim Laden der Spalten:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchColumns();
+  }, []);
+
+  const openModal = (columnId: string, taskId: number | null = null) => {
     setCurrentColumn(columnId);
-    setOriginalColumn(columnId);
-    setCurrentTaskIndex(taskIndex);
+    setCurrentTaskId(taskId);
 
-    if (taskIndex !== null) {
-      const task = columns[columnId].items[taskIndex];
+    if (taskId !== null) {
+      const task = columns[columnId].items.find((item: any) => item.id === taskId);
       setCurrentTask(task);
     } else {
       setCurrentTask({
@@ -61,6 +78,7 @@ const Dashboard: React.FC = () => {
         description: "",
       });
     }
+
     setModalOpen(true);
   };
 
@@ -75,69 +93,74 @@ const Dashboard: React.FC = () => {
       description: "",
     });
     setCurrentColumn(null);
-    setCurrentTaskIndex(null);
-    setOriginalColumn(null);
+    setCurrentTaskId(null);
   };
 
-  const saveTask = () => {
+  const saveTask = async () => {
     if (!currentColumn || !currentTask.title.trim()) return;
 
-    setColumns((prevColumns) => {
-      const updatedColumns = { ...prevColumns };
-
-      if (
-        originalColumn &&
-        originalColumn !== currentColumn &&
-        currentTaskIndex !== null
-      ) {
-        updatedColumns[originalColumn].items.splice(currentTaskIndex, 1);
-      } else if (
-        originalColumn === currentColumn &&
-        currentTaskIndex !== null
-      ) {
-        updatedColumns[currentColumn].items[currentTaskIndex] = {
+    try {
+      if (currentTaskId) {
+        // Aufgabe aktualisieren
+        await apiService.updateTodo(currentTaskId, currentTask);
+      } else {
+        // Neue Aufgabe erstellen
+        const newTask = await apiService.createTodo({
           ...currentTask,
-        };
-        return updatedColumns;
+          column_id: Number(currentColumn),
+          position: columns[currentColumn].items.length,
+        });
+        setColumns((prevColumns: any) => ({
+          ...prevColumns,
+          [currentColumn]: {
+            ...prevColumns[currentColumn],
+            items: [...prevColumns[currentColumn].items, newTask],
+          },
+        }));
       }
-
-      const taskExists = updatedColumns[currentColumn].items.some(
-        (item) => JSON.stringify(item) === JSON.stringify(currentTask)
-      );
-      if (!taskExists) {
-        updatedColumns[currentColumn].items.push({ ...currentTask });
-      }
-
-      return updatedColumns;
-    });
-
-    closeModal();
+    } catch (error) {
+      console.error("Fehler beim Speichern der Aufgabe:", error);
+    } finally {
+      closeModal();
+    }
   };
 
-  const deleteTask = () => {
-    if (currentColumn === null || currentTaskIndex === null) return;
-
-    setColumns((prevColumns) => {
-      const updatedColumns = { ...prevColumns };
-      updatedColumns[currentColumn].items.splice(currentTaskIndex, 1);
-      return updatedColumns;
-    });
-
-    setDeleteConfirmOpen(false);
-    closeModal();
+  const deleteTask = async () => {
+    if (!currentTaskId || !currentColumn) {
+      console.error("Löschen fehlgeschlagen: Spalten-ID oder Task-ID fehlt.");
+      return;
+    }
+  
+    console.log("Aktuelle Spalte:", currentColumn);
+  
+    try {
+      await apiService.deleteTodo(currentTaskId);
+      setColumns((prevColumns: any) => {
+        const updatedItems = prevColumns[currentColumn].items.filter(
+          (item: any) => item.id !== currentTaskId
+        );
+        return {
+          ...prevColumns,
+          [currentColumn]: { ...prevColumns[currentColumn], items: updatedItems },
+        };
+      });
+    } catch (error) {
+      console.error("Fehler beim Löschen der Aufgabe:", error);
+    } finally {
+      closeModal();
+    }
   };
 
   const calculateProgressWidths = () => {
-    const totalTasks =
-      columns["column-1"].items.length +
-      columns["column-2"].items.length +
-      columns["column-3"].items.length;
+    const totalTasks = Object.values(columns).reduce(
+      (acc: number, column: any) => acc + column.items.length,
+      0
+    );
     if (totalTasks === 0) return { todo: 0, inProgress: 0, done: 0 };
 
-    const todoWidth = (columns["column-1"].items.length / totalTasks) * 100;
-    const inProgressWidth =
-      (columns["column-2"].items.length / totalTasks) * 100;
-    const doneWidth = (columns["column-3"].items.length / totalTasks) * 100;
+    const todoWidth = (columns["1"].items.length / totalTasks) * 100; // Beispiel-IDs
+    const inProgressWidth = (columns["2"].items.length / totalTasks) * 100;
+    const doneWidth = (columns["3"].items.length / totalTasks) * 100;
 
     return { todo: todoWidth, inProgress: inProgressWidth, done: doneWidth };
   };
@@ -148,6 +171,10 @@ const Dashboard: React.FC = () => {
     { value: progressWidths.inProgress, color: "bg-yellow-500" },
     { value: progressWidths.done, color: "bg-green-500" },
   ];
+
+  if (isLoading) {
+    return <p>Laden...</p>;
+  }
 
   return (
     <div className="p-4 bg-neutral-950 text-white min-h-screen">
@@ -165,7 +192,7 @@ const Dashboard: React.FC = () => {
             onTaskClick={(columnId, index) => openModal(columnId, index)}
             onDeleteClick={(columnId, index) => {
               setCurrentColumn(columnId);
-              setCurrentTaskIndex(index);
+              setCurrentTaskId(index);
               setDeleteConfirmOpen(true);
             }}
             onAddTask={(columnId) => openModal(columnId)}
