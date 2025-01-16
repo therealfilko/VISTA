@@ -8,19 +8,18 @@ import (
 	"time"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/golang-jwt/jwt/v5"
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/labstack/echo/v4"
 
 	"todo-app/internal/auth"
 	"todo-app/internal/database"
-	"todo-app/internal/models"
 )
 
 type Server struct {
-	port      int
-	db        database.Service
-	jwtSecret []byte
+	port       int
+	db         database.Service
+	jwtService *auth.JWTService
+	tokenStore auth.TokenStore
 }
 
 type CustomValidator struct {
@@ -33,7 +32,16 @@ func (cv *CustomValidator) Validate(i interface{}) error {
 
 func NewServer() (*http.Server, error) {
 	port, _ := strconv.Atoi(os.Getenv("PORT"))
-	jwtSecret := []byte(os.Getenv("JWT_SECRET"))
+
+	// Token Store initialisieren
+	tokenStore := auth.NewMemoryTokenStore()
+
+	// JWT Service mit beiden Secrets initialisieren
+	jwtService := auth.NewJWTService(
+		os.Getenv("JWT_ACCESS_SECRET"),
+		os.Getenv("JWT_REFRESH_SECRET"),
+		tokenStore,
+	)
 
 	db, err := database.New()
 	if err != nil {
@@ -41,9 +49,10 @@ func NewServer() (*http.Server, error) {
 	}
 
 	NewServer := &Server{
-		port:      port,
-		db:        db,
-		jwtSecret: jwtSecret,
+		port:       port,
+		db:         db,
+		jwtService: jwtService,
+		tokenStore: tokenStore,
 	}
 
 	// Echo Server mit Validator
@@ -59,36 +68,4 @@ func NewServer() (*http.Server, error) {
 	}
 
 	return server, nil
-}
-
-func (s *Server) generateJWT(user *models.User) (string, error) {
-	claims := &auth.JWTCustomClaims{
-		UserID: user.ID,
-		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(720 * time.Hour)), // 30 Tage
-			IssuedAt:  jwt.NewNumericDate(time.Now()),
-		},
-	}
-
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString(s.jwtSecret)
-}
-
-func (s *Server) validateJWT(tokenString string) (*auth.JWTCustomClaims, error) {
-	token, err := jwt.ParseWithClaims(tokenString, &auth.JWTCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
-		}
-		return s.jwtSecret, nil
-	})
-
-	if err != nil {
-		return nil, err
-	}
-
-	if claims, ok := token.Claims.(*auth.JWTCustomClaims); ok && token.Valid {
-		return claims, nil
-	}
-
-	return nil, fmt.Errorf("invalid token claims")
 }

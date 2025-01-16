@@ -6,8 +6,8 @@ type LoginResponse struct {
 }
 
 type AuthResponse struct {
-	Token string `json:"token"`
-	User  User   `json:"user"`
+	User    User   `json:"user"`
+	Message string `json:"message,omitempty"`
 }
 
 type ErrorResponse struct {
