@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { FiChevronDown } from "react-icons/fi";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../hooks/use-auth";
 
 const NavLinks = () => {
   const { isAuthenticated } = useAuth();
