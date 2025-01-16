@@ -5,31 +5,35 @@ import LoginForm from "../components/forms/LoginForm";
 const Login = () => {
   return (
     <div className="min-h-screen bg-neutral-950">
-      <div className="flex items-center justify-center px-[10%]">
-        <Logo />
-      </div>
+      <header className="container mx-auto px-4 py-6">
+        <nav className="flex items-center justify-between">
+          <Logo />
+        </nav>
+      </header>
 
-      <div>
-        <div className="flex justify-center items-center py-72 min-w-96">
-          <div className="w-96">
-            <div className="space-y-2 pb-3">
-              <div className="text-5xl text-white text-center">Log In</div>
-            </div>
+      <main className="flex items-center justify-center min-h-[calc(100vh-132px)]">
+        {" "}
+        <div className="w-full max-w-xs mx-4">
+          {" "}
+          <div className="space-y-6">
+            <h1 className="text-3xl text-white text-center font-semibold">
+              Login
+            </h1>
 
             <LoginForm />
 
-            <div className="text-center py-3 text-lg text-white">
-              <div className="py-1">Du hast noch kein Konto?</div>
+            <div className="text-center space-y-2 text-white">
+              <p className="text-base">Du hast noch kein Konto?</p>
               <Link
                 to="/register"
-                className="hover:text-info duration-300 py-1"
+                className="text-base hover:text-info duration-300 inline-block"
               >
                 Jetzt registrieren!
               </Link>
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };
