@@ -9,39 +9,59 @@ import { useNavigate } from "react-router-dom";
 
 interface AuthContextProps {
   isAuthenticated: boolean;
-  token: string | null;
-  login: (token: string) => void;
+  isLoading: boolean;
+  login: () => void;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [token, setToken] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Initialize token from localStorage on mount
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    setToken(storedToken);
+    checkAuthStatus();
   }, []);
 
-  const login = (newToken: string) => {
-    setToken(newToken);
-    localStorage.setItem("token", newToken);
+  const checkAuthStatus = async () => {
+    try {
+      const response = await fetch("/auth/me", {
+        credentials: "include",
+      });
+      setIsAuthenticated(response.ok);
+    } catch (err: unknown) {
+      console.error("Auth check failed:", err);
+      setIsAuthenticated(false);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const logout = () => {
-    setToken(null);
-    localStorage.removeItem("token");
-    navigate("/login");
+  const login = () => {
+    setIsAuthenticated(true);
+  };
+
+  const logout = async () => {
+    try {
+      await fetch("/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (err: unknown) {
+      console.error("Logout failed:", err);
+    } finally {
+      setIsAuthenticated(false);
+      navigate("/login");
+    }
   };
 
   return (
     <AuthContext.Provider
       value={{
-        isAuthenticated: !!token,
-        token,
+        isAuthenticated,
+        isLoading,
         login,
         logout,
       }}

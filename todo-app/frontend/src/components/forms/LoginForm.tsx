@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import ErrorMessage from "../common/ErrorMessage";
-
-interface LoginResponse {
-  token: string; // Typisierung des Rückgabewerts vom Server
-}
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -20,22 +15,40 @@ const LoginForm = () => {
     e.preventDefault();
     setError("");
 
-    try {
-      const response = await axios.post<LoginResponse>(
-        "http://localhost:8080/auth/login",
-        {
-          email,
-          password,
-        }
-      );
+    const loginData = {
+      email: email,
+      password: password,
+    };
 
-      if (response.status === 200) {
-        login(response.data.token); // AuthContext-Funktion aufrufen
+    try {
+      console.log("Sending login data:", loginData);
+      const response = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(loginData),
+      });
+
+      console.log("Response status:", response.status);
+
+      if (response.ok) {
+        login();
         navigate("/dashboard");
+      } else {
+        let errorMessage = "Login fehlgeschlagen";
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.message || errorMessage;
+        } catch (jsonError) {
+          console.error("Failed to parse error response:", jsonError);
+        }
+        setError(errorMessage);
       }
     } catch (err) {
-      console.error("Login-Fehler:", err);
-      setError("Falsche E-Mail oder Passwort.");
+      console.error("Login error:", err);
+      setError("Ein unerwarteter Fehler ist aufgetreten.");
     }
   };
 
