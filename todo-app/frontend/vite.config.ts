@@ -6,30 +6,34 @@ export default defineConfig({
   server: {
     host: true,
     port: 3000,
+    headers: {
+      "Content-Type": "application/javascript",
+    },
     proxy: {
       "/auth": {
         target: "http://app:9000",
-        changeOrigin: true
+        changeOrigin: true,
       },
       "/api": {
         target: "http://app:9000",
-        changeOrigin: true
-      }
+        changeOrigin: true,
+      },
     },
     watch: {
       usePolling: true,
-    }
+    },
   },
   build: {
     sourcemap: true,
-    manifest: true
+    manifest: true,
   },
   optimizeDeps: {
     esbuildOptions: {
-      target: 'es2020'
-    }
+      target: "es2020",
+    },
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx']
-  }
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
+  },
 });
+
