@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
+    "@sentry/browser": "^8.50.0",
+    "@sentry/tracing": "^7.120.3",
     "axios": "^1.7.9",
     "daisyui": "^4.12.22",
     "frontend": "file:",
