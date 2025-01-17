@@ -1,4 +1,3 @@
-// components/common/ConfirmationModal.tsx
 import React from "react";
 
 interface ConfirmationModalProps {
@@ -18,18 +17,21 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-neutral-900 p-6 rounded shadow-md w-1/3 text-white">
+      <div className="bg-[#121212] p-6 rounded shadow-md w-1/3 text-white">
         <h2 className="text-xl font-bold mb-4">{title}</h2>
         <div className="flex justify-end space-x-4">
           <button
             onClick={onConfirm}
-            className="bg-red-500 text-white px-4 py-2 rounded"
+            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600
+                     transition-colors duration-200"
           >
             Ja
           </button>
           <button
             onClick={onCancel}
-            className="bg-neutral-950 text-neutral-400 px-4 py-2 rounded border border-neutral-400"
+            className="bg-[#000000] text-[#b3b3b3] px-4 py-2 rounded
+                     border border-[#1f1f1f] hover:bg-[#1f1f1f]
+                     transition-colors duration-200"
           >
             Abbrechen
           </button>

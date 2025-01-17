@@ -1,4 +1,3 @@
-// components/common/TaskColumn.tsx
 import React from "react";
 import { FiTrash2 } from "react-icons/fi";
 
@@ -18,8 +17,8 @@ interface TaskColumnProps {
     name: string;
     items: Task[];
   };
-  onTaskClick: (columnId: string, taskId: number) => void; // Geändert zu taskId
-  onDeleteClick: (columnId: string, taskId: number) => void; // Geändert zu taskId
+  onTaskClick: (columnId: string, taskId: number) => void;
+  onDeleteClick: (columnId: string, taskId: number) => void;
   onAddTask: (columnId: string) => void;
   onToggleDone: (taskId: number) => void;
 }
@@ -30,15 +29,15 @@ const TaskColumn: React.FC<TaskColumnProps> = ({
   onTaskClick,
   onDeleteClick,
   onAddTask,
-  onToggleDone
+  onToggleDone,
 }) => (
-  <div className="bg-neutral-900 p-4 rounded shadow-md">
-    <h2 className="font-semibold mb-2">{column.name}</h2>
+  <div className="bg-[#1a1a1a] p-4 rounded shadow-md">
+    <h2 className="font-semibold mb-2 text-white">{column.name}</h2>
     <ul>
       {column.items.map((item) => (
         <li
           key={item.id}
-          className="bg-neutral-950 text-neutral-400 p-2 mb-2 rounded shadow flex justify-between items-center hover:bg-neutral-900 cursor-pointer"
+          className="bg-[#2a2a2a] text-[#b3b3b3] p-2 mb-2 rounded shadow flex justify-between items-center hover:bg-[#1f1f1f] cursor-pointer"
         >
           <span onClick={() => onTaskClick(columnId, item.id)}>
             {item.title}
@@ -47,7 +46,7 @@ const TaskColumn: React.FC<TaskColumnProps> = ({
             <button
               onClick={() => onToggleDone(item.id)}
               className={`p-1 rounded ${
-                item.done ? 'bg-green-600' : 'bg-neutral-700'
+                item.done ? "bg-[#20d760]" : "bg-[#1f1f1f]"
               } hover:opacity-80`}
             >
               ✓
@@ -63,7 +62,7 @@ const TaskColumn: React.FC<TaskColumnProps> = ({
       ))}
     </ul>
     <button
-      className="mt-2 bg-info text-white px-4 py-2 rounded"
+      className="mt-2 bg-[#2a2a2a] text-white px-4 py-2 rounded hover:bg-[#20D760] transition-colors duration-200"
       onClick={() => onAddTask(columnId)}
     >
       + Neue Aufgabe

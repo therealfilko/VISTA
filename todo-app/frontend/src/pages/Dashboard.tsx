@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Logo from "../components/common/Logo"; 
+import Logo from "../components/common/Logo";
 import TaskColumn from "../components/common/TaskColumn";
 import ProgressBar from "../components/common/ProgressBar";
 import TaskModal from "../components/common/TaskModal";
@@ -208,7 +208,6 @@ const Dashboard: React.FC = () => {
         column_id: Number(newColumnId),
         position: columns[newColumnId].items.length,
       };
-      console.log("Update Position Data:", updateData);
       await apiService.updateTodoPosition(currentTaskId, updateData);
 
       setColumns((prevColumns) => {
@@ -242,16 +241,13 @@ const Dashboard: React.FC = () => {
   };
 
   const deleteTask = async () => {
-    if (!currentTaskId || !currentColumn) {
-      console.error("Löschen fehlgeschlagen: Spalten-ID oder Task-ID fehlt.");
-      return;
-    }
+    if (!currentTaskId || !currentColumn) return;
 
     try {
       await apiService.deleteTodo(currentTaskId);
-      setColumns((prevColumns: Record<string, ColumnType>) => {
+      setColumns((prevColumns) => {
         const updatedItems = prevColumns[currentColumn].items.filter(
-          (item: Task) => item.id !== currentTaskId,
+          (item) => item.id !== currentTaskId,
         );
         return {
           ...prevColumns,
@@ -270,7 +266,7 @@ const Dashboard: React.FC = () => {
 
   const calculateProgressWidths = () => {
     const totalTasks = Object.values(columns).reduce(
-      (acc: number, column: ColumnType) => acc + column.items.length,
+      (acc, column) => acc + column.items.length,
       0,
     );
     if (totalTasks === 0) return { todo: 0, inProgress: 0, done: 0 };
@@ -285,9 +281,9 @@ const Dashboard: React.FC = () => {
 
   const progressWidths = calculateProgressWidths();
   const progressSections = [
-    { value: progressWidths.todo, color: "bg-gray-400" },
+    { value: progressWidths.todo, color: "bg-red-500" },
     { value: progressWidths.inProgress, color: "bg-yellow-500" },
-    { value: progressWidths.done, color: "bg-green-500" },
+    { value: progressWidths.done, color: "bg-[#20D760]" },
   ];
 
   const handleToggleDone = async (taskId: number) => {
@@ -296,7 +292,6 @@ const Dashboard: React.FC = () => {
 
       setColumns((prevColumns) => {
         const newColumns = { ...prevColumns };
-
         Object.keys(newColumns).forEach((columnId) => {
           const taskIndex = newColumns[columnId].items.findIndex(
             (item) => item.id === taskId,
@@ -325,20 +320,18 @@ const Dashboard: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-neutral-950 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-info"></div>
+      <div className="min-h-screen bg-[#000000] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#20D760]"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-neutral-950">
-      <header className="bg-neutral-950 border-b border-neutral-800">
+    <div className="min-h-screen bg-[#000000]">
+      <header className="bg-[#000000] border-b border-[#1f1f1f]">
         <div className="container mx-auto px-4 py-6">
-          {" "}
           <div className="flex items-center justify-between">
             <div className="w-[75px]">
-              {" "}
               <Logo />
             </div>
 
@@ -346,9 +339,9 @@ const Dashboard: React.FC = () => {
               <div className="relative">
                 <button
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                  className="flex items-center space-x-3 px-4 py-2 bg-neutral-800 rounded-lg hover:bg-neutral-700 transition-colors duration-200"
+                  className="flex items-center space-x-3 px-4 py-2 bg-[#1f1f1f] rounded-lg hover:bg-[#121212] transition-colors duration-200"
                 >
-                  <div className="w-8 h-8 rounded-full bg-info flex items-center justify-center text-white font-medium">
+                  <div className="w-8 h-8 rounded-full bg-[#20D760] flex items-center justify-center text-white font-medium">
                     {user.first_name[0]}
                   </div>
                   <span className="text-white">
@@ -372,10 +365,10 @@ const Dashboard: React.FC = () => {
                 </button>
 
                 {isProfileMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 py-2 bg-neutral-800 rounded-lg shadow-xl border border-neutral-700">
+                  <div className="absolute right-0 mt-2 w-48 py-2 bg-[#1f1f1f] rounded-lg shadow-xl border border-[#121212]">
                     <button
                       onClick={logout}
-                      className="w-full text-left px-4 py-2 text-sm text-white hover:bg-neutral-700 transition-colors duration-200 flex items-center space-x-2"
+                      className="w-full text-left px-4 py-2 text-sm text-white hover:bg-[#121212] transition-colors duration-200 flex items-center space-x-2"
                     >
                       <svg
                         className="w-4 h-4"
@@ -402,12 +395,12 @@ const Dashboard: React.FC = () => {
 
       <main className="container mx-auto px-6 py-8">
         <div className="mb-8">
-          <div className="bg-neutral-900/50 rounded-xl p-6 border border-neutral-800">
+          <div className="bg-[#121212] rounded-xl p-6 border border-[#1f1f1f]">
             <h2 className="text-xl font-semibold text-white mb-4">
               Fortschritt Übersicht
             </h2>
             <ProgressBar sections={progressSections} />
-            <div className="flex justify-between mt-2 text-sm text-neutral-400">
+            <div className="flex justify-between mt-2 text-sm text-[#b3b3b3]">
               <span>To Do: {columns["1"]?.items.length || 0} Aufgaben</span>
               <span>
                 In Progress: {columns["2"]?.items.length || 0} Aufgaben
