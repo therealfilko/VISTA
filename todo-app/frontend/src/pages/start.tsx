@@ -1,6 +1,7 @@
 import Logo from "../components/common/Logo";
 import NavLinks from "../components/layout/NavLinks";
 import AuthButtons from "../components/common/AuthButtons";
+import { Link } from "react-router-dom";
 
 const Start = () => {
   return (
@@ -31,13 +32,15 @@ const Start = () => {
               erreiche deine Ziele.
             </p>
             <div className="pt-4">
-              <button
-                className="bg-info text-white px-8 py-3 rounded-lg
+              <Link to="/login">
+                <button
+                  className="bg-info text-white px-8 py-3 rounded-lg
                                 text-lg font-medium hover:bg-info/90
                                 transition-all duration-300"
-              >
-                Jetzt starten
-              </button>
+                >
+                  Jetzt starten
+                </button>
+              </Link>
             </div>
           </div>
         </section>
@@ -98,12 +101,15 @@ const Start = () => {
             Aufgabenverwaltung sein kann.
           </p>
           <div className="flex gap-4 justify-center">
-            <button
-              className="bg-info text-white px-6 py-2 rounded-lg
+            <Link to="/register">
+              <button
+                className="bg-info text-white px-6 py-2 rounded-lg
                               hover:bg-info/90 transition-all duration-300"
-            >
-              Kostenlos registrieren
-            </button>
+              >
+                Kostenlos registrieren
+              </button>
+            </Link>
+
             <button
               className="bg-neutral-800 text-white px-6 py-2 rounded-lg
                               hover:bg-neutral-700 transition-all duration-300"
