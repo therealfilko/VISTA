@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import ErrorMessage from "../common/ErrorMessage";
 
 const RegisterForm = () => {
   const [email, setEmail] = useState("");
@@ -9,12 +10,14 @@ const RegisterForm = () => {
   const [last_name, setLastname] = useState("");
   const [date_of_birth, setDateofbirth] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setIsLoading(true);
 
     try {
       const response = await axios.post("http://localhost:8080/register", {
@@ -31,14 +34,15 @@ const RegisterForm = () => {
     } catch (err) {
       console.error("Registrierungsfehler:", err);
       setError("Registrierung fehlgeschlagen. Versuche es erneut.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {error && <p className="text-error text-center text-base">{error}</p>}
+      {error && <ErrorMessage message={error} />}
 
-      {/* Vorname und Nachname nebeneinander */}
       <div className="flex gap-4">
         <div className="space-y-2 w-1/2">
           <label htmlFor="first_name" className="text-white text-base block">
@@ -53,7 +57,7 @@ const RegisterForm = () => {
             className="w-full bg-white/5 text-white text-base
                      placeholder-neutral-600 px-3 py-1.5 rounded-lg
                      focus:outline-none focus:ring-2 focus:ring-info
-                     transition-all duration-300"
+                     transition-all duration-300 hover:bg-white/10"
             placeholder="Vorname"
           />
         </div>
@@ -71,7 +75,7 @@ const RegisterForm = () => {
             className="w-full bg-white/5 text-white text-base
                      placeholder-neutral-600 px-3 py-1.5 rounded-lg
                      focus:outline-none focus:ring-2 focus:ring-info
-                     transition-all duration-300"
+                     transition-all duration-300 hover:bg-white/10"
             placeholder="Nachname"
           />
         </div>
@@ -83,15 +87,14 @@ const RegisterForm = () => {
         </label>
         <input
           id="date_of_birth"
-          type="text"
+          type="date"
           value={date_of_birth}
           onChange={(e) => setDateofbirth(e.target.value)}
           required
           className="w-full bg-white/5 text-white text-base
                      placeholder-neutral-600 px-3 py-1.5 rounded-lg
                      focus:outline-none focus:ring-2 focus:ring-info
-                     transition-all duration-300"
-          placeholder="jjjj.tt.mm"
+                     transition-all duration-300 hover:bg-white/10"
         />
       </div>
 
@@ -108,7 +111,7 @@ const RegisterForm = () => {
           className="w-full bg-white/5 text-white text-base
                      placeholder-neutral-600 px-3 py-1.5 rounded-lg
                      focus:outline-none focus:ring-2 focus:ring-info
-                     transition-all duration-300"
+                     transition-all duration-300 hover:bg-white/10"
           placeholder="Deine Email-Adresse"
         />
       </div>
@@ -126,7 +129,7 @@ const RegisterForm = () => {
           className="w-full bg-white/5 text-white text-base
                      placeholder-neutral-600 px-3 py-1.5 rounded-lg
                      focus:outline-none focus:ring-2 focus:ring-info
-                     transition-all duration-300"
+                     transition-all duration-300 hover:bg-white/10"
           placeholder="Dein Passwort"
         />
       </div>
@@ -134,12 +137,38 @@ const RegisterForm = () => {
       <div className="pt-3">
         <button
           type="submit"
-          className="w-full bg-white text-neutral-950 rounded-lg
+          disabled={isLoading}
+          className={`w-full relative bg-white text-neutral-950 rounded-lg
                      py-2 text-base font-medium
                      transition-all duration-300
-                     hover:bg-info hover:text-white"
+                     ${isLoading ? "opacity-80" : "hover:bg-info hover:text-white"}`}
         >
-          Registrieren
+          {isLoading ? (
+            <span className="flex items-center justify-center">
+              <svg
+                className="animate-spin -ml-1 mr-3 h-5 w-5"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                  fill="none"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                />
+              </svg>
+              Wird registriert...
+            </span>
+          ) : (
+            "Registrieren"
+          )}
         </button>
       </div>
     </form>

@@ -345,11 +345,9 @@ const Dashboard: React.FC = () => {
       <header className="bg-neutral-950 border-b border-neutral-800">
         <div className="container mx-auto px-4 py-6">
           {" "}
-          {/* Geändert zu px-4 wie bei den anderen Seiten */}
           <div className="flex items-center justify-between">
             <div className="w-[75px]">
               {" "}
-              {/* Vereinfachte Struktur */}
               <Logo />
             </div>
 
@@ -415,9 +413,7 @@ const Dashboard: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="container mx-auto px-6 py-8">
-        {/* Progress Overview */}
         <div className="mb-8">
           <div className="bg-neutral-900/50 rounded-xl p-6 border border-neutral-800">
             <h2 className="text-xl font-semibold text-white mb-4">
@@ -434,7 +430,6 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Task Columns */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {Object.entries(columns).map(([columnId, column]) => (
             <TaskColumn
@@ -454,7 +449,6 @@ const Dashboard: React.FC = () => {
         </div>
       </main>
 
-      {/* Modals bleiben unverändert */}
       <TaskModal
         isOpen={isModalOpen}
         task={currentTask}
