@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Logo from "../components/common/Logo"; // Geänderter Import
+import Logo from "../components/common/Logo"; 
 import TaskColumn from "../components/common/TaskColumn";
 import ProgressBar from "../components/common/ProgressBar";
 import TaskModal from "../components/common/TaskModal";
@@ -31,7 +31,6 @@ interface ColumnType {
   items: Task[];
 }
 
-// Hilfsfunktion zum Mapping von APITodo zu Task
 const mapAPITodoToTask = (todo: APITodo): Task => ({
   ...todo,
   category: "",
@@ -65,14 +64,12 @@ const Dashboard: React.FC = () => {
         setIsLoading(true);
         const data = await apiService.getColumns();
 
-        // Stelle sicher, dass wir immer drei Spalten haben
         const defaultColumns = {
           "1": { name: "To Do", items: [] },
           "2": { name: "In Progress", items: [] },
           "3": { name: "Done", items: [] },
         };
 
-        // Fülle die existierenden Spalten mit den Daten von der API
         const formattedColumns = data.reduce(
           (acc: Record<string, ColumnType>, column: APIColumn) => {
             acc[column.id.toString()] = {
@@ -297,29 +294,23 @@ const Dashboard: React.FC = () => {
     try {
       const updatedTask = await apiService.toggleTodoDone(taskId);
 
-      // Aktualisiere den Task-Status in allen Spalten
       setColumns((prevColumns) => {
         const newColumns = { ...prevColumns };
 
-        // Finde die Spalte, die den Task enthält
         Object.keys(newColumns).forEach((columnId) => {
           const taskIndex = newColumns[columnId].items.findIndex(
             (item) => item.id === taskId,
           );
 
           if (taskIndex !== -1) {
-            // Wenn der Task auf "done" gesetzt wurde, verschiebe ihn in die "Done"-Spalte
             if (updatedTask.done && columnId !== "3") {
-              // Entferne den Task aus der aktuellen Spalte
               const [task] = newColumns[columnId].items.splice(taskIndex, 1);
-              // Füge ihn der "Done"-Spalte hinzu
               newColumns["3"].items.push({
                 ...task,
                 done: true,
                 column_id: 3,
               });
             } else {
-              // Aktualisiere nur den done-Status
               newColumns[columnId].items[taskIndex].done = updatedTask.done;
             }
           }
