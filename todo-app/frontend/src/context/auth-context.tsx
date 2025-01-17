@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const checkAuthStatus = async () => {
     try {
-      const response = await fetch("http://localhost:8080/auth/me", {
+      const response = await fetch("http://localhost:9000/auth/me", {
         credentials: "include",
       });
 
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const refreshInterval = setInterval(
         async () => {
           try {
-            const response = await fetch("http://localhost:8080/auth/refresh", {
+            const response = await fetch("http://localhost:9000/auth/refresh", {
               method: "POST",
               credentials: "include",
             });
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [isAuthenticated, navigate]);
 
   const login = async (email: string, password: string) => {
-    const response = await fetch("http://localhost:8080/auth/login", {
+    const response = await fetch("http://localhost:9000/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -86,7 +86,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = async () => {
     try {
-      await fetch("http://localhost:8080/auth/logout", {
+      await fetch("http://localhost:9000/auth/logout", {
         method: "POST",
         credentials: "include",
       });

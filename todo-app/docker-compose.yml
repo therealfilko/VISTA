@@ -8,10 +8,10 @@ services:
       target: prod
     restart: unless-stopped
     ports:
-      - ${PORT:-8080}:${PORT:-8080}
+      - ${PORT:-9000}:${PORT:-9000}
     environment:
       APP_ENV: ${APP_ENV:-development}
-      PORT: ${PORT:-8080}
+      PORT: ${PORT:-9000}
       BLUEPRINT_DB_HOST: psql_bp
       BLUEPRINT_DB_PORT: 5432
       BLUEPRINT_DB_DATABASE: test_db

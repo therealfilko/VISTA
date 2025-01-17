@@ -17,7 +17,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	e.Validator = &CustomValidator{validator: validator.New()}
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"http://localhost:3000", "http://localhost:5173", "http://localhost:8080", "https://*"},
+        AllowOrigins:     []string{"http://localhost:3000", "http://localhost:5173", "http://localhost:9000", "http://localhost:8080", "https://*"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
 		AllowHeaders:     []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		AllowCredentials: true,

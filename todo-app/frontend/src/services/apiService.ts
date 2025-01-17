@@ -60,7 +60,7 @@ export interface UpdateTodoPositionData {
 
 class ApiService {
   private api;
-  private baseURL = "http://localhost:8080";
+  private baseURL = "http://localhost:9000";
 
   constructor() {
     this.api = axios.create({

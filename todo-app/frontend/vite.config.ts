@@ -7,8 +7,8 @@ export default defineConfig({
     host: "0.0.0.0",
     port: 3000,
     proxy: {
-      "/auth": "http://localhost:8080",
-      "/api": "http://localhost:8080",
+      "/auth": "http://localhost:9000",
+      "/api": "http://localhost:9000",
     },
     watch: {
       usePolling: true,
