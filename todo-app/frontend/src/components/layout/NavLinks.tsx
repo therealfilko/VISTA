@@ -1,16 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FiChevronDown } from "react-icons/fi";
-import { useAuth } from "../../hooks/use-auth";
 
 const NavLinks = () => {
-  const { isAuthenticated } = useAuth();
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
 
   const links = [
     {
-      to: isAuthenticated ? "/dashboard" : "/",
-      label: "Dashboard",
+      to: "/",
+      label: "Home",
       dropdownItems: ["Übersicht", "Statistiken", "Einstellungen"],
     },
     {
