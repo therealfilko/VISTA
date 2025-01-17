@@ -14,7 +14,7 @@ if (import.meta.env.VITE_GLITCHTIP_DSN) {
     beforeSend(event) {
       // Nicht senden wenn wir in development sind
       if (import.meta.env.DEV) {
-        console.log('Sentry Event:', event);
+        console.log("Sentry Event:", event);
         return null;
       }
       return event;
@@ -27,5 +27,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
