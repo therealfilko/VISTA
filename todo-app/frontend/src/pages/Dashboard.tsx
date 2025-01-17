@@ -351,10 +351,6 @@ const Dashboard: React.FC = () => {
               <Logo />
             </div>
 
-            <h1 className="text-2xl font-bold text-white absolute left-1/2 transform -translate-x-1/2">
-              Dashboard
-            </h1>
-
             {user && (
               <div className="relative">
                 <button

@@ -8,13 +8,13 @@ const NavLinks = () => {
   const links = [
     {
       to: "/",
-      label: "Home",
-      dropdownItems: ["Übersicht", "Statistiken", "Einstellungen"],
+      label: "Neuigkeiten",
+      dropdownItems: ["Blog", "Updates", "Newsletter"],
     },
     {
       to: "/",
-      label: "Neuigkeiten",
-      dropdownItems: ["Blog", "Updates", "Newsletter"],
+      label: "Modelle",
+      dropdownItems: ["Übersicht", "Features", "Lösungen"],
     },
     {
       to: "/",
