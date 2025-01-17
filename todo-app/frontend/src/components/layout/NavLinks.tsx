@@ -6,7 +6,7 @@ const NavLinks = () => {
   const { isAuthenticated } = useAuth();
 
   const links = [
-    { to: isAuthenticated ? "/dashboard" : "/", label: "Home" },
+    { to: isAuthenticated ? "/dashboard" : "/", label: "Dashboard" },
     { to: "/", label: "Neuigkeiten" },
     { to: "/", label: "Kontakt" },
   ];

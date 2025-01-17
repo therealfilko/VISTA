@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import taskifyLogo from "../assets/taskify_logo.svg";
+import Logo from "../components/common/Logo"; // Geänderter Import
 import TaskColumn from "../components/common/TaskColumn";
 import ProgressBar from "../components/common/ProgressBar";
 import TaskModal from "../components/common/TaskModal";
@@ -77,7 +77,9 @@ const Dashboard: React.FC = () => {
           (acc: Record<string, ColumnType>, column: APIColumn) => {
             acc[column.id.toString()] = {
               name: column.title,
-              items: Array.isArray(column.todos) ? column.todos.map(mapAPITodoToTask) : [],
+              items: Array.isArray(column.todos)
+                ? column.todos.map(mapAPITodoToTask)
+                : [],
             };
             return acc;
           },
@@ -155,7 +157,9 @@ const Dashboard: React.FC = () => {
           const updatedColumns = { ...prevColumns };
           Object.keys(updatedColumns).forEach((columnId) => {
             const column = updatedColumns[columnId];
-            const taskIndex = column.items.findIndex((item) => item.id === currentTaskId);
+            const taskIndex = column.items.findIndex(
+              (item) => item.id === currentTaskId,
+            );
             if (taskIndex !== -1) {
               column.items[taskIndex] = {
                 ...column.items[taskIndex],
@@ -207,17 +211,17 @@ const Dashboard: React.FC = () => {
         column_id: Number(newColumnId),
         position: columns[newColumnId].items.length,
       };
-      console.log('Update Position Data:', updateData);
+      console.log("Update Position Data:", updateData);
       await apiService.updateTodoPosition(currentTaskId, updateData);
 
       setColumns((prevColumns) => {
         const task = prevColumns[currentColumn].items.find(
-          (item) => item.id === currentTaskId
+          (item) => item.id === currentTaskId,
         );
         if (!task) return prevColumns;
 
         const sourceItems = prevColumns[currentColumn].items.filter(
-          (item) => item.id !== currentTaskId
+          (item) => item.id !== currentTaskId,
         );
         const targetItems = [...prevColumns[newColumnId].items, task];
 
@@ -292,17 +296,17 @@ const Dashboard: React.FC = () => {
   const handleToggleDone = async (taskId: number) => {
     try {
       const updatedTask = await apiService.toggleTodoDone(taskId);
-      
+
       // Aktualisiere den Task-Status in allen Spalten
       setColumns((prevColumns) => {
         const newColumns = { ...prevColumns };
-        
+
         // Finde die Spalte, die den Task enthält
         Object.keys(newColumns).forEach((columnId) => {
           const taskIndex = newColumns[columnId].items.findIndex(
-            (item) => item.id === taskId
+            (item) => item.id === taskId,
           );
-          
+
           if (taskIndex !== -1) {
             // Wenn der Task auf "done" gesetzt wurde, verschiebe ihn in die "Done"-Spalte
             if (updatedTask.done && columnId !== "3") {
@@ -312,7 +316,7 @@ const Dashboard: React.FC = () => {
               newColumns["3"].items.push({
                 ...task,
                 done: true,
-                column_id: 3
+                column_id: 3,
               });
             } else {
               // Aktualisiere nur den done-Status
@@ -320,7 +324,7 @@ const Dashboard: React.FC = () => {
             }
           }
         });
-        
+
         return newColumns;
       });
     } catch (error) {
@@ -329,77 +333,128 @@ const Dashboard: React.FC = () => {
   };
 
   if (isLoading) {
-    return <p>Laden...</p>;
+    return (
+      <div className="min-h-screen bg-neutral-950 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-info"></div>
+      </div>
+    );
   }
 
   return (
-    <div className="p-4 bg-neutral-950 text-white min-h-screen">
-      <header className="flex items-center justify-between mb-4">
-        <div className="flex items-center">
-          <img src={taskifyLogo} alt="Taskify" className="h-12 mr-4" />
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-        </div>
-        {user && (
-          <div className="relative">
-            <button
-              onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-              className="flex items-center space-x-2 px-4 py-2 bg-neutral-800 rounded-lg hover:bg-neutral-700"
-            >
-              <span>
-                {user.first_name} {user.last_name}
-              </span>
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
+    <div className="min-h-screen bg-neutral-950">
+      <header className="bg-neutral-950 border-b border-neutral-800">
+        <div className="container mx-auto px-4 py-6">
+          {" "}
+          {/* Geändert zu px-4 wie bei den anderen Seiten */}
+          <div className="flex items-center justify-between">
+            <div className="w-[75px]">
+              {" "}
+              {/* Vereinfachte Struktur */}
+              <Logo />
+            </div>
 
-            {isProfileMenuOpen && (
-              <div className="absolute right-0 mt-2 w-48 py-2 bg-neutral-800 rounded-lg shadow-xl">
-                <div className="border-t border-neutral-700" />
+            <h1 className="text-2xl font-bold text-white absolute left-1/2 transform -translate-x-1/2">
+              Dashboard
+            </h1>
+
+            {user && (
+              <div className="relative">
                 <button
-                  onClick={logout}
-                  className="w-full text-left px-4 py-2 text-sm text-white hover:bg-neutral-700"
+                  onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                  className="flex items-center space-x-3 px-4 py-2 bg-neutral-800 rounded-lg hover:bg-neutral-700 transition-colors duration-200"
                 >
-                  Logout
+                  <div className="w-8 h-8 rounded-full bg-info flex items-center justify-center text-white font-medium">
+                    {user.first_name[0]}
+                  </div>
+                  <span className="text-white">
+                    {user.first_name} {user.last_name}
+                  </span>
+                  <svg
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      isProfileMenuOpen ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
                 </button>
+
+                {isProfileMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-48 py-2 bg-neutral-800 rounded-lg shadow-xl border border-neutral-700">
+                    <button
+                      onClick={logout}
+                      className="w-full text-left px-4 py-2 text-sm text-white hover:bg-neutral-700 transition-colors duration-200 flex items-center space-x-2"
+                    >
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                        />
+                      </svg>
+                      <span>Logout</span>
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>
-        )}
+        </div>
       </header>
 
-      <div className="grid grid-cols-3 gap-4">
-        {Object.entries(columns).map(([columnId, column]) => (
-          <TaskColumn
-            key={columnId}
-            columnId={columnId}
-            column={column}
-            onTaskClick={(columnId, index) => openModal(columnId, index)}
-            onDeleteClick={(columnId, index) => {
-              setCurrentColumn(columnId);
-              setCurrentTaskId(index);
-              setDeleteConfirmOpen(true);
-            }}
-            onAddTask={(columnId) => openModal(columnId)}
-            onToggleDone={handleToggleDone}
-          />
-        ))}
-      </div>
+      {/* Main Content */}
+      <main className="container mx-auto px-6 py-8">
+        {/* Progress Overview */}
+        <div className="mb-8">
+          <div className="bg-neutral-900/50 rounded-xl p-6 border border-neutral-800">
+            <h2 className="text-xl font-semibold text-white mb-4">
+              Fortschritt Übersicht
+            </h2>
+            <ProgressBar sections={progressSections} />
+            <div className="flex justify-between mt-2 text-sm text-neutral-400">
+              <span>To Do: {columns["1"]?.items.length || 0} Aufgaben</span>
+              <span>
+                In Progress: {columns["2"]?.items.length || 0} Aufgaben
+              </span>
+              <span>Erledigt: {columns["3"]?.items.length || 0} Aufgaben</span>
+            </div>
+          </div>
+        </div>
 
-      <div className="mt-8">
-        <ProgressBar sections={progressSections} />
-      </div>
+        {/* Task Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {Object.entries(columns).map(([columnId, column]) => (
+            <TaskColumn
+              key={columnId}
+              columnId={columnId}
+              column={column}
+              onTaskClick={(columnId, index) => openModal(columnId, index)}
+              onDeleteClick={(columnId, index) => {
+                setCurrentColumn(columnId);
+                setCurrentTaskId(index);
+                setDeleteConfirmOpen(true);
+              }}
+              onAddTask={(columnId) => openModal(columnId)}
+              onToggleDone={handleToggleDone}
+            />
+          ))}
+        </div>
+      </main>
 
+      {/* Modals bleiben unverändert */}
       <TaskModal
         isOpen={isModalOpen}
         task={currentTask}

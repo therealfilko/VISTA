@@ -6,8 +6,10 @@ const Register = () => {
   return (
     <div className="min-h-screen bg-neutral-950">
       <header className="container mx-auto px-4 py-6">
-        <nav className="flex items-center justify-between">
-          <Logo />
+        <nav className="flex items-center">
+          <div className="w-[75px]">
+            <Logo />
+          </div>
         </nav>
       </header>
 
