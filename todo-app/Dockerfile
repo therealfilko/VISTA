@@ -30,14 +30,22 @@ RUN npm run build
 # Frontend Development Stage
 FROM node:22 AS frontend_dev
 WORKDIR /app
+
+# Erst package.json kopieren und installieren
 COPY ./frontend/package*.json ./
 RUN npm install --legacy-peer-deps
 
 # Source Code kopieren
 COPY ./frontend/. .
+
+# TypeScript global installieren
+RUN npm install -g typescript
+
 ENV PATH /app/node_modules/.bin:$PATH
 EXPOSE 3000
-CMD ["npm", "run", "dev"]
+
+# Vite mit expliziten Optionen starten
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
 
 # Frontend Production Stage
 FROM node:22-slim AS frontend

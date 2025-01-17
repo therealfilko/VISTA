@@ -22,14 +22,14 @@ export default defineConfig({
   },
   build: {
     sourcemap: true,
-    manifest: true,
-    rollupOptions: {
-      output: {
-        format: 'es',
-        entryFileNames: '[name].[hash].js',
-        chunkFileNames: '[name].[hash].js',
-        assetFileNames: '[name].[hash].[ext]'
-      }
+    manifest: true
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'es2020'
     }
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
   }
 });
