@@ -35,8 +35,10 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./todo-app/frontend/src:/app/src
-      - ./todo-app/frontend/public:/app/public
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - ./frontend/index.html:/app/index.html
+      - ./frontend/vite.config.ts:/app/vite.config.ts
     environment:
       - CHOKIDAR_USEPOLLING=true
     networks:
