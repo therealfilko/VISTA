@@ -45,10 +45,10 @@ const LoginForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full bg-white/5 text-white text-base
-                     placeholder-neutral-600 px-3 py-1.5 rounded-lg
-                     focus:outline-none focus:ring-2 focus:ring-info
-                     transition-all duration-300 hover:bg-white/10"
+          className="w-full bg-[#000000] text-white text-base
+                     placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
+                     focus:outline-none focus:ring-2 focus:ring-[#20d760]
+                     transition-all duration-300 hover:bg-[#1f1f1f]"
           placeholder="Deine Email"
         />
       </div>
@@ -60,7 +60,7 @@ const LoginForm = () => {
           </label>
           <Link
             to="/forgot-password"
-            className="text-sm text-info hover:text-info/80 transition-colors"
+            className="text-sm text-[#20d760] hover:text-[#1db954] transition-colors"
           >
             Passwort vergessen?
           </Link>
@@ -71,10 +71,10 @@ const LoginForm = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full bg-white/5 text-white text-base
-                     placeholder-neutral-600 px-3 py-1.5 rounded-lg
-                     focus:outline-none focus:ring-2 focus:ring-info
-                     transition-all duration-300 hover:bg-white/10"
+          className="w-full bg-[#000000] text-white text-base
+                     placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
+                     focus:outline-none focus:ring-2 focus:ring-[#20d760]
+                     transition-all duration-300 hover:bg-[#1f1f1f]"
           placeholder="Dein Passwort"
         />
       </div>
@@ -83,9 +83,9 @@ const LoginForm = () => {
         <input
           type="checkbox"
           id="remember"
-          className="mr-2 rounded border-neutral-600"
+          className="mr-2 rounded border-[#1f1f1f]"
         />
-        <label htmlFor="remember" className="text-sm text-neutral-400">
+        <label htmlFor="remember" className="text-sm text-[#b3b3b3]">
           Angemeldet bleiben
         </label>
       </div>
@@ -94,10 +94,10 @@ const LoginForm = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className={`w-full relative bg-white text-neutral-950 rounded-lg
+          className={`w-full relative bg-[#20d760] text-white rounded-lg
                      py-2 text-base font-medium
                      transition-all duration-300
-                     ${isLoading ? "opacity-80" : "hover:bg-info hover:text-white"}`}
+                     ${isLoading ? "opacity-80" : "hover:bg-[#1db954]"}`}
         >
           {isLoading ? (
             <span className="flex items-center justify-center">

@@ -4,7 +4,7 @@ import LoginForm from "../components/forms/LoginForm";
 
 const Login = () => {
   return (
-    <div className="min-h-screen bg-neutral-950">
+    <div className="min-h-screen bg-[#000000]">
       <header className="container mx-auto px-4 py-6">
         <nav className="flex items-center justify-between">
           <Logo />
@@ -12,14 +12,14 @@ const Login = () => {
       </header>
 
       <main className="flex items-center justify-center min-h-[calc(100vh-132px)]">
-        <div className="flex w-full max-w-4xl mx-4 bg-neutral-900/50 rounded-2xl overflow-hidden shadow-2xl animate-fadeIn motion-reduce:animate-none">
+        <div className="flex w-full max-w-4xl mx-4 bg-[#121212] rounded-2xl overflow-hidden shadow-xl animate-fadeIn motion-reduce:animate-none">
           <div className="w-full md:w-1/2 p-8">
             <div className="space-y-6">
               <div className="text-center space-y-2">
                 <h1 className="text-3xl text-white font-semibold">
                   Willkommen zurück!
                 </h1>
-                <p className="text-neutral-400">
+                <p className="text-[#b3b3b3]">
                   Melde dich jetzt an und leg direkt los
                 </p>
               </div>
@@ -28,17 +28,17 @@ const Login = () => {
 
               <div className="relative my-6">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-neutral-600"></div>
+                  <div className="w-full border-t border-[#1f1f1f]"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-neutral-900/50 text-neutral-400">
+                  <span className="px-2 bg-[#121212] text-[#b3b3b3]">
                     Oder anmelden mit
                   </span>
                 </div>
               </div>
 
               <div className="flex justify-center space-x-4">
-                <button className="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
+                <button className="p-2 bg-[#1f1f1f] rounded-lg hover:bg-[#121212] transition-colors">
                   <svg className="w-6 h-6 text-white" viewBox="0 0 24 24">
                     <path
                       fill="currentColor"
@@ -46,7 +46,7 @@ const Login = () => {
                     />
                   </svg>
                 </button>
-                <button className="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
+                <button className="p-2 bg-[#1f1f1f] rounded-lg hover:bg-[#121212] transition-colors">
                   <svg className="w-6 h-6 text-white" viewBox="0 0 24 24">
                     <path
                       fill="currentColor"
@@ -60,7 +60,7 @@ const Login = () => {
                 <p className="text-base">Du hast noch kein Konto?</p>
                 <Link
                   to="/register"
-                  className="text-base hover:text-info duration-300 inline-block"
+                  className="text-base text-[#20d760] hover:text-[#1db954] duration-300 inline-block"
                 >
                   Jetzt registrieren!
                 </Link>
@@ -68,51 +68,51 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="hidden md:block w-1/2 bg-white p-8">
+          <div className="hidden md:block w-1/2 bg-[#121212] p-8">
             <div className="h-full flex flex-col justify-center space-y-8">
               <div className="space-y-6">
-                <h2 className="text-2xl text-gray-900 font-semibold">
+                <h2 className="text-2xl text-white font-semibold">
                   Deine Vorteile
                 </h2>
 
                 <div className="space-y-4">
-                  <div className="group flex items-start space-x-3 p-2 rounded-lg transition-colors hover:bg-gray-50">
-                    <div className="text-info text-xl group-hover:scale-110 transition-transform">
+                  <div className="group flex items-start space-x-3 p-2 rounded-lg transition-colors hover:bg-[#121212]">
+                    <div className="text-[#20d760] text-xl group-hover:scale-110 transition-transform">
                       ✓
                     </div>
                     <div>
-                      <h3 className="text-gray-900 font-medium group-hover:text-info transition-colors">
+                      <h3 className="text-white font-medium group-hover:text-[#20d760] transition-colors">
                         Aufgaben organisieren
                       </h3>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-[#b3b3b3]">
                         Behalte den Überblick über alle deine ToDos
                       </p>
                     </div>
                   </div>
 
-                  <div className="group flex items-start space-x-3 p-2 rounded-lg transition-colors hover:bg-gray-50">
-                    <div className="text-info text-xl group-hover:scale-110 transition-transform">
+                  <div className="group flex items-start space-x-3 p-2 rounded-lg transition-colors hover:bg-[#121212]">
+                    <div className="text-[#20d760] text-xl group-hover:scale-110 transition-transform">
                       ✓
                     </div>
                     <div>
-                      <h3 className="text-gray-900 font-medium group-hover:text-info transition-colors">
+                      <h3 className="text-white font-medium group-hover:text-[#20d760] transition-colors">
                         Fortschritt tracken
                       </h3>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-[#b3b3b3]">
                         Verfolge deinen Fortschritt in Echtzeit
                       </p>
                     </div>
                   </div>
 
-                  <div className="group flex items-start space-x-3 p-2 rounded-lg transition-colors hover:bg-gray-50">
-                    <div className="text-info text-xl group-hover:scale-110 transition-transform">
+                  <div className="group flex items-start space-x-3 p-2 rounded-lg transition-colors hover:bg-[#121212]">
+                    <div className="text-[#20d760] text-xl group-hover:scale-110 transition-transform">
                       ✓
                     </div>
                     <div>
-                      <h3 className="text-gray-900 font-medium group-hover:text-info transition-colors">
+                      <h3 className="text-white font-medium group-hover:text-[#20d760] transition-colors">
                         Erinnerungen
                       </h3>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-[#b3b3b3]">
                         Verpasse keine wichtigen Deadlines
                       </p>
                     </div>
@@ -120,20 +120,20 @@ const Login = () => {
                 </div>
               </div>
 
-              <div className="bg-gray-100 p-4 rounded-lg">
+              <div className="bg-[#121212] p-4 rounded-lg">
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 rounded-full bg-info flex items-center justify-center text-white font-bold text-xl">
+                  <div className="w-12 h-12 rounded-full bg-[#20d760] flex items-center justify-center text-white font-bold text-xl p-5">
                     M
                   </div>
                   <div>
                     <div className="flex items-center space-x-1 mb-1">
                       <span className="text-yellow-400">★★★★★</span>
-                      <span className="text-sm text-gray-600">5.0</span>
+                      <span className="text-sm text-[#b3b3b3]">5.0</span>
                     </div>
-                    <p className="text-gray-700 italic">
+                    <p className="text-white italic">
                       "Taskify hat meine Produktivität verdoppelt!"
                     </p>
-                    <p className="text-sm text-gray-600 mt-1">
+                    <p className="text-sm text-[#b3b3b3] mt-1">
                       Max Mustermann, Produktmanager
                     </p>
                   </div>

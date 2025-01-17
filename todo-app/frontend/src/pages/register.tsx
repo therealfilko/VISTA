@@ -4,7 +4,7 @@ import RegisterForm from "../components/forms/RegisterForm";
 
 const Register = () => {
   return (
-    <div className="min-h-screen bg-neutral-950">
+    <div className="min-h-screen bg-[#000000]">
       <header className="container mx-auto px-4 py-6">
         <nav className="flex items-center">
           <div className="w-[75px]">
@@ -14,52 +14,52 @@ const Register = () => {
       </header>
 
       <main className="flex items-center justify-center min-h-[calc(100vh-132px)]">
-        <div className="flex w-full max-w-4xl mx-4 bg-neutral-900/50 rounded-2xl overflow-hidden shadow-2xl animate-fadeIn motion-reduce:animate-none">
-          <div className="hidden md:block w-1/2 bg-white p-8">
+        <div className="flex w-full max-w-4xl mx-4 bg-[#121212] rounded-2xl overflow-hidden shadow-xl animate-fadeIn motion-reduce:animate-none">
+          <div className="hidden md:block w-1/2 bg-[#121212] p-8">
             <div className="h-full flex flex-col justify-center space-y-8">
               <div className="space-y-6">
-                <h2 className="text-2xl text-gray-900 font-semibold">
+                <h2 className="text-2xl text-white font-semibold">
                   Willkommen bei Taskify
                 </h2>
 
                 <div className="space-y-4">
-                  <div className="group flex items-start space-x-3 p-2 rounded-lg transition-colors hover:bg-gray-50">
-                    <div className="text-info text-xl group-hover:scale-110 transition-transform">
+                  <div className="group flex items-start space-x-3 p-2 rounded-lg transition-colors hover:bg-[#1f1f1f]">
+                    <div className="text-[#20d760] text-xl group-hover:scale-110 transition-transform">
                       🎯
                     </div>
                     <div>
-                      <h3 className="text-gray-900 font-medium group-hover:text-info transition-colors">
+                      <h3 className="text-white font-medium group-hover:text-[#20d760] transition-colors">
                         Kostenlos starten
                       </h3>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-[#b3b3b3]">
                         Erstelle dein Konto und starte sofort durch
                       </p>
                     </div>
                   </div>
 
-                  <div className="group flex items-start space-x-3 p-2 rounded-lg transition-colors hover:bg-gray-50">
-                    <div className="text-info text-xl group-hover:scale-110 transition-transform">
+                  <div className="group flex items-start space-x-3 p-2 rounded-lg transition-colors hover:bg-[#1f1f1f]">
+                    <div className="text-[#20d760] text-xl group-hover:scale-110 transition-transform">
                       🔒
                     </div>
                     <div>
-                      <h3 className="text-gray-900 font-medium group-hover:text-info transition-colors">
+                      <h3 className="text-white font-medium group-hover:text-[#20d760] transition-colors">
                         Sicher & Verschlüsselt
                       </h3>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-[#b3b3b3]">
                         Deine Daten sind bei uns sicher aufgehoben
                       </p>
                     </div>
                   </div>
 
-                  <div className="group flex items-start space-x-3 p-2 rounded-lg transition-colors hover:bg-gray-50">
-                    <div className="text-info text-xl group-hover:scale-110 transition-transform">
+                  <div className="group flex items-start space-x-3 p-2 rounded-lg transition-colors hover:bg-[#1f1f1f]">
+                    <div className="text-[#20d760] text-xl group-hover:scale-110 transition-transform">
                       ⚡
                     </div>
                     <div>
-                      <h3 className="text-gray-900 font-medium group-hover:text-info transition-colors">
+                      <h3 className="text-white font-medium group-hover:text-[#20d760] transition-colors">
                         Schnell & Einfach
                       </h3>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-[#b3b3b3]">
                         Intuitive Benutzeroberfläche für maximale Produktivität
                       </p>
                     </div>
@@ -67,29 +67,27 @@ const Register = () => {
                 </div>
               </div>
 
-              <div className="bg-gray-100 p-6 rounded-lg space-y-4">
+              <div className="bg-[#1f1f1f] p-6 rounded-lg space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex -space-x-2">
-                    <div className="w-8 h-8 rounded-full bg-info text-white flex items-center justify-center ring-2 ring-white">
+                    <div className="w-8 h-8 rounded-full bg-[#20d760] text-white flex items-center justify-center ring-2 ring-[#121212]">
                       M
                     </div>
-                    <div className="w-8 h-8 rounded-full bg-purple-500 text-white flex items-center justify-center ring-2 ring-white">
+                    <div className="w-8 h-8 rounded-full bg-[#20d760] text-white flex items-center justify-center ring-2 ring-[#121212]">
                       S
                     </div>
-                    <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center ring-2 ring-white">
+                    <div className="w-8 h-8 rounded-full bg-[#20d760] text-white flex items-center justify-center ring-2 ring-[#121212]">
                       L
                     </div>
                   </div>
                   <div className="flex items-center gap-1">
                     <span className="text-yellow-400">★★★★★</span>
-                    <span className="text-sm text-gray-600">4.9/5</span>
+                    <span className="text-sm text-[#b3b3b3]">4.9/5</span>
                   </div>
                 </div>
                 <div>
-                  <p className="text-gray-900 font-medium">
-                    Wachsende Community
-                  </p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-white font-medium">Wachsende Community</p>
+                  <p className="text-sm text-[#b3b3b3]">
                     Schließe dich über 10.000 zufriedenen Nutzern an
                   </p>
                 </div>
@@ -103,7 +101,7 @@ const Register = () => {
                 <h1 className="text-3xl text-white font-semibold">
                   Erstelle dein Konto
                 </h1>
-                <p className="text-neutral-400">
+                <p className="text-[#b3b3b3]">
                   Jetzt schnell registrieren und direkt loslegen
                 </p>
               </div>
@@ -112,17 +110,17 @@ const Register = () => {
 
               <div className="relative my-6">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-neutral-600"></div>
+                  <div className="w-full border-t border-white/10"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-neutral-900/50 text-neutral-400">
+                  <span className="px-2 bg-[#121212] text-[#b3b3b3]">
                     Oder registriere dich mit
                   </span>
                 </div>
               </div>
 
               <div className="flex justify-center space-x-4">
-                <button className="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
+                <button className="p-2 bg-[#1f1f1f] rounded-lg hover:bg-[#1f1f1f] transition-colors">
                   <svg className="w-6 h-6 text-white" viewBox="0 0 24 24">
                     <path
                       fill="currentColor"
@@ -130,7 +128,7 @@ const Register = () => {
                     />
                   </svg>
                 </button>
-                <button className="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
+                <button className="p-2 bg-[#1f1f1f] rounded-lg hover:bg-[#1f1f1f] transition-colors">
                   <svg className="w-6 h-6 text-white" viewBox="0 0 24 24">
                     <path
                       fill="currentColor"
@@ -140,11 +138,13 @@ const Register = () => {
                 </button>
               </div>
 
-              <div className="text-center space-y-2 text-white">
-                <p className="text-base">Du hast bereits ein Konto?</p>
+              <div className="text-center space-y-2">
+                <p className="text-white text-base">
+                  Du hast bereits ein Konto?
+                </p>
                 <Link
                   to="/login"
-                  className="text-base hover:text-info duration-300 inline-block"
+                  className="text-base text-[#20d760] hover:text-[#2bec6f] duration-300 inline-block"
                 >
                   Jetzt anmelden!
                 </Link>

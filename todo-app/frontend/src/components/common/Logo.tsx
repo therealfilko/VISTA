@@ -3,7 +3,7 @@ import taskifyLogo from "../../assets/taskify_logo.svg";
 
 const Logo = () => {
   return (
-    <Link to="/" className="block w-[75px] h-[75px]">
+    <Link to="/" className="block w-[60px] h-[60px]">
       <img src={taskifyLogo} alt="Taskify" className="w-full h-full" />
     </Link>
   );

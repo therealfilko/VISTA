@@ -11,7 +11,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-950">
+      <div className="min-h-screen flex items-center justify-center bg-[#000000]">
         <div className="text-white text-xl">Laden...</div>
       </div>
     );

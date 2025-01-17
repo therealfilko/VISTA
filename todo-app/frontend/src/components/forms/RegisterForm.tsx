@@ -54,10 +54,10 @@ const RegisterForm = () => {
             value={first_name}
             onChange={(e) => setFirstname(e.target.value)}
             required
-            className="w-full bg-white/5 text-white text-base
-                     placeholder-neutral-600 px-3 py-1.5 rounded-lg
-                     focus:outline-none focus:ring-2 focus:ring-info
-                     transition-all duration-300 hover:bg-white/10"
+            className="w-full bg-[#000000] text-white text-base
+                     placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
+                     focus:outline-none focus:ring-2 focus:ring-[#20d760]
+                     transition-all duration-300 hover:bg-[#000000]/80"
             placeholder="Vorname"
           />
         </div>
@@ -72,10 +72,10 @@ const RegisterForm = () => {
             value={last_name}
             onChange={(e) => setLastname(e.target.value)}
             required
-            className="w-full bg-white/5 text-white text-base
-                     placeholder-neutral-600 px-3 py-1.5 rounded-lg
-                     focus:outline-none focus:ring-2 focus:ring-info
-                     transition-all duration-300 hover:bg-white/10"
+            className="w-full bg-[#000000] text-white text-base
+                     placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
+                     focus:outline-none focus:ring-2 focus:ring-[#20d760]
+                     transition-all duration-300 hover:bg-[#000000]/80"
             placeholder="Nachname"
           />
         </div>
@@ -91,10 +91,10 @@ const RegisterForm = () => {
           value={date_of_birth}
           onChange={(e) => setDateofbirth(e.target.value)}
           required
-          className="w-full bg-white/5 text-white text-base
-                     placeholder-neutral-600 px-3 py-1.5 rounded-lg
-                     focus:outline-none focus:ring-2 focus:ring-info
-                     transition-all duration-300 hover:bg-white/10"
+          className="w-full bg-[#000000] text-white text-base
+                     placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
+                     focus:outline-none focus:ring-2 focus:ring-[#20d760]
+                     transition-all duration-300 hover:bg-[#000000]/80"
         />
       </div>
 
@@ -108,10 +108,10 @@ const RegisterForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full bg-white/5 text-white text-base
-                     placeholder-neutral-600 px-3 py-1.5 rounded-lg
-                     focus:outline-none focus:ring-2 focus:ring-info
-                     transition-all duration-300 hover:bg-white/10"
+          className="w-full bg-[#000000] text-white text-base
+                     placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
+                     focus:outline-none focus:ring-2 focus:ring-[#20d760]
+                     transition-all duration-300 hover:bg-[#000000]/80"
           placeholder="Deine Email-Adresse"
         />
       </div>
@@ -126,10 +126,10 @@ const RegisterForm = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full bg-white/5 text-white text-base
-                     placeholder-neutral-600 px-3 py-1.5 rounded-lg
-                     focus:outline-none focus:ring-2 focus:ring-info
-                     transition-all duration-300 hover:bg-white/10"
+          className="w-full bg-[#000000] text-white text-base
+                     placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
+                     focus:outline-none focus:ring-2 focus:ring-[#20d760]
+                     transition-all duration-300 hover:bg-[#000000]/80"
           placeholder="Dein Passwort"
         />
       </div>
@@ -138,10 +138,10 @@ const RegisterForm = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className={`w-full relative bg-white text-neutral-950 rounded-lg
+          className={`w-full relative bg-[#20d760] text-white rounded-lg
                      py-2 text-base font-medium
                      transition-all duration-300
-                     ${isLoading ? "opacity-80" : "hover:bg-info hover:text-white"}`}
+                     ${isLoading ? "opacity-80" : "hover:bg-[#2bec6f]"}`}
         >
           {isLoading ? (
             <span className="flex items-center justify-center">
