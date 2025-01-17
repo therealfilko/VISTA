@@ -98,7 +98,7 @@ const Start = () => {
                 Kostenlos registrieren
               </button>
             </Link>
-            <button className="bg-[#121212] text-white px-6 py-2 rounded-lg hover:bg-[#20d760] transition-all duration-300">
+            <button className="bg-[#121212] text-white px-6 py-2 rounded-lg hover:bg-[#2a2a2a] transition-all duration-300">
               Mehr erfahren
             </button>
           </div>

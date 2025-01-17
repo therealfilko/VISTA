@@ -45,10 +45,10 @@ const LoginForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full bg-[#000000] text-white text-base
-                     placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
-                     focus:outline-none focus:ring-2 focus:ring-[#20d760]
-                     transition-all duration-300 hover:bg-[#1f1f1f]"
+          className="w-full bg-[#1f1f1f] text-white text-base
+                    placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
+                    focus:outline-none focus:ring-2 focus:ring-[#20d760]
+                    transition-all duration-300 hover:bg-[#2a2a2a]"
           placeholder="Deine Email"
         />
       </div>
@@ -71,10 +71,10 @@ const LoginForm = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full bg-[#000000] text-white text-base
-                     placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
-                     focus:outline-none focus:ring-2 focus:ring-[#20d760]
-                     transition-all duration-300 hover:bg-[#1f1f1f]"
+          className="w-full bg-[#1f1f1f] text-white text-base
+                    placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
+                    focus:outline-none focus:ring-2 focus:ring-[#20d760]
+                    transition-all duration-300 hover:bg-[#2a2a2a]"
           placeholder="Dein Passwort"
         />
       </div>

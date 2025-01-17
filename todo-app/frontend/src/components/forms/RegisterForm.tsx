@@ -54,10 +54,10 @@ const RegisterForm = () => {
             value={first_name}
             onChange={(e) => setFirstname(e.target.value)}
             required
-            className="w-full bg-[#000000] text-white text-base
-                     placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
-                     focus:outline-none focus:ring-2 focus:ring-[#20d760]
-                     transition-all duration-300 hover:bg-[#000000]/80"
+            className="w-full bg-[#1f1f1f] text-white text-base
+                      placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
+                      focus:outline-none focus:ring-2 focus:ring-[#20d760]
+                      transition-all duration-300 hover:bg-[#2a2a2a]"
             placeholder="Vorname"
           />
         </div>
@@ -72,10 +72,10 @@ const RegisterForm = () => {
             value={last_name}
             onChange={(e) => setLastname(e.target.value)}
             required
-            className="w-full bg-[#000000] text-white text-base
-                     placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
-                     focus:outline-none focus:ring-2 focus:ring-[#20d760]
-                     transition-all duration-300 hover:bg-[#000000]/80"
+            className="w-full bg-[#1f1f1f] text-white text-base
+                      placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
+                      focus:outline-none focus:ring-2 focus:ring-[#20d760]
+                      transition-all duration-300 hover:bg-[#2a2a2a]"
             placeholder="Nachname"
           />
         </div>
@@ -91,10 +91,10 @@ const RegisterForm = () => {
           value={date_of_birth}
           onChange={(e) => setDateofbirth(e.target.value)}
           required
-          className="w-full bg-[#000000] text-white text-base
-                     placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
-                     focus:outline-none focus:ring-2 focus:ring-[#20d760]
-                     transition-all duration-300 hover:bg-[#000000]/80"
+          className="w-full bg-[#1f1f1f] text-white text-base
+                    placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
+                    focus:outline-none focus:ring-2 focus:ring-[#20d760]
+                    transition-all duration-300 hover:bg-[#2a2a2a]"
         />
       </div>
 
@@ -108,10 +108,10 @@ const RegisterForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full bg-[#000000] text-white text-base
-                     placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
-                     focus:outline-none focus:ring-2 focus:ring-[#20d760]
-                     transition-all duration-300 hover:bg-[#000000]/80"
+          className="w-full bg-[#1f1f1f] text-white text-base
+                    placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
+                    focus:outline-none focus:ring-2 focus:ring-[#20d760]
+                    transition-all duration-300 hover:bg-[#2a2a2a]"
           placeholder="Deine Email-Adresse"
         />
       </div>
@@ -126,10 +126,10 @@ const RegisterForm = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full bg-[#000000] text-white text-base
-                     placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
-                     focus:outline-none focus:ring-2 focus:ring-[#20d760]
-                     transition-all duration-300 hover:bg-[#000000]/80"
+          className="w-full bg-[#1f1f1f] text-white text-base
+                    placeholder-[#b3b3b3] px-3 py-1.5 rounded-lg
+                    focus:outline-none focus:ring-2 focus:ring-[#20d760]
+                    transition-all duration-300 hover:bg-[#2a2a2a]"
           placeholder="Dein Passwort"
         />
       </div>
