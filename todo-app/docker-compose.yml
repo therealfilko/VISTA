@@ -1,9 +1,7 @@
-version: "3.8"
-
 services:
   app:
     build:
-      context: .
+      context: ./todo-app
       dockerfile: Dockerfile
       target: prod
     restart: unless-stopped
@@ -26,7 +24,7 @@ services:
 
   frontend_dev:
     build:
-      context: .
+      context: ./todo-app
       dockerfile: Dockerfile
       target: frontend_dev
     restart: unless-stopped
@@ -44,7 +42,7 @@ services:
 
   frontend:
     build:
-      context: .
+      context: ./todo-app
       dockerfile: Dockerfile
       target: frontend
     restart: unless-stopped
