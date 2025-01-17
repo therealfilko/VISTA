@@ -62,7 +62,7 @@ jobs:
           cd todo-app
           docker-compose ps
           sleep 10
-          curl -f http://localhost:8080/ || exit 1
+          curl -f http://localhost:9000/ || exit 1
 
       - name: Stop Docker Compose Stack
         run: |
