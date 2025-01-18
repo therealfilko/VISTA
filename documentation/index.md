@@ -178,6 +178,51 @@ Wichtig: Das IT-Konzept darf/muss als Work-In-Progress Dokument gesehen werden. 
       - Fehlerbehandlung: 
         - Unautorisierte Anfragen (HTTP 401) führen zur Weiterleitung auf die Login-Seite.
         - Fehler werden im Frontend geloggt und ggf. dem Nutzer mit einer Fehlermeldung angezeigt.
+      
+## Teststrategie
+
+  **Manuelle Tests**
+    - Zielsetzung
+      - Identifizierung von Bugs und Fehlern im System durch manuelle Überprüfung der Anwendung.
+    - Durchführung 
+      - Manuelles Testen aller Hauptfunktionen, einschließlich:
+        - Registrierung und Login.
+        - Erstellen, Bearbeiten, Löschen und Verschieben von Aufgaben im Dashboard.
+        - Navigation zwischen Seiten und Interaktionen mit UI-Elementen.
+      - Überprüfung der Benutzerfreundlichkeit und Funktionalität der Plattform unter realen Bedingungen.
+    - Ergebnisse:
+        - Sicherstellung, dass alle kritischen Funktionen wie erwartet arbeiten.
+  
+  **UnitTests**
+    - Zielsetzung:
+      - Validierung der korrekten Funktionsweise einzelner Komponenten im System.
+    - Durchführung 
+      - Schreiben und Ausführen von Unit-Tests für spezifische Komponenten, wie z. B.:
+        - TaskColumn: Überprüfung der korrekten Darstellung und Funktionalität von Aufgaben in einer Spalte.
+        - ProgressBar: Sicherstellung der richtigen Berechnung und Anzeige von Fortschrittswerten.
+      - Nutzung von Testframeworks wie Jest oder React Testing Library für die Implementierung.
+    - Ergebnisse:
+        - Abdeckung einzelner, isolierter Funktionen, um Fehler in den zugrunde liegenden Logiken frühzeitig zu erkennen.
+  
+  **Einschränkungen**
+    - Die Teststrategie hat einen starken Fokus auf manuelle Tests.
+    - Automatisierte Tests sind derzeit auf wenige Unit-Tests beschränkt.
+    - Es fehlen automatisierte Integrationstests und End-to-End-Tests zur umfassenden Systemvalidierung.
+
+  **Weiterentwicklung**
+    - Geplante Ausweitung der Teststrategie:
+      - Einführung von automatisierten Tests für kritische Workflows, z. B. Registrierung und Aufgabenmanagement.
+      - Ergänzung von End-to-End-Tests mit Tools wie Cypress, um das Systemverhalten ganzheitlich zu prüfen.
+      - Aufbau einer Testpipeline im CI/CD-Prozess, um Regressionen frühzeitig zu erkennen.
+    
+## Zielgruppenanalyse
+  **Benutzerprofile**
+    - Es wird ein normaler Nutzer-Account erwartet.
+    - Jeder Nutzer hat Zugriff auf sein eigenes Board, weshalb derzeit kein Admin-Account notwendig ist.
+
+  **Anforderungen**
+    - Die Plattform muss sicherstellen, dass jeder Nutzer nur Zugriff auf seine eigenen Daten hat.
+    - Eine klare und intuitive Benutzeroberfläche ist entscheidend, um den Fokus auf individuelle Aufgaben und Boards zu legen.
 
 ## Systemkomponenten
 
