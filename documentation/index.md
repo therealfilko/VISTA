@@ -269,6 +269,10 @@ Wichtig: Das IT-Konzept darf/muss als Work-In-Progress Dokument gesehen werden. 
   - Datensicherung durch Snapshots oder Backups der Cloud-Instanz.
   - Logs für Fehleranalyse und Wiederherstellung.
 
+## Sicherheit 
+- **SSL-Anbindung**
+  - Die Plattform nutzt eine SSL-Verschlüsselung, um eine sichere Übertragung sensibler Daten wie Passwörter und persönliche Informationen zu gewährleisten.
+  - Alle Daten werden verschlüsselt übertragen, um Datenschutz und Datensicherheit zu gewährleisten.
 ## Support
 - **Entry Point für Incidents**: Ticketsystem oder direkter Kontakt via GitHub Issues.
 - **Supportzeit**: In der Projektphase wird das Team fortlaufend Support bieten.
