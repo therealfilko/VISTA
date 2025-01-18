@@ -33,16 +33,6 @@
 - **Bugfixes:**
   - Behebung kleinerer Fehler, die während der Test- und Entwicklungsphase identifiziert wurden.
 
-- **Vorbereitung Deployment:**
-  - Anleitung für Coolify-Setup der App:
-    1. Ressource erstellen (Public Repo).
-    2. Link der Repo angeben (https://github.com/therealfilko/vista).
-    3. "Check repo" klicken.
-    4. Felder ausfüllen:
-        - Buildpack: Docker Compose.
-        - Branch: main.
-        - Base Directory: `/todo-app/`.
-        - Docker Compose Location: `/docker-compose.yml`.
 
 ## 2. Automatisierungsprozesse
 
@@ -61,10 +51,26 @@
        ```
 
   4. **Coolify starten:**
-     - Nach der Installation wurde Coolify über `ip:8000` geöffnet.
+     - Nach der Installation wurde Coolify über `<SERVER-IP>:8000` geöffnet.
 
   5. **Registrierung und Einsatzbereit:**
      - Registrierung durchgeführt, womit Coolify einsatzbereit war.
+
+  6. **Deployment in Coolify:**
+    1. Ressource erstellen (Public Repo).
+    2. Link der Repo angeben (https://github.com/therealfilko/vista).
+    3. "Check repo" klicken.
+    4. Felder ausfüllen:
+       - Buildpack: Docker Compose.
+       - Branch: main.
+       - Base Directory: `/todo-app/`.
+       - Docker Compose Location: `/docker-compose.yml`.
+    5. Domains
+       - Domains for App: 
+       - Domains for Frontend Dev: 
+       - Domains for Frontend: https://taskify.pixelding.de:5173
+    6. Reload Compose File klicken.
+    7. Deploy klicken und warten.
 
 ## 3. Versionskontrolle und Branching-Strategien
 
