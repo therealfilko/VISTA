@@ -8,8 +8,6 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-
-	//_ "todo-app/cmd/api/docs" // Import für generierte Swagger-Dokumentation
 	"todo-app/internal/server"
 )
 

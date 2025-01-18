@@ -1,8 +1,8 @@
 package auth
 
 import (
-	"sync"
-	"time"
+    "sync"
+    "time"
 )
 
 type TokenStore interface {

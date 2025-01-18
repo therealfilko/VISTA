@@ -1,43 +1,42 @@
-// internal/server/column_handler.go
 package server
 
 import (
-	"net/http"
-	"strconv"
-	"todo-app/internal/models"
+    "net/http"
+    "strconv"
+    "todo-app/internal/models"
 
-	"github.com/labstack/echo/v4"
+    "github.com/labstack/echo/v4"
 )
 
 type CreateColumnRequest struct {
-	Title    string `json:"title" validate:"required"`
-	Position int    `json:"position" validate:"required"`
+    Title    string `json:"title" validate:"required"`
+    Position int    `json:"position" validate:"required"`
 }
 
 type UpdateColumnRequest struct {
-	Title    string `json:"title" validate:"required"`
-	Position int    `json:"position" validate:"required"`
+    Title    string `json:"title" validate:"required"`
+    Position int    `json:"position" validate:"required"`
 }
 
 type UpdateTodoPositionRequest struct {
-	TodoID   int64 `json:"todo_id" validate:"required"`
-	ColumnID int64 `json:"column_id" validate:"required"`
-	Position int   `json:"position" validate:"required"`
+    TodoID   int64 `json:"todo_id" validate:"required"`
+    ColumnID int64 `json:"column_id" validate:"required"`
+    Position int   `json:"position" validate:"required"`
 }
 
 type ColumnType int
 
 const (
-	TodoColumn       ColumnType = 1
-	InProgressColumn ColumnType = 2
-	DoneColumn       ColumnType = 3
+    TodoColumn       ColumnType = 1
+    InProgressColumn ColumnType = 2
+    DoneColumn       ColumnType = 3
 )
 
 type Column struct {
-	ID       int64      `json:"id"`
-	Type     ColumnType `json:"type"`
-	Title    string     `json:"title"`
-	Position int        `json:"position"`
+    ID       int64      `json:"id"`
+    Type     ColumnType `json:"type"`
+    Title    string     `json:"title"`
+    Position int        `json:"position"`
 }
 
 // @Summary Get all columns with todos
@@ -49,29 +48,29 @@ type Column struct {
 // @Failure 500 {object} models.ErrorResponse "Failed to fetch columns"
 // @Router /api/columns [get]
 func (s *Server) handleGetColumns(c echo.Context) error {
-	user := c.Get("user").(*models.User)
+    user := c.Get("user").(*models.User)
 
-	columns, err := s.db.GetColumnsByUserID(user.ID)
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, models.ErrorResponse{Message: "Failed to fetch columns"})
-	}
+    columns, err := s.db.GetColumnsByUserID(user.ID)
+    if err != nil {
+        return c.JSON(http.StatusInternalServerError, models.ErrorResponse{Message: "Failed to fetch columns"})
+    }
 
-	var response []map[string]interface{}
-	for _, column := range columns {
-		todos, err := s.db.GetTodosByColumnID(column.ID)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, models.ErrorResponse{Message: "Failed to fetch todos"})
-		}
+    var response []map[string]interface{}
+    for _, column := range columns {
+        todos, err := s.db.GetTodosByColumnID(column.ID)
+        if err != nil {
+            return c.JSON(http.StatusInternalServerError, models.ErrorResponse{Message: "Failed to fetch todos"})
+        }
 
-		response = append(response, map[string]interface{}{
-			"id":       column.ID,
-			"title":    column.Title,
-			"position": column.Position,
-			"todos":    todos,
-		})
-	}
+        response = append(response, map[string]interface{}{
+            "id":       column.ID,
+            "title":    column.Title,
+            "position": column.Position,
+            "todos":    todos,
+        })
+    }
 
-	return c.JSON(http.StatusOK, response)
+    return c.JSON(http.StatusOK, response)
 }
 
 // @Summary Create a new column
@@ -86,28 +85,28 @@ func (s *Server) handleGetColumns(c echo.Context) error {
 // @Failure 500 {object} models.ErrorResponse "Failed to create column"
 // @Router /api/columns [post]
 func (s *Server) handleCreateColumn(c echo.Context) error {
-	var req CreateColumnRequest
-	if err := c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, models.ErrorResponse{Message: "Invalid request payload"})
-	}
+    var req CreateColumnRequest
+    if err := c.Bind(&req); err != nil {
+        return c.JSON(http.StatusBadRequest, models.ErrorResponse{Message: "Invalid request payload"})
+    }
 
-	if err := c.Validate(req); err != nil {
-		return c.JSON(http.StatusBadRequest, models.ErrorResponse{Message: err.Error()})
-	}
+    if err := c.Validate(req); err != nil {
+        return c.JSON(http.StatusBadRequest, models.ErrorResponse{Message: err.Error()})
+    }
 
-	user := c.Get("user").(*models.User)
+    user := c.Get("user").(*models.User)
 
-	column := &models.Column{
-		Title:    req.Title,
-		Position: req.Position,
-		UserID:   user.ID,
-	}
+    column := &models.Column{
+        Title:    req.Title,
+        Position: req.Position,
+        UserID:   user.ID,
+    }
 
-	if err := s.db.CreateColumn(column); err != nil {
-		return c.JSON(http.StatusInternalServerError, models.ErrorResponse{Message: "Failed to create column"})
-	}
+    if err := s.db.CreateColumn(column); err != nil {
+        return c.JSON(http.StatusInternalServerError, models.ErrorResponse{Message: "Failed to create column"})
+    }
 
-	return c.JSON(http.StatusCreated, column)
+    return c.JSON(http.StatusCreated, column)
 }
 
 // @Summary Update a column
@@ -123,34 +122,34 @@ func (s *Server) handleCreateColumn(c echo.Context) error {
 // @Failure 500 {object} models.ErrorResponse "Failed to update column"
 // @Router /api/columns/{id} [put]
 func (s *Server) handleUpdateColumn(c echo.Context) error {
-	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
-	if err != nil {
-		return c.JSON(http.StatusBadRequest, models.ErrorResponse{Message: "Invalid column ID"})
-	}
+    id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+    if err != nil {
+        return c.JSON(http.StatusBadRequest, models.ErrorResponse{Message: "Invalid column ID"})
+    }
 
-	var req UpdateColumnRequest
-	if err := c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, models.ErrorResponse{Message: "Invalid request payload"})
-	}
+    var req UpdateColumnRequest
+    if err := c.Bind(&req); err != nil {
+        return c.JSON(http.StatusBadRequest, models.ErrorResponse{Message: "Invalid request payload"})
+    }
 
-	if err := c.Validate(req); err != nil {
-		return c.JSON(http.StatusBadRequest, models.ErrorResponse{Message: err.Error()})
-	}
+    if err := c.Validate(req); err != nil {
+        return c.JSON(http.StatusBadRequest, models.ErrorResponse{Message: err.Error()})
+    }
 
-	user := c.Get("user").(*models.User)
+    user := c.Get("user").(*models.User)
 
-	column := &models.Column{
-		ID:       id,
-		Title:    req.Title,
-		Position: req.Position,
-		UserID:   user.ID,
-	}
+    column := &models.Column{
+        ID:       id,
+        Title:    req.Title,
+        Position: req.Position,
+        UserID:   user.ID,
+    }
 
-	if err := s.db.UpdateColumn(column); err != nil {
-		return c.JSON(http.StatusInternalServerError, models.ErrorResponse{Message: "Failed to update column"})
-	}
+    if err := s.db.UpdateColumn(column); err != nil {
+        return c.JSON(http.StatusInternalServerError, models.ErrorResponse{Message: "Failed to update column"})
+    }
 
-	return c.JSON(http.StatusOK, column)
+    return c.JSON(http.StatusOK, column)
 }
 
 // @Summary Delete a column
@@ -163,16 +162,16 @@ func (s *Server) handleUpdateColumn(c echo.Context) error {
 // @Failure 500 {object} models.ErrorResponse "Failed to delete column"
 // @Router /api/columns/{id} [delete]
 func (s *Server) handleDeleteColumn(c echo.Context) error {
-	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
-	if err != nil {
-		return c.JSON(http.StatusBadRequest, models.ErrorResponse{Message: "Invalid column ID"})
-	}
+    id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+    if err != nil {
+        return c.JSON(http.StatusBadRequest, models.ErrorResponse{Message: "Invalid column ID"})
+    }
 
-	if err := s.db.DeleteColumn(id); err != nil {
-		return c.JSON(http.StatusInternalServerError, models.ErrorResponse{Message: "Failed to delete column"})
-	}
+    if err := s.db.DeleteColumn(id); err != nil {
+        return c.JSON(http.StatusInternalServerError, models.ErrorResponse{Message: "Failed to delete column"})
+    }
 
-	return c.NoContent(http.StatusOK)
+    return c.NoContent(http.StatusOK)
 }
 
 // @Summary Update todo position
@@ -188,28 +187,28 @@ func (s *Server) handleDeleteColumn(c echo.Context) error {
 // @Failure 500 {object} models.ErrorResponse "Failed to update todo position"
 // @Router /api/todos/{id}/position [put]
 func (s *Server) handleUpdateTodoPosition(c echo.Context) error {
-	var req UpdateTodoPositionRequest
-	if err := c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, models.ErrorResponse{Message: "Invalid request payload"})
-	}
+    var req UpdateTodoPositionRequest
+    if err := c.Bind(&req); err != nil {
+        return c.JSON(http.StatusBadRequest, models.ErrorResponse{Message: "Invalid request payload"})
+    }
 
-	// Prüfe ob es sich um die Done-Spalte handelt
-	if req.ColumnID == int64(DoneColumn) {
-		todo, err := s.db.GetTodoByID(req.TodoID)
-		if err != nil {
-			return c.JSON(http.StatusNotFound, models.ErrorResponse{Message: "Todo not found"})
-		}
-		todo.Done = true
-		if err := s.db.UpdateTodo(todo); err != nil {
-			return c.JSON(http.StatusInternalServerError, models.ErrorResponse{Message: "Failed to update todo"})
-		}
-	}
+    // Prüfe ob es sich um die Done-Spalte handelt
+    if req.ColumnID == int64(DoneColumn) {
+        todo, err := s.db.GetTodoByID(req.TodoID)
+        if err != nil {
+            return c.JSON(http.StatusNotFound, models.ErrorResponse{Message: "Todo not found"})
+        }
+        todo.Done = true
+        if err := s.db.UpdateTodo(todo); err != nil {
+            return c.JSON(http.StatusInternalServerError, models.ErrorResponse{Message: "Failed to update todo"})
+        }
+    }
 
-	if err := s.db.UpdateTodoPosition(req.TodoID, req.ColumnID, req.Position); err != nil {
-		return c.JSON(http.StatusInternalServerError, models.ErrorResponse{Message: "Failed to update todo position"})
-	}
+    if err := s.db.UpdateTodoPosition(req.TodoID, req.ColumnID, req.Position); err != nil {
+        return c.JSON(http.StatusInternalServerError, models.ErrorResponse{Message: "Failed to update todo position"})
+    }
 
-	return c.JSON(http.StatusOK, map[string]string{
-		"message": "Todo position updated successfully",
-	})
+    return c.JSON(http.StatusOK, map[string]string{
+        "message": "Todo position updated successfully",
+    })
 }

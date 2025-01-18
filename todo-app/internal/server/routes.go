@@ -16,7 +16,6 @@ func (s *Server) RegisterRoutes() http.Handler {
 
 	e.Validator = &CustomValidator{validator: validator.New()}
 
-	// CORS Middleware direkt als Echo Middleware verwenden
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{
 			"http://localhost:5173",
@@ -84,22 +83,3 @@ func (s *Server) HelloWorldHandler(c echo.Context) error {
 	return c.JSON(http.StatusOK, resp)
 }
 
-//func (s *Server) setCookie(c echo.Context, tokenString string) {
-//	domain := c.Request().Host
-//	if strings.Contains(domain, ":") {
-//		// Entferne Port-Nummer für lokale Entwicklung
-//		domain = strings.Split(domain, ":")[0]
-//	}
-//
-//	cookie := &http.Cookie{
-//		Name:     "token",
-//		Value:    tokenString,
-//		Path:     "/",
-//		Domain:   domain, // Dynamische Domain
-//		MaxAge:   3600,
-//		HttpOnly: true,
-//		Secure:   false, // Temporär false für http
-//		SameSite: http.SameSiteLaxMode,
-//	}
-//	c.SetCookie(cookie)
-//}

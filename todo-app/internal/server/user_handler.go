@@ -1,4 +1,3 @@
-// internal/server/user_handler.go
 package server
 
 import (
