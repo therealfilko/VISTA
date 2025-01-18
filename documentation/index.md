@@ -95,7 +95,7 @@
   - Erfolgreiche Registrierung leitet den Nutzer zur Login-Seite weiter.
   - Fehler werden dem Nutzer angezeigt.
 - **Zusatzoptionen:**
-  - Social Sign-up über Google und GitHub
+  - Social Sign-up über Google und GitHub (nicht funktional)
   - "Du hast bereits ein Konto?"-Link zur Login-Seite
 
 #### 4. API-Anbindungen der Registrierungsseite
@@ -151,7 +151,7 @@
 - **Login-Endpoint:**
   - `POST /api/auth/login`: Authentifiziert Nutzer mit E-Mail und Passwort. Bei Erfolg wird ein Token für die Sitzung erstellt.
 - **Fehlerbehandlung:**
-  - Bei ungültigen Zugangsdaten wird ein Fehler angezeigt.
+  - Bei ungültigen Zugangsdaten wird ein Fehler angezeigt. ("Invalid credentials")
   - Unvorhergesehene Fehler werden mit einer allgemeinen Fehlermeldung behandelt.
 - **Redirect-Logik:**
   - Nach erfolgreichem Login wird der Nutzer zum Dashboard weitergeleitet.
