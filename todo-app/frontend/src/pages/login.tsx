@@ -2,6 +2,16 @@ import { Link } from "react-router-dom";
 import Logo from "../components/common/Logo";
 import LoginForm from "../components/forms/LoginForm";
 
+const getServerTimeAndTimeZone = (): void => {
+    const now = new Date();
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    console.log(`Serverzeit: ${now.toISOString()}`);
+    console.log(`Server-Zeitzone: ${timeZone}`);
+};
+
+getServerTimeAndTimeZone();
+
 const Login = () => {
   return (
     <div className="min-h-screen bg-[#000000]">
