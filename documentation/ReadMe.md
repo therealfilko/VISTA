@@ -32,7 +32,18 @@
     
     - 10. Bugfixes:
         - Behebung kleinerer Fehler, die während der Test- und Entwicklungsphase identifiziert wurden.
-
+    
+    - 11. Vorbereitung Deployment
+        - Anleitung für Coolify setup der app
+            - 1. Ressource erstellen (Public Repo)
+            - 2. Link der Repo angeben (https://github.com/therealfilko/vista)
+            - 3. Check repo klicken
+            - 4. Ausfüllen (
+                [Buildpack: Docker Compose]
+                [Branch: main]
+                [Base Directory: /todo-app/]
+                [Docker Compose Location: /docker-compose.yml]
+                )
 
 ## 2. Automatisierungsprozesse: 
     
@@ -71,9 +82,7 @@
         - Nur fehlerfreie und geprüfte Änderungen dürfen in den Main Branch gemerged werden.
 
 
-## 4. CI/CD-Pipeline:
-
-## 5. Monitoring und Feedback:
+## 4. Monitoring und Feedback:
 
     - 1. Erstellung eines neuen Projekts in Coolify:
         - Für das Monitoring wurde ein neues Projekt erstellt.
@@ -88,7 +97,7 @@
         - Nach dem Hinzufügen und Installieren der YAML-Datei konnte das Monitoring-System gestartet werden.
 
 
-## 6. Kommunikation und Zusammenarbeit:
+## 5. Kommunikation und Zusammenarbeit:
 
     - Ständige Kommunikation: 
         - Die Teammitglieder stehen in kontinuierlichem Austausch, um sicherzustellen, dass alle auf dem gleichen Stand sind. 
