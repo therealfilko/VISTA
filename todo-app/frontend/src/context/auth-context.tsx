@@ -2,9 +2,9 @@ import { ReactNode, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext, User } from "./auth-context-type";
 
-const baseURL = window.location.hostname === "localhost"
-  ? "http://localhost:9000"
-  : "/api";
+const baseURL = import.meta.env.PROD 
+  ? "http://app:9000" 
+  : "http://localhost:9000";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
