@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import LoginForm from "../../../components/forms/LoginForm";
 
 // Mock useNavigate und useLocation
@@ -23,7 +23,7 @@ jest.mock("../../../hooks/use-auth", () => ({
 }));
 
 describe("LoginForm", () => {
-  test("handles login form submission", () => {
+  test("handles login form submission", async () => {
     render(<LoginForm />);
 
     fireEvent.change(screen.getByLabelText(/email/i), {
@@ -36,9 +36,12 @@ describe("LoginForm", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /anmelden/i }));
 
-    expect(mockAuthContext.login).toHaveBeenCalledWith(
-      "max.mustermann@example.com",
-      "test123",
-    );
+    // Warte auf das Ende des asynchronen Updates
+    await waitFor(() => {
+      expect(mockAuthContext.login).toHaveBeenCalledWith(
+        "max.mustermann@example.com",
+        "test123"
+      );
+    });
   });
 });
