@@ -6,14 +6,21 @@
 
 - **VISTA TODO**
   - TODO Funktion (erstellen, löschen, bearbeiten)
-  - Authentifizierung (Demo User)
+  - Authentifizierung
+    - Vollständiges Login-System mit Email/Passwort
+    - Registrierungssystem mit Validierung
+    - Responsive Benutzeroberfläche für alle Geräte
+    - Moderne UI mit TailwindCSS und DaisyUI
+    - Formvalidierung und Fehlerhandling
 
 - **Technologien**
-  - Framework: React mit TypeScript für typsichere Entwicklung.
-  - UI-Design: TailwindCSS und DaisyUI für schnelles und responsives Styling.
-  - Icons: react-icons für konsistente Symbolik.
-  - HTTP-Client: Axios für API-Kommunikation.
-  - State-Management: Lokaler Zustand mit React Hooks (useState, useEffect).
+  - Framework: React mit TypeScript für typsichere Entwicklung
+  - UI-Design: TailwindCSS für schnelles und responsives Styling
+  - Icons: react-icons für konsistente Symbolik
+  - HTTP-Client: Axios für API-Kommunikation
+  - State-Management: Lokaler Zustand mit React Hooks (useState, useEffect)
+  - Formular-Handling: Eigene Formularkomponenten mit Validierung
+  - Error-Handling: Zentrale Fehlerbehandlung mit ErrorMessage-Komponente
 
 ## Frontend
 
@@ -37,22 +44,33 @@
   - Dropdown-Menüs für einfache Navigation zu verschiedenen Plattformbereichen.
   - Optisch hervorgehobene Links bei Hover-Interaktionen.
 - **Handlungsaufrufe (CTAs):**
-  - Prominent platzierte Schaltflächen: „Jetzt starten“ (Login) und „Kostenlos registrieren“.
+  - Prominent platzierte Schaltflächen: „Jetzt starten" (Login) und „Kostenlos registrieren".
 - **Abschnittshighlights:**
-  - Informationen über Funktionen der Plattform („Einfache Organisation“, „Ziele erreichen“, „Erinnerungen“).
-  - Statistiken (z. B. Nutzerzahlen, abgeschlossene Aufgaben) zur Vertrauensbildung.
+  - Informationen über Funktionen der Plattform mit Icons.
+  - Interaktive Statistiken zur Vertrauensbildung.
 
 #### 4. API-Anbindungen der Startseite
-- Die Startseite benötigt keine direkte API-Integration. Die Inhalte sind statisch und kommen aus der Komponentenstruktur. Alle interaktiven Elemente wie Buttons und Links leiten den Nutzer zu den entsprechenden Seiten („Login“, „Registrieren“, usw.), wo eine API-Integration relevant wird.
+- Die Startseite benötigt keine direkte API-Integration. Die Inhalte sind statisch und kommen aus der Komponentenstruktur. Alle interaktiven Elemente wie Buttons und Links leiten den Nutzer zu den entsprechenden Seiten („Login", „Registrieren", usw.), wo eine API-Integration relevant wird.
 
 #### 5. Struktur des Inhalts
 - **Header:**
   - Enthält Logo, Navigationslinks und Authentifizierungsbuttons.
 - **Main-Bereich:**
-  - **Hero-Sektion:** Begrüßung mit Titel, Untertitel und prominentem Handlungsaufruf.
-  - **Funktionalitätsabschnitt:** Kurzbeschreibung der wichtigsten Vorteile der Plattform.
-  - **Statistiken:** Vertrauensbildende Zahlen und Fakten zur Plattform.
-  - **Abschluss-Sektion:** Handlungsaufruf zur Registrierung oder Informationseinholung.
+  - **Hero-Sektion:**
+    - Haupttitel "Organisiere deine Aufgaben effizient" mit grüner Hervorhebung
+    - Untertitel "Steigere deine Produktivität mit Taskify"
+    - Prominenter "Jetzt starten" Button
+  - **Features-Sektion:** Grid mit drei Karten
+    - Einfache Organisation (✓)
+    - Ziele erreichen (🎯)
+    - Erinnerungen (🔔)
+  - **Statistik-Sektion:** Grid mit drei Statistiken (angegebene Zahlen sind nur Platzhalter und dienen nur Vorstellungszwecken)
+    - 10k+ Aktive Nutzer
+    - 50k+ Erledigte Aufgaben
+    - 99% Zufriedene Kunden
+  - **Abschluss-Sektion:**
+    - "Bereit durchzustarten?" Call-to-Action
+    - Buttons für Registrierung und "Mehr erfahren"
 
 ### Registrierung
 
@@ -75,9 +93,10 @@
   - Nutzer füllen die Felder für Vorname, Nachname, Geburtsdatum, E-Mail und Passwort aus.
   - Bei Klick auf den Button "Registrieren" wird eine API-Anfrage an den Registrierungs-Endpoint gesendet.
   - Erfolgreiche Registrierung leitet den Nutzer zur Login-Seite weiter.
-  - Fehler (z. B. ungültige Daten oder Serverprobleme) werden dem Nutzer angezeigt.
+  - Fehler werden dem Nutzer angezeigt.
 - **Zusatzoptionen:**
-  - "Du hast bereits ein Konto?"-Link leitet Nutzer zur Login-Seite weiter.
+  - Social Sign-up über Google und GitHub
+  - "Du hast bereits ein Konto?"-Link zur Login-Seite
 
 #### 4. API-Anbindungen der Registrierungsseite
 - **Registrierungs-Endpoint:**
@@ -92,13 +111,17 @@
 - **Header:**
   - Beinhaltet das Logo zur Markendarstellung.
 - **Main-Bereich:**
-  - **Linke Hälfte:**
-    - Vorteilsdarstellung: Highlights wie "Kostenlos starten", "Sicher & Verschlüsselt", "Schnell & Einfach".
-    - Community-Statistiken: Vertrauen durch Nutzerbewertungen und -zahlen.
+  - **Linke Hälfte:** (auf größeren Bildschirmen)
+    - Vorteilsdarstellung mit Icons:
+      - "Kostenlos starten" (🎯)
+      - "Sicher & Verschlüsselt" (🔒)
+      - "Schnell & Einfach" (⚡)
+    - Community-Box mit Nutzerprofilen und 4.9/5 Sterne-Bewertung
   - **Rechte Hälfte:**
-    - Titel und Begrüßungstext.
-    - Eingabefelder für Vorname, Nachname, Geburtsdatum, E-Mail-Adresse und Passwort.
-    - Button zur Registrierung.
+    - Titel "Erstelle dein Konto" und Begrüßungstext
+    - Registrierungsformular mit allen Eingabefeldern
+    - Social Sign-up Optionen (Google, GitHub)
+    - Link zur Login-Seite
 
 ### Login Page
 
@@ -118,10 +141,11 @@
   - Nutzer geben E-Mail und Passwort ein.
   - Ein Button sendet die Daten an die Authentifizierungs-API.
   - Bei erfolgreicher Anmeldung wird der Nutzer auf das Dashboard weitergeleitet.
-  - Fehler (z. B. falsche Anmeldedaten) werden mit einer Fehlermeldung angezeigt.
+  - Fehler werden mit einer Fehlermeldung angezeigt.
 - **Optionen:**
-  - Link für "Passwort vergessen", der zur Seite für das Zurücksetzen des Passworts führt.
-  - Checkbox "Angemeldet bleiben" für persistente Sitzungen.
+  - Social Login über Google und GitHub (nicht funktional)
+  - Link für "Passwort vergessen" (nicht funktional)
+  - Checkbox "Angemeldet bleiben" (nicht funktional)
 
 #### 4. API-Anbindungen der Login-Seite
 - **Login-Endpoint:**
@@ -130,20 +154,20 @@
   - Bei ungültigen Zugangsdaten wird ein Fehler angezeigt.
   - Unvorhergesehene Fehler werden mit einer allgemeinen Fehlermeldung behandelt.
 - **Redirect-Logik:**
-  - Nach erfolgreichem Login wird der Nutzer zur zuvor besuchten Seite (oder standardmäßig zum Dashboard) weitergeleitet.
+  - Nach erfolgreichem Login wird der Nutzer zum Dashboard weitergeleitet.
 
 #### 5. Struktur des Inhalts
 - **Header:**
   - Beinhaltet das Logo zur Markendarstellung.
 - **Main-Bereich:**
-  - **Linke Hälfte:**
-    - Titel und Begrüßungstext.
-    - Eingabefelder für E-Mail und Passwort.
-    - Button zum Anmelden.
-    - Zusätzliche Optionen wie "Passwort vergessen" und Checkbox "Angemeldet bleiben".
-  - **Rechte Hälfte:** (auf größeren Bildschirmen sichtbar)
-    - Vorteile der Plattform (z. B. Aufgaben organisieren, Fortschritt tracken).
-    - Kundenbewertungen zur Vertrauensbildung.
+  - **Rechte Hälfte:**
+    - Anmeldeformular mit Email und Passwort
+    - Checkbox "Angemeldet bleiben"
+    - Social Login Optionen (Google, GitHub)
+    - "Du hast noch kein Konto?" Link zur Registrierung
+  - **Linke Hälfte:** (auf größeren Bildschirmen)
+    - Vorteile-Sektion mit drei Features (✓)
+    - Kundenbewertungen mit Profilbild und 5-Sterne-Rating
 
 ### Dashboard
 
