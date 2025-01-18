@@ -6,6 +6,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/rs/cors"
 	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
@@ -16,13 +17,25 @@ func (s *Server) RegisterRoutes() http.Handler {
 
 	e.Validator = &CustomValidator{validator: validator.New()}
 
-	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"http://taskify.pixelding.de", "http://localhost:3000", "http://localhost:5173", "http://localhost:9000", "http://localhost:8080", "https://*"},
-		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
-		AllowHeaders:     []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
-		AllowCredentials: true,
-		MaxAge:           300,
-	}))
+	// CORS Middleware
+	corsMiddleware := cors.New(cors.Options{
+		AllowedOrigins: []string{
+			"http://localhost:5173",
+			"http://localhost:3000",
+			"http://localhost:9000",
+			"http://localhost:8000",
+			"http://taskify.pixelding.de",
+			"https://taskify.pixelding.de",
+		},
+		AllowedMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
+		AllowedHeaders:     []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+		AllowCredentials:   true,
+		Debug:              true, // Aktiviert Debug-Logging für CORS
+		OptionsPassthrough: true, // Wichtig für OPTIONS preflight requests
+	})
+
+	// Wrap Echo mit CORS
+	handler := corsMiddleware.Handler(e)
 
 	// Public endpoints
 	e.GET("/", s.HelloWorldHandler)
@@ -65,7 +78,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 	e.File("/swagger/doc.json", "docs/swagger.json")
 
-	return e
+	return handler
 }
 
 func (s *Server) HelloWorldHandler(c echo.Context) error {

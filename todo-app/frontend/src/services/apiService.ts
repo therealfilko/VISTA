@@ -60,9 +60,9 @@ export interface UpdateTodoPositionData {
 
 class ApiService {
   private api;
-  private baseURL = import.meta.env.PROD 
-    ? "http://app:9000"  // Docker-Service-Name
-    : "http://localhost:9000"; // Entwicklungsumgebung
+  private baseURL = window.location.hostname === "localhost"
+    ? "http://localhost:9000"  // Lokale Entwicklung
+    : `${window.location.protocol}//${window.location.hostname}:9000`; // Produktion
 
   constructor() {
     this.api = axios.create({

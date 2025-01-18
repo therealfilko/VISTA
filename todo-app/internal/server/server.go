@@ -2,21 +2,18 @@ package server
 
 import (
 	"fmt"
-	"net/http"
 	"os"
 	"strconv"
-	"time"
 
 	"github.com/go-playground/validator/v10"
 	_ "github.com/joho/godotenv/autoload"
-	"github.com/labstack/echo/v4"
 
 	"todo-app/internal/auth"
 	"todo-app/internal/database"
 )
 
 type Server struct {
-	port       int
+	Port       int
 	db         database.Service
 	jwtService *auth.JWTService
 	tokenStore auth.TokenStore
@@ -30,7 +27,7 @@ func (cv *CustomValidator) Validate(i interface{}) error {
 	return cv.validator.Struct(i)
 }
 
-func NewServer() (*http.Server, error) {
+func NewServer() (*Server, error) {
 	port, _ := strconv.Atoi(os.Getenv("PORT"))
 
 	// Token Store initialisieren
@@ -48,24 +45,10 @@ func NewServer() (*http.Server, error) {
 		return nil, fmt.Errorf("failed to initialize database: %v", err)
 	}
 
-	NewServer := &Server{
-		port:       port,
+	return &Server{
+		Port:       port,
 		db:         db,
 		jwtService: jwtService,
 		tokenStore: tokenStore,
-	}
-
-	// Echo Server mit Validator
-	e := echo.New()
-	e.Validator = &CustomValidator{validator: validator.New()}
-
-	server := &http.Server{
-		Addr:         fmt.Sprintf(":%d", NewServer.port),
-		Handler:      NewServer.RegisterRoutes(),
-		IdleTimeout:  time.Minute,
-		ReadTimeout:  10 * time.Second,
-		WriteTimeout: 30 * time.Second,
-	}
-
-	return server, nil
+	}, nil
 }
