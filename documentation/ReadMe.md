@@ -57,8 +57,14 @@
   5. **Registrierung und Einsatzbereit:**
      - Registrierung durchgeführt, womit Coolify einsatzbereit war.
 
-  6. **Deployment in Coolify:**
-    1. Ressource erstellen (Public Repo).
+  6. **Projekt erstellen:**
+     - Projekt hinzufügen und einen Namen geben.
+
+  7. **Source hinzufügen:**
+     - Github Source hinzufügen und die Schritte durchgehen, welche erklärt werden.
+
+  8. **Deployment in Coolify:**
+    1. Ressource erstellen (Github Repository).
     2. Link der Repo angeben (https://github.com/therealfilko/vista).
     3. "Check repo" klicken.
     4. Felder ausfüllen:
