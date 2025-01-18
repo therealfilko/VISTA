@@ -56,7 +56,7 @@ func (s *MemoryTokenStore) IsTokenValid(tokenID string) bool {
         return false
     }
 
-    return !info.Revoked && time.Now().Before(info.ExpiresAt)
+    return !info.Revoked && time.Now().UTC().Before(info.ExpiresAt)
 }
 
 func (s *MemoryTokenStore) IsTokenRevoked(tokenID string) bool {
@@ -87,7 +87,7 @@ func (s *MemoryTokenStore) CleanupExpiredTokens() {
     s.mutex.Lock()
     defer s.mutex.Unlock()
 
-    now := time.Now()
+    now := time.Now().UTC()
     for tokenID, info := range s.tokens {
         if now.After(info.ExpiresAt) {
             delete(s.tokens, tokenID)

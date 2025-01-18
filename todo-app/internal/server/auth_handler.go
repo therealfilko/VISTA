@@ -161,7 +161,7 @@ func (s *Server) handleLogout(c echo.Context) error {
   Name:     "access_token",
   Value:    "",
   Path:     "/",
-  Expires:  time.Now().Add(-1 * time.Hour),
+  Expires:  time.Now().UTC().Add(-1 * time.Hour),
   HttpOnly: true,
   Secure:   true,
  })
@@ -170,7 +170,7 @@ func (s *Server) handleLogout(c echo.Context) error {
   Name:     "refresh_token",
   Value:    "",
   Path:     "/auth/refresh",
-  Expires:  time.Now().Add(-1 * time.Hour),
+  Expires:  time.Now().UTC().Add(-1 * time.Hour),
   HttpOnly: true,
   Secure:   true,
  })

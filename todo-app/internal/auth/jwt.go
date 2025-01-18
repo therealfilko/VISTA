@@ -60,7 +60,7 @@ func (j *JWTService) GenerateTokenPair(userID int64, email string) (*TokenPair, 
         return nil, err
     }
 
-    err = j.tokenStore.StoreToken(tokenID, userID, time.Now().Add(7*24*time.Hour))
+    err = j.tokenStore.StoreToken(tokenID, userID, time.Now().UTC().Add(7*24*time.Hour))
     if err != nil {
         return nil, err
     }
@@ -77,8 +77,8 @@ func (j *JWTService) generateAccessToken(userID int64, email, tokenID string) (s
         Email:   email,
         TokenID: tokenID,
         RegisteredClaims: jwt.RegisteredClaims{
-            ExpiresAt: jwt.NewNumericDate(time.Now().Add(15 * time.Minute)),
-            IssuedAt:  jwt.NewNumericDate(time.Now()),
+            ExpiresAt: jwt.NewNumericDate(time.Now().UTC().Add(15 * time.Minute)),
+            IssuedAt:  jwt.NewNumericDate(time.Now().UTC()),
         },
     }
 
@@ -91,8 +91,8 @@ func (j *JWTService) generateRefreshToken(userID int64, tokenID string) (string,
         UserID:  userID,
         TokenID: tokenID,
         RegisteredClaims: jwt.RegisteredClaims{
-            ExpiresAt: jwt.NewNumericDate(time.Now().Add(7 * 24 * time.Hour)),
-            IssuedAt:  jwt.NewNumericDate(time.Now()),
+            ExpiresAt: jwt.NewNumericDate(time.Now().UTC().Add(7 * 24 * time.Hour)),
+            IssuedAt:  jwt.NewNumericDate(time.Now().UTC()),
         },
     }
 
@@ -150,7 +150,7 @@ func (j *JWTService) SetTokenCookies(c echo.Context, tokenPair *TokenPair) {
     accessCookie := new(http.Cookie)
     accessCookie.Name = "access_token"
     accessCookie.Value = tokenPair.AccessToken
-    accessCookie.Expires = time.Now().Add(15 * time.Minute)
+    accessCookie.Expires = time.Now().UTC().Add(15 * time.Minute)
     accessCookie.Path = "/"
     accessCookie.HttpOnly = true
     accessCookie.Secure = true
@@ -159,7 +159,7 @@ func (j *JWTService) SetTokenCookies(c echo.Context, tokenPair *TokenPair) {
     refreshCookie := new(http.Cookie)
     refreshCookie.Name = "refresh_token"
     refreshCookie.Value = tokenPair.RefreshToken
-    refreshCookie.Expires = time.Now().Add(7 * 24 * time.Hour)
+    refreshCookie.Expires = time.Now().UTC().Add(7 * 24 * time.Hour)
     refreshCookie.Path = "/auth/refresh"
     refreshCookie.HttpOnly = true
     refreshCookie.Secure = true
