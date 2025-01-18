@@ -4,7 +4,7 @@
 
 ## Anwendung
 
-![App_Dashboard](/images/app_dashboard.png)
+![App_Dashboard](images/app_dashboard.png)
 
 - **VISTA TODO**
   - TODO Funktion (erstellen, löschen, bearbeiten)
