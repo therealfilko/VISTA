@@ -4,6 +4,8 @@
 
 ## Anwendung
 
+![App_Dashboard](/images/app_dashboard.png)
+
 - **VISTA TODO**
   - TODO Funktion (erstellen, löschen, bearbeiten)
   - Authentifizierung
@@ -25,6 +27,8 @@
 ## Frontend
 
 ### Start Page
+
+![Startseite](/images/startseite.png)
 
 #### 1. Zielsetzung
 - Die Startseite bietet Nutzern einen ansprechenden Einstieg in die Plattform. Sie informiert über die Hauptfunktionen, Vorteile und Statistiken der Anwendung und animiert durch klare Handlungsaufrufe zur Registrierung oder Anmeldung.
@@ -73,6 +77,8 @@
     - Buttons für Registrierung und "Mehr erfahren"
 
 ### Registrierung
+
+![Registrierung](/images/registrierung.png)
 
 #### 1. Zielsetzung
 - Die Registrierungsseite bietet neuen Nutzern die Möglichkeit, ein Konto auf der Plattform zu erstellen. Sie umfasst Eingabefelder für Vorname, Nachname, Geburtsdatum, E-Mail-Adresse und Passwort. Die Seite stellt sicher, dass die Daten valide eingegeben werden und leitet die Nutzer bei erfolgreicher Registrierung zur Login-Seite weiter.
@@ -125,6 +131,8 @@
 
 ### Login Page
 
+![Login](/images/login_ausgefuellt.png)
+
 #### 1. Zielsetzung
 - Die Login-Seite bietet Nutzern eine intuitive Möglichkeit, sich auf der Plattform anzumelden. Sie umfasst Eingabemöglichkeiten für E-Mail und Passwort, einen Button zum Login sowie weitere Optionen wie "Passwort vergessen". Ziel ist es, eine reibungslose und sichere Anmeldung zu gewährleisten.
 
@@ -170,6 +178,8 @@
     - Kundenbewertungen mit Profilbild und 5-Sterne-Rating
 
 ### Dashboard
+
+![Dashboard](/images/dashboard.png)
 
 #### 1. Architektur & Komponenten
 - Das Dashboard dient zur Verwaltung von Aufgaben in einer Kanban-ähnlichen Ansicht. Es ermöglicht Nutzern, Aufgaben zwischen Spalten zu verschieben, neue Aufgaben zu erstellen, bestehende Aufgaben zu bearbeiten und Fortschritte visuell zu verfolgen.
@@ -264,6 +274,8 @@
 
 ### Hardware
 
+![Server](/images/server.png)
+
 #### Anbieter: Hetzner
 - **Cloud-Instanz (CX22):**
   - 2 vCPU
@@ -274,6 +286,8 @@
 ### Software
 - **GitHub Actions:** Für Continuous Integration (CI) und Continuous Deployment (CD) wird GitHub Actions verwendet. Es automatisiert den Build- und Testprozess bei jedem Commit.
 - **Coolify:** Coolify wird für die einfache Bereitstellung der Webanwendung auf der Cloud-Instanz genutzt, um eine problemlose Verwaltung der Infrastruktur sicherzustellen.
+
+![Coolify](/images/coolify_dashboard.png)
 
 ### Quellsysteme
 - **GitHub:** Versionsverwaltung der Quellcodes und zentrale Plattform für die Zusammenarbeit im Team.
