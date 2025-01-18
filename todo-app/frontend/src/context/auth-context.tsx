@@ -2,6 +2,10 @@ import { ReactNode, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext, User } from "./auth-context-type";
 
+const baseURL = import.meta.env.PROD 
+  ? "https://taskify.pixelding.de:9000" 
+  : "http://localhost:9000";
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -64,7 +68,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [isAuthenticated, navigate]);
 
   const login = async (email: string, password: string) => {
-    const response = await fetch("http://localhost:9000/auth/login", {
+    const response = await fetch(`${baseURL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

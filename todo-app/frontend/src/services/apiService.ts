@@ -60,7 +60,9 @@ export interface UpdateTodoPositionData {
 
 class ApiService {
   private api;
-  private baseURL = "http://localhost:9000";
+  private baseURL = import.meta.env.PROD 
+    ? "https://taskify.pixelding.de:9000"  // Produktionsumgebung
+    : "http://localhost:9000"; // Entwicklungsumgebung
 
   constructor() {
     this.api = axios.create({
