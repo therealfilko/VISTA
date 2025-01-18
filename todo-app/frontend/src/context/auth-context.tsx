@@ -2,9 +2,9 @@ import { ReactNode, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext, User } from "./auth-context-type";
 
-const baseURL = import.meta.env.PROD 
-  ? "https://taskify.pixelding.de:9000" 
-  : "http://localhost:9000";
+const baseURL = window.location.hostname === "localhost"
+  ? "http://localhost:9000"
+  : "/api";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
