@@ -6,7 +6,14 @@ export default defineConfig({
   server: {
     host: "0.0.0.0",
     port: 3000,
-    strictPort: true, // Verhindert automatisches Wechseln des Ports
+    strictPort: true,
+    middlewareMode: false, // Stelle sicher, dass die Middleware korrekt deaktiviert ist
+  },
+  resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
+  },
+  build: {
+    manifest: true,
   },
 });
 
