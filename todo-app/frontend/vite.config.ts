@@ -6,9 +6,6 @@ export default defineConfig({
   server: {
     host: true,
     port: 3000,
-    headers: {
-      "Content-Type": "application/javascript",
-    },
     proxy: {
       "/auth": {
         target: "http://app:9000",
@@ -22,15 +19,15 @@ export default defineConfig({
     watch: {
       usePolling: true,
     },
+    // Fallback für SPA
+    middlewareMode: false,
+    fs: {
+      strict: false, // Verhindert restriktive File-Zugriffe
+    },
   },
   build: {
     sourcemap: true,
     manifest: true,
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      target: "es2020",
-    },
   },
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
