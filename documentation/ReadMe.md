@@ -40,6 +40,7 @@
 
   1. **Server mieten:**
      - Einen Server für die Bereitstellung gemietet.
+     - 4GB Ram, vCPU 2, 40GB SSD Speicher
 
   2. **Zugriff auf den Server:**
      - Mit SSH auf den gemieteten Server zugegriffen, um die Installation vorzubereiten.

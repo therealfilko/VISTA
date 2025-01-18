@@ -10,7 +10,7 @@
 
 - **Technologien**
   - Framework: React mit TypeScript für typsichere Entwicklung.
-  - UI-Design: TailwindCSS für schnelles und responsives Styling.
+  - UI-Design: TailwindCSS und DaisyUI für schnelles und responsives Styling.
   - Icons: react-icons für konsistente Symbolik.
   - HTTP-Client: Axios für API-Kommunikation.
   - State-Management: Lokaler Zustand mit React Hooks (useState, useEffect).
