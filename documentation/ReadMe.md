@@ -1,113 +1,112 @@
-# Workflow 
+# Workflow
 
 ## 1. Schritte des Workflows
 
-    - 1. Ideenfindung: 
-        - Entwicklung einer Idee und Festlegung, was umgesetzt werden soll.
+- **Ideenfindung:**
+  - Entwicklung einer Idee und Festlegung, was umgesetzt werden soll.
 
-    - 2. Tool-Recherche: 
-        - Auswahl der benötigten Tools und Technologien.
-        - Prüfung der Kosten und Machbarkeit.
-    
-    - 3. Design-Phase: 
-        - Erstellung eines ersten Designs mit Figma zur Visualisierung der Benutzeroberfläche.
-    
-    - 4. Backend-Entwicklung:
-        - Entwicklung des Backends, um die Basis für die weitere Entwicklung zu schaffen.
-    
-    - 5. Überarbeitung des Designs:
-        - Nach Fertigstellung des Backends wurde das Design nochmals überarbeitet und optimiert.
-    
-    - 6. Frontend-Entwicklung:
-        - Parallele Entwicklung des Frontends und Verbindung mit dem Backend über APIs.
+- **Tool-Recherche:**
+  - Auswahl der benötigten Tools und Technologien.
+  - Prüfung der Kosten und Machbarkeit.
 
-    - 7. Unit-Testing-Phase:
-        - Erstellung und Durchführung von Unit-Tests für das Frontend und Backend, um die Basisfunktionalitäten zu überprüfen.
-    
-    - 8. Testphase: 
-        - Durchführung einer umfassenden Testphase, um Bugs zu identifizieren und Schwachstellen zu finden.
-    
-    - 9. Monitoring:
-        - Einrichtung von Monitoring-Tools, um die Stabilität und Funktionalität der Anwendung zu überwachen.
-    
-    - 10. Bugfixes:
-        - Behebung kleinerer Fehler, die während der Test- und Entwicklungsphase identifiziert wurden.
-    
-    - 11. Vorbereitung Deployment
-        - Anleitung für Coolify setup der app
-            - 1. Ressource erstellen (Public Repo)
-            - 2. Link der Repo angeben (https://github.com/therealfilko/vista)
-            - 3. Check repo klicken
-            - 4. Ausfüllen (
-                [Buildpack: Docker Compose]
-                [Branch: main]
-                [Base Directory: /todo-app/]
-                [Docker Compose Location: /docker-compose.yml]
-                )
+- **Design-Phase:**
+  - Erstellung eines ersten Designs mit Figma zur Visualisierung der Benutzeroberfläche.
 
-## 2. Automatisierungsprozesse: 
-    
-    - Coolify-Installation:
+- **Backend-Entwicklung:**
+  - Entwicklung des Backends, um die Basis für die weitere Entwicklung zu schaffen.
 
-        - 1. Server mieten:
-            - Einen Server für die Bereitstellung gemietet.
+- **Überarbeitung des Designs:**
+  - Nach Fertigstellung des Backends wurde das Design nochmals überarbeitet und optimiert.
 
-        - 2. Zugriff auf den Server:
-            - Mit SSH auf den gemieteten Server zugegriffen, um die Installation vorzubereiten.
-        
-        - 3. Automatische Installation von Coolify:
-            - Ausführung des folgenden Befehls zur automatischen Installation: curl -fsSL https://cdn.coollabs.io/coolify/install.sh | bash
-        
-        - 4. Coolify starten:
-            - Nach der Installation wurde Coolify über ip:8000 geöffnet.
-        
-        - 5. Registrierung und Einsatzbereit:
-            - Registrierung durchgeführt, womit Coolify einsatzbereit war.
+- **Frontend-Entwicklung:**
+  - Parallele Entwicklung des Frontends und Verbindung mit dem Backend über APIs.
 
+- **Unit-Testing-Phase:**
+  - Erstellung und Durchführung von Unit-Tests für das Frontend und Backend, um die Basisfunktionalitäten zu überprüfen.
 
-## 3. Versionskontrolle und Branching-Strategien:
-   
-    - Versionskontrolle: 
-        - Verwendung von Git als Versionskontrollsystem.
-    
-    - Branching-Strategie:
-        - Jeder Entwickler arbeitet auf einem eigenen Branch, um Änderungen getrennt voneinander durchzuführen.#
-        - Branches dienen der Isolierung von Feature-Entwicklung oder Bugfixing.
+- **Testphase:**
+  - Durchführung einer umfassenden Testphase, um Bugs zu identifizieren und Schwachstellen zu finden.
 
-    - Code-Review-Prozess:
-        - Vor dem Merge in den Main Branch wird der Code durch einen anderen Entwickler überprüft (Code Review).
-        - Ziel ist es, mögliche Fehler zu identifizieren und die Codequalität sicherzustellen.
-    
-    - Merge-Prozess: 
-        - Nur fehlerfreie und geprüfte Änderungen dürfen in den Main Branch gemerged werden.
+- **Monitoring:**
+  - Einrichtung von Monitoring-Tools, um die Stabilität und Funktionalität der Anwendung zu überwachen.
 
+- **Bugfixes:**
+  - Behebung kleinerer Fehler, die während der Test- und Entwicklungsphase identifiziert wurden.
 
-## 4. Monitoring und Feedback:
+- **Vorbereitung Deployment:**
+  - Anleitung für Coolify-Setup der App:
+    1. Ressource erstellen (Public Repo).
+    2. Link der Repo angeben (https://github.com/therealfilko/vista).
+    3. "Check repo" klicken.
+    4. Felder ausfüllen:
+        - Buildpack: Docker Compose.
+        - Branch: main.
+        - Base Directory: `/todo-app/`.
+        - Docker Compose Location: `/docker-compose.yml`.
 
-    - 1. Erstellung eines neuen Projekts in Coolify:
-        - Für das Monitoring wurde ein neues Projekt erstellt.
-    
-    - 2. Hinzufügen der Docker Compose Resource:
-        - Dem Projekt wurde die Ressource Docker Compose Empty hinzugefügt.
-    
-    - 3. Installations-YAML-Datei:
-        - Eine Installations-YAML-Datei wurde dem Projekt hinzugefügt, um die benötigten Services und Konfigurationen bereitzustellen.
-    
-    - 4. Installation und Start:
-        - Nach dem Hinzufügen und Installieren der YAML-Datei konnte das Monitoring-System gestartet werden.
+## 2. Automatisierungsprozesse
 
+- **Coolify-Installation:**
 
-## 5. Kommunikation und Zusammenarbeit:
+  1. **Server mieten:**
+     - Einen Server für die Bereitstellung gemietet.
 
-    - Ständige Kommunikation: 
-        - Die Teammitglieder stehen in kontinuierlichem Austausch, um sicherzustellen, dass alle auf dem gleichen Stand sind. 
-        - Dies geschieht über Chats oder Meetings 
+  2. **Zugriff auf den Server:**
+     - Mit SSH auf den gemieteten Server zugegriffen, um die Installation vorzubereiten.
 
-    - Ticket-System: 
-        - Es werden regelmäßige Tickets erstellt, die den Workflow strukturieren und Aufgaben klar definieren (via Jira).
-    
-    - Abstimmung von Entscheidungen:
-        - Alle Entscheidungen werden vorab besprochen und gemeinsam im Team abgestimmt.
+  3. **Automatische Installation von Coolify:**
+     - Ausführung des folgenden Befehls zur automatischen Installation:
+       ```bash
+       curl -fsSL https://cdn.coollabs.io/coolify/install.sh | bash
+       ```
 
-    - Unterstützung im Team: 
-        - Falls jemand auf ein Problem stößt, wird ihm sofort geholfen, um Blockaden zu vermeiden und den Fortschritt sicherzustellen.
+  4. **Coolify starten:**
+     - Nach der Installation wurde Coolify über `ip:8000` geöffnet.
+
+  5. **Registrierung und Einsatzbereit:**
+     - Registrierung durchgeführt, womit Coolify einsatzbereit war.
+
+## 3. Versionskontrolle und Branching-Strategien
+
+- **Versionskontrolle:**
+  - Verwendung von Git als Versionskontrollsystem.
+
+- **Branching-Strategie:**
+  - Jeder Entwickler arbeitet auf einem eigenen Branch, um Änderungen getrennt voneinander durchzuführen.
+  - Branches dienen der Isolierung von Feature-Entwicklung oder Bugfixing.
+
+- **Code-Review-Prozess:**
+  - Vor dem Merge in den Main Branch wird der Code durch einen anderen Entwickler überprüft (Code Review).
+  - Ziel ist es, mögliche Fehler zu identifizieren und die Codequalität sicherzustellen.
+
+- **Merge-Prozess:**
+  - Nur fehlerfreie und geprüfte Änderungen dürfen in den Main Branch gemerged werden.
+
+## 4. Monitoring und Feedback
+
+1. **Erstellung eines neuen Projekts in Coolify:**
+   - Für das Monitoring wurde ein neues Projekt erstellt.
+
+2. **Hinzufügen der Docker Compose Resource:**
+   - Dem Projekt wurde die Ressource "Docker Compose Empty" hinzugefügt.
+
+3. **Installations-YAML-Datei:**
+   - Eine Installations-YAML-Datei wurde dem Projekt hinzugefügt, um die benötigten Services und Konfigurationen bereitzustellen.
+
+4. **Installation und Start:**
+   - Nach dem Hinzufügen und Installieren der YAML-Datei konnte das Monitoring-System gestartet werden.
+
+## 5. Kommunikation und Zusammenarbeit
+
+- **Ständige Kommunikation:**
+  - Die Teammitglieder stehen in kontinuierlichem Austausch, um sicherzustellen, dass alle auf dem gleichen Stand sind.
+  - Dies geschieht über Chats oder Meetings.
+
+- **Ticket-System:**
+  - Es werden regelmäßige Tickets erstellt, die den Workflow strukturieren und Aufgaben klar definieren (via Jira).
+
+- **Abstimmung von Entscheidungen:**
+  - Alle Entscheidungen werden vorab besprochen und gemeinsam im Team abgestimmt.
+
+- **Unterstützung im Team:**
+  - Falls jemand auf ein Problem stößt, wird ihm sofort geholfen, um Blockaden zu vermeiden und den Fortschritt sicherzustellen.
