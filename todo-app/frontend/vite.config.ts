@@ -4,33 +4,9 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: true,
+    host: "0.0.0.0",
     port: 3000,
-    proxy: {
-      "/auth": {
-        target: "http://app:9000",
-        changeOrigin: true,
-      },
-      "/api": {
-        target: "http://app:9000",
-        changeOrigin: true,
-      },
-    },
-    watch: {
-      usePolling: true,
-    },
-    fs: {
-      strict: false,
-    },
-    // Middleware hinzufügen
-    middlewareMode: true,
-  },
-  build: {
-    sourcemap: true,
-    manifest: true,
-  },
-  resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx"],
+    strictPort: true, // Verhindert automatisches Wechseln des Ports
   },
 });
 
