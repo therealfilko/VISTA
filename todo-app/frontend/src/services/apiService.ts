@@ -61,8 +61,8 @@ export interface UpdateTodoPositionData {
 class ApiService {
   private api;
   private baseURL = window.location.hostname === "localhost"
-    ? "http://localhost:9000"  // Lokale Entwicklung
-    : `${window.location.protocol}//${window.location.hostname}:9000`; // Produktion
+    ? "http://localhost:9000"
+    : `${window.location.protocol}//${window.location.hostname}:9000`;
 
   constructor() {
     this.api = axios.create({
@@ -73,18 +73,21 @@ class ApiService {
       withCredentials: true,
     });
 
-    this.api.interceptors.request.use((config) => {
-      return config;
+    // Debug-Interceptor
+    this.api.interceptors.request.use(request => {
+      console.log('Request:', request);
+      return request;
     });
 
     this.api.interceptors.response.use(
-      (response) => response,
-      async (error) => {
-        if (error.response?.status === 401) {
-          window.location.href = "/login";
-        }
-        return Promise.reject(error);
+      response => {
+        console.log('Response:', response);
+        return response;
       },
+      error => {
+        console.error('API Error:', error);
+        return Promise.reject(error);
+      }
     );
   }
 
