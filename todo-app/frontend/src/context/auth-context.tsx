@@ -68,24 +68,32 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [isAuthenticated, navigate]);
 
   const login = async (email: string, password: string) => {
-    const response = await fetch(`${baseURL}/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const response = await fetch(`${baseURL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ email, password }),
+      });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || "Login failed");
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || "Login failed");
+      }
+
+      const data = await response.json();
+      setUser(data.user);
+      setIsAuthenticated(true);
+      
+      console.log("Login successful:", data);
+      
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Login error:", error);
+      throw error;
     }
-
-    const data = await response.json();
-    setUser(data.user);
-    setIsAuthenticated(true);
-    navigate("/dashboard");
   };
 
   const logout = async () => {
