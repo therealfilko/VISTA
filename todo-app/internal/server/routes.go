@@ -22,16 +22,18 @@ func (s *Server) RegisterRoutes() http.Handler {
 		AllowedOrigins: []string{
 			"http://localhost:5173",
 			"http://localhost:3000",
-			"http://localhost:9000",
-			"http://localhost:8000",
+			"http://taskify.pixelding.de:5173",
+			"https://taskify.pixelding.de:5173",
 			"http://taskify.pixelding.de",
 			"https://taskify.pixelding.de",
+			"http://taskify.pixelding.de:9000",
+			"https://taskify.pixelding.de:9000",
 		},
 		AllowedMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
 		AllowedHeaders:     []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		AllowCredentials:   true,
-		Debug:              true, // Aktiviert Debug-Logging für CORS
-		OptionsPassthrough: true, // Wichtig für OPTIONS preflight requests
+		Debug:              true,
+		OptionsPassthrough: true,
 	})
 
 	// Wrap Echo mit CORS
