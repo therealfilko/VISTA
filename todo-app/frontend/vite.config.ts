@@ -19,11 +19,11 @@ export default defineConfig({
     watch: {
       usePolling: true,
     },
-    // Fallback für SPA
-    middlewareMode: false,
     fs: {
-      strict: false, // Verhindert restriktive File-Zugriffe
+      strict: false,
     },
+    // Middleware hinzufügen
+    middlewareMode: true,
   },
   build: {
     sourcemap: true,
